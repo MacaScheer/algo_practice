@@ -13,7 +13,7 @@
 //   obj[level] = value;
 //   console.log("OBJECT: ", obj);
 // }
-pathArr = "foo"-- > "bar"-- > "baz";
+// pathArr = "foo"-- > "bar"-- > "baz";
 
 function makeTree(path, obj = {}) {}
 
@@ -22,10 +22,8 @@ class TreeNode {
     this.val = val;
     this.children = [];
   }
-    
-    buildTree(path) {
-        
-    }
+
+  buildTree(path) {}
 }
 
 function deepSet(obj, path, value) {
@@ -35,11 +33,16 @@ function deepSet(obj, path, value) {
   //     obj[path] = value;
   //   }
   let key;
-
-  for (let i = 0; i < pathArr.length; i++) {
-    key = pathArr[i];
-    obj[key];
+  // let parentNode = new TreeNode(pathArr[0]);
+  for (let i = pathArr.length - 1; i >= 1; i--) {
+    console.log(i);
+    let node = new TreeNode(pathArr[i]);
+    node.children.push(new TreeNode(pathArr[i - 1]));
+    // key = pathArr[i];
+    // obj[key];
+    console.log(node.val);
   }
+
   //   let last = pathArr.pop();
   //   obj[pathArr[last]] = {};
   console.log("object", obj);
