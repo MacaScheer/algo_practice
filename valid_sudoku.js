@@ -27,6 +27,7 @@ function sudokuCheck(grid) {
 
   valid_sudoku = rowCheck(gridT);
   if (!valid_sudoku) return valid_sudoku;
+
   for (let k = 0; k < 9; k++) {
     let iS = (k % 3) * 3;
     let jS = Math.floor(k / 3) * 3;
