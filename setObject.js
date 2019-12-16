@@ -22,8 +22,6 @@ class TreeNode {
     this.val = val;
     this.children = [];
   }
-
-  buildTree(path) {}
 }
 
 function deepSet(obj, path, value) {
@@ -33,14 +31,21 @@ function deepSet(obj, path, value) {
   //     obj[path] = value;
   //   }
   let key;
-  // let parentNode = new TreeNode(pathArr[0]);
-  for (let i = pathArr.length - 1; i >= 1; i--) {
-    console.log(i);
+  let nodeQ = [];
+  for (let i = 0; i < pathArr.length; i++) {
     let node = new TreeNode(pathArr[i]);
-    node.children.push(new TreeNode(pathArr[i - 1]));
-    // key = pathArr[i];
-    // obj[key];
+    nodeQ.push(node);
+    // node.children.push(new TreeNode(pathArr[i - 1]));
     console.log(node.val);
+  }
+  //["foo","bar","baz"]
+  let parentNode = nodeQ.shift(); //foo
+  while (nodeQ.length > 0) {
+    let n = nodeQ.shift(); //bar // baz
+    parentNode.children.push(n); //foo.children = [bar] // bar.children = [baz]
+    parentNode = n; // bar // baz
+    console.log("n", n);
+    console.log("parentNode: ", parentNode);
   }
 
   //   let last = pathArr.pop();

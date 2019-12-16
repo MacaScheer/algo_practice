@@ -76,4 +76,4 @@ const biggestPosDiff = function(array) {
 };
 console.log(greatestSumSubsections([1, 1, 1, 1, 1, 1, 1, -99, 105, -20, 20]));
 
-console.log(greatestSumSubsections1([1, 1, 1, 1, 1, 1, 1, -99, 105, -20, 20]));
+console.log(greatestSumSubsections1([1, 1, 1, 1, 1, 1, 1, -99, 7, -20, 20]));
