@@ -32,12 +32,8 @@ const greatestSumSubsections1 = function(arr) {
   let sum = 0;
   let max = 0;
   let min = 0;
-  let minIdx;
-  let maxIdx;
   let minSum = 0;
   let maxSum = 0;
-  let minSumIdx;
-  let maxSumIdx;
 
   for (let i = 0; i < arr.length; i++) {
     let el = arr[i];
@@ -45,19 +41,15 @@ const greatestSumSubsections1 = function(arr) {
     sums.push(sum);
     if (sum < minSum) {
       minSum = sum;
-      minSumIdx = i;
     }
     if (sum > maxSum) {
       maxSum = sum;
-      maxSumIdx = i;
     }
     if (el < min) {
       min = el;
-      minIdx = i;
     }
     if (el > max) {
       max = el;
-      maxIdx = i;
     }
   }
   console.log("minSum: ", minSum);
