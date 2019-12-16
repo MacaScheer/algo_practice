@@ -44,12 +44,41 @@ const redWhiteBlue = function(array) {
 
 // console.log(redWhiteBlue([2, 0, 2, 1, 1, 0]));
 
-
-
-const flattenTree = function (root) {
-    
+function ListNode(head) {
+  this.head = head;
+  this.next = null;
 }
 
+const flattenTree = function(root) {
+  let queue = [root];
+  let returnList = new ListNode(root.val);
+  let list = returnList;
+  let node;
+  while (queue.length) {
+    node = queue.shift();
+    list.next = new ListNode(node.val);
+    list = list.next;
+    if (node.left) queue.unshift(node.left);
+    if (node.right) queue.unshift(node.right);
+  }
+  return returnList;
+};
+
+
+
+var flatten = function(root) {
+  let stack = [];
+  function rec(root) {
+    if (root) {
+      if (root.right) stack.push(root.right);
+      root.right = root.left;
+      root.left = null;
+      if (!root.right) root.right = stack.pop();
+      rec(root.right);
+    }
+  }
+  rec(root);
+};
 // Given a binary tree, flatten it to a linked list in-place.
 
 // For example, given the following tree:
