@@ -24,7 +24,7 @@ class TreeNode {
   }
 }
 
-function deepSet(obj, path, value) {
+function buildTree(path) {
   let pathArr = path.split(".");
   console.log("pathArr", pathArr);
   //   if (pathArr.length === 1) {
@@ -35,28 +35,28 @@ function deepSet(obj, path, value) {
   for (let i = 0; i < pathArr.length; i++) {
     let node = new TreeNode(pathArr[i]);
     nodeQ.push(node);
-    // node.children.push(new TreeNode(pathArr[i - 1]));
     console.log(node.val);
   }
   //["foo","bar","baz"]
-  let parentNode = nodeQ.shift(); //foo
+  let retParentNode = nodeQ.shift(); //foo
+  let parentNode = retParentNode;
   while (nodeQ.length > 0) {
     let n = nodeQ.shift(); //bar // baz
     parentNode.children.push(n); //foo.children = [bar] // bar.children = [baz]
-    parentNode = n; // bar // baz
-    console.log("n", n);
     console.log("parentNode: ", parentNode);
+    parentNode = n; // bar // baz
   }
 
-  //   let last = pathArr.pop();
-  //   obj[pathArr[last]] = {};
   console.log("object", obj);
-  //   return deepSet(obj, pathArr.join("."), value);
-  //   return obj;
+  return retParentNode;
+}
+
+function deepSet(obj, path, value) {
+  let parentNode = buildTree(path);
 }
 
 const testObject = {};
-console.log(deepSet(testObject, "foo.bar.baz", "hello"));
+console.log(buildTree(testObject, "foo.bar.baz", "hello"));
 // assert(
 //   () => deepSet(testObject, "foo", 10),
 //   () => testObject.foo === 10
