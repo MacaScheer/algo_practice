@@ -6,26 +6,37 @@ class Node {
   }
 }
 
+//    O
+//     \ t
+//      O
+//    a/ \e
+//    O   O
+//   p/    \n
+//   O      O
+//
+//
 class Trie {
   constructor() {
     this.root = new Node();
   }
 
-  insertRecur(word, node = this.root) {
-    let letter = word.slice(0, 1);
-    let rest = word.slice(1, word.length + 1);
-    let nextnode;
-    if (word.length === 0) {
-      node.isTerminal = true;
+  insertRecur(word, root = this.root) {
+    let letter = word[0];
+    if (root.children[letter] === undefined) {
+      root.children[letter] = new Node();
     }
-    if (node.children[letter] === undefined) {
-      nextnode = new Node();
-      node.children[letter] = nextnode;
+
+    if (word.length === 1) {
+      root.children[letter].isTerminal = true;
     } else {
-      nextnode = node.children[letter];
+      this.insertRecur(word.slice(1), root.children[letter]);
     }
-    this.insertRecur(rest, nextnode);
   }
+    
+    insertIter(word, root = this.root) {
+        
+    }
+    
 }
 module.exports = {
   Node,
