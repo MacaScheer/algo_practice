@@ -32,11 +32,17 @@ class Trie {
       this.insertRecur(word.slice(1), root.children[letter]);
     }
   }
-    
-    insertIter(word, root = this.root) {
-        
+
+  insertIter(word, root = this.root) {
+    for (let i = 0; i < word.length; i++) {
+      let letter = word[i];
+      if (root.children[letter] === undefined) {
+        root.children[letter] = new Node();
+      }
+      root = root.children[letter];
     }
-    
+    root.isTerminal = true;
+  }
 }
 module.exports = {
   Node,
