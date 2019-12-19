@@ -19,6 +19,7 @@ const rotateArrRight = function(array, n) {
 let k = text.split("\n")[0].split(" ")[1];
 let q = text.split("\n")[0].split(" ")[2];
 let queries = text.split("\n").slice(2);
+console.log(queries);
 let arr = text.split("\n")[1].split(" ");
 
 let n = text.split("\n")[0].split(" ")[0];
