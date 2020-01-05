@@ -68,25 +68,44 @@ class Trie {
       return false;
     }
   }
-  allStringsArr(node = this.root) {
-    let retArr = [];
-    // let visited = {};
-    let nodeKeyQ = Object.keys(node.children);
-    let nodeValQ = Object.values(node.children);
-    // let node = nodeKeyQ.shift();
-    while (nodeValQ.length) {
-      let node = nodeValQ.shift();
-      allStringsArr()
-    }
-    console.log("keys: ", nodeKeyQ);
-    console.log("vals: ", nodeValQ);
-  }
-  wordsWithPrefix(prefix) {
+  wordsWithPrefix(prefix, root = this.root) {
+    let allWords = [];
+    if (root.isTerminal) allWords.push("");
+
     if (prefix.length === 0) {
-      return this.allStringsArr();
+      for (let letter in root.children) {
+        let child = root.children[letter];
+        let sufs = this.wordsWithPrefix(prefix, child);
+        let words = sufs.map(suf => letter + suf);
+        allWords.push(...words);
+      }
+      return allWords;
+    } else {
+      let firstLetter = prefix[0];
+      let child = root.children[firstLetter];
+
+      if (!child) {
+        return [];
+      }
+      let suffixes = this.wordsWithPrefix(prefix.slice(1), child);
+      let words = suffixes.map(suf => firstLetter + suf);
+      return words;
     }
   }
 }
+
+let trie = new Trie();
+trie.insertRecur("ten");
+trie.insertRecur("tea");
+trie.insertRecur("taco");
+trie.insertRecur("tex");
+trie.insertRecur("in");
+trie.insertRecur("inn");
+trie.insertRecur("inside");
+trie.insertRecur("instructor");
+console.log(trie.wordsWithPrefix(""));
+console.log(trie.wordsWithPrefix("te"));
+
 module.exports = {
   Node,
   Trie
