@@ -24,39 +24,45 @@ class Purchase {
       let date = dfull.toDateString();
       let action = inputLine[2];
 
-      //conditions:
-      //1) userObject does not have date key for that date
-      //2) dateObject does not have date key for that date
-      //3) user sessionId does not exist in userObject[date]
-      //4)
+      //VALIDATIONS FOR ACTIONS
+      let appropAction;
+      if (userObject[date] && userObject[date][session]) {
+        appropAction = this.funnel[userObject[date][session].length];
+      } else {
+        appropAction = "product_view";
+      }
+      this.dateObject[date] = counterObject;
 
       if (!userObject[date]) {
         userObject[date] = {};
-        userObject[date][session] = [action];
-        this.dateObject[date] = counterObject;
+        userObject[date][session] = [appropAction];
       } else if (!userObject[date][session]) {
-        userObject[date][session] = [action];
+        userObject[date][session] = [appropAction];
       } else {
-        userObject[date][session].push(action);
+        userObject[date][session].push(appropAction);
       }
-      this.dateObject[date][action] += 1;
+      //   if (action === appropAction) {
+      this.dateObject[date][appropAction] += 1;
+      //   }
+      //   console.log("action: ", action);
     }
-    console.log("dateObject", this.dateObject);
-    console.log("userObject", userObject);
+    // console.log("dateObject", this.dateObject);
+    // console.log("userObject", userObject);
 
     let recDates = Object.keys(this.dateObject);
     let numDates = recDates.length;
     for (let j = 0; j < numDates; j++) {
-      let numUsersForDay = Object.keys(userObject[recDates[j]]).length;
-      this.conversionRates(recDates[j], numUsersForDay);
+      this.conversionRates(recDates[j], userObject);
     }
   }
 
-  conversionRates(date, numUsersForDay) {
+  conversionRates(date, userObject) {
     let actions = Object.keys(this.dateObject[date]);
+    let totalUsers = Object.keys(userObject[date]).length;
+    let stepNumUsers;
+    console.log(date);
     for (let i = 0; i < actions.length; i++) {
       let prevStepNumUsers;
-      let stepNumUsers;
       let percentChange;
       stepNumUsers = this.dateObject[date][actions[i]];
       if (i > 0) {
@@ -67,17 +73,9 @@ class Purchase {
         percentChange = 100;
       }
       let step = actions[i];
-      console.log(
-        date,
-        "\n",
-        step,
-        ":",
-        stepNumUsers,
-        "\n",
-        percentChange,
-        "%"
-      );
+      console.log(step, ":", stepNumUsers, " ", percentChange, "%");
     }
+    console.log("Final Conversion: ", (stepNumUsers / totalUsers) * 100, "%");
   }
 }
 
