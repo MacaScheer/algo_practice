@@ -55,6 +55,22 @@ class MaxHeap {
   }
 }
 
+const findKthLargest = function(nums, k){
+  let heap = new MaxHeap()
+
+  while (nums.length > 0) {
+    heap.insert(nums.pop())
+  }
+  for (let i = 0; i < k - 1; i++){
+    heap.deleteMax()
+  }
+  return heap.deleteMax()
+}
+
+console.log(findKthLargest([-1, 2, 0], 2))
+console.log("TWO")
+console.log(findKthLargest([3, 2, 1, 5, 6, 4], 2))
+
 module.exports = {
   MaxHeap
 };
