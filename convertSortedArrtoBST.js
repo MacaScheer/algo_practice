@@ -12,9 +12,11 @@ var sortedArrayToBST = function(nums, root = new TreeNode()) {
     let midIdx = Math.floor(nums.length / 2)
     let secHalf = nums.slice(midIdx + 1)
     let firstHalf = nums.slice(0, midIdx)
-    tree.root = nums[midIdx]
-    tree.root.left = new TreeNode()
-    
+    let root = new TreeNode(nums[midIdx])
+    root.left = sortedArrayToBST(firstHalf)
+    root.right = sortedArrayToBST(secHalf)
+
+    return root
 };
 
 class BST {
