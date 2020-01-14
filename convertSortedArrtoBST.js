@@ -7,7 +7,7 @@
  * @param {number[]} nums
  * @return {TreeNode}
  */
-var sortedArrayToBST = function(nums, root = new TreeNode()) {
+var sortedArrayToBST = function(nums) {
     if (!nums.length) return null;
     let midIdx = Math.floor(nums.length / 2)
     let secHalf = nums.slice(midIdx + 1)
