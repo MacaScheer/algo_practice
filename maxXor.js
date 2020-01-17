@@ -25,8 +25,8 @@ function xorMax(arr) {
             max = maxVal
         }
     }
-    console.log(arr[maxI], arr[maxJ])
-return [arr[maxI], arr[maxJ]]
+    // console.log(arr[maxI], arr[maxJ])
+return max
 }
 
 function xOrVal(a, b) {
