@@ -21,12 +21,10 @@
 
 function pascalsTriangle(num) {
     let rows = [[1]];
-    // if (num === 1) return rows
     let i = 0;
     let currentRow;
     while (i < num) {
         currentRow = rows[i]
-        console.log(currentRow)
         rows.push(helperSum(currentRow))
         i += 1
     }
@@ -51,3 +49,27 @@ console.log(pascalsTriangle(5))
 // console.log(helperSum([1, 1]))
 // console.log(helperSum([1, 2, 1]))
 // console.log(helperSum([1,3,3,1]))
+/**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+var getRow = function (rowIndex) {
+    let rows = [[1]]
+    let i = 0;
+    while (i < rowIndex) {
+        rows.push(helper(rows[i]))
+        i += 1
+    }
+
+    return rows[rows.length - 1]
+};
+
+var helper = function (array) {
+    let retArr = [1];
+    if (array.length === 1) return [1, 1]
+    for (let i = 0; i < array.length - 1; i++) {
+        retArr.push(array[i] + array[i + 1])
+    }
+    retArr.push(1)
+    return retArr
+}
