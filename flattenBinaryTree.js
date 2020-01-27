@@ -9,15 +9,37 @@ const flatten = function (root) {
     
     let list = [root.val];
     if (root.left) {
-        list.push(...flatten(root.left))
+        list.push(...flatten(root.left)                )
     }
     if (root.right) {
         list.push(...flatten(root.right))
     }
-    list.join(null);
-    list.split("")
+return list
+    // return makeList(list)
 }
 
+const outerFunc = function (root) {
+    let list = flatten(root);
+    // let newList = makeList(list)
+    let flatTree = makeFlatTree(list)
+    return flatTree
+}
+
+const makeFlatTree = function (arr) {
+    let nextNode;
+    let node;
+    let firstNode = new TreeNode(arr[0])
+    node = firstNode;
+    for (let i = 0; i < arr.length - 1; i+=2){
+        if (i !== 0) {
+            node = new TreeNode(arr[i]);
+            nextNode.right = node
+        }
+        nextNode = new TreeNode(arr[i + 1])
+        node.right = nextNode
+    }
+return firstNode
+}
 // const makeFlatTree = function (arr) {
 //     let list = []
 // }
@@ -47,18 +69,18 @@ const flatten = function (root) {
 //     // return makeList(returnList);
 // };
 
-var makeList = function (arr) {
-    let list = [];
-    arr.forEach(el => {
-        if (el)  {
-            list.push(el);
-            list.push(null);
-        } else {
-            list.push(null)
-        }
-    })
-return list
-}
+// var makeList = function (arr) {
+//     console.log(arr)
+//     let list = [];
+//     let i;
+//     for (i = 0; i < arr.length - 1; i++){
+//         console.log(arr[i])
+//         list.push(arr[i])
+//         list.push(null)
+//     }
+//     list.push(arr[i + 1])
+// return list
+// }
 
 
 let a = new TreeNode(1)
@@ -73,7 +95,7 @@ c.right = f
 b.left = d
 b.right = e
 
-console.log(flatten(a))
+console.log(outerFunc(a))
 
 // Given a binary tree, flatten it to a linked list in -place.
 
