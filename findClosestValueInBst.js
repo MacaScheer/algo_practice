@@ -1,17 +1,26 @@
-function findClosestValueInBst(tree, target) {
-    let closestVal = Infinity
-    if (closest(tree.val) < closestVal || tree.val === target) closestVal = tree.val
+// check if current node value === target or is closer to target than previous
+// if current node value is less than target, check left child node recursively
+// if current node value is more than target, check right child node recursively
+// if right node is greater than target and farther away than current closest, return current closest, finish
 
+function findClosestValueInBst(tree, target, diff = Infinity) {
+    let closestNode = tree;
 
-    if (target > tree.val) {
-        findClosestValueInBst
+    let current = closest(target, tree.value)
+    if (current < diff || tree.value === target) {
+        diff = current
+        closestNode = tree
     }
-    if (target < tree.val) {
 
+    if (target > tree.value) {
+        return findClosestValueInBst(tree.right, target)
+    }
+    else if (target < tree.value) {
+        return findClosestValueInBst(tree.left, target)
     }
 
     if (!tree.right && !tree.left) {
-        return closestVal
+        return closestNode.value
     }
 }
 
@@ -19,12 +28,12 @@ function closest(target, val) {
     return Math.abs(val - target)
 }
 
-class BstNode{
-    constructor(value) {
+
+    function BstNode(value) {
         this.value = value;
         this.right = this.left = null;
     }
-}
+
 
 
 let a = new BstNode(10)
@@ -45,3 +54,5 @@ d.left = h;
 c.left = f;
 c.right = g;
 f.right = i;
+
+console.log(findClosestValueInBst(a,12))
