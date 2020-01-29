@@ -3,6 +3,11 @@ function TreeNode(val) {
     this.left = this.right = null;
 }
 
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+
 
 const flatten = function (root) {
     if (!root) return [];
@@ -22,7 +27,7 @@ const outerFunc = function (root) {
     let list = flatten(root);
     // let newList = makeList(list)
     let flatTree = makeFlatTree(list)
-    return flatTree
+    return printTree(flatTree) 
 }
 
 const makeFlatTree = function (arr) {
@@ -40,7 +45,18 @@ const makeFlatTree = function (arr) {
     }
 return firstNode
 }
-// const makeFlatTree = function (arr) {
+
+const printTree = function (node) {
+    let arr = [];
+    let queue = [node]
+    while (queue.length   ) {
+        arr.push(node.val)
+        queue.push(node.left)
+        queue.push(node.right)
+        node = queue.shift()
+    }
+}
+// const makeLinkedList = function (arr) {
 //     let list = []
 // }
 // var flatten = function (root) {
