@@ -3,23 +3,21 @@ function TreeNode(val) {
     this.left = this.right = null;
 }
 
-const dfsPath = function (root, sum, arr = []) {
-    arr.push(root.val)
+const dfsPath = function (root, sums, sum) {
+    sum += root.value
+    if (!root.left && !root.right) {
+        // return root.value
+        sums.push(sum)
+        // return root.value
+    }
 
     if (root.left) {
-        dfsPath(root.left, sum, arr)
+        dfsPath(root.left, sums, sum)
     }
     if (root.right) {
-        dfsPath(root.right, sum, arr)
+        dfsPath(root.right, sums, sum)
     }
-    
-    if (!root.left && !root.right) {
-        console.log("LEAF NODE: ", sumMer(arr))
-        if (sumMer(arr) === sum) {
-            return true
-        }
-    }
-    return false;
+    return sums
 }
 
 
