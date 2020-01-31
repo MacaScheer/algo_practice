@@ -3,30 +3,66 @@
 // if current node value is more than target, check right child node recursively
 // if right node is greater than target and farther away than current closest, return current closest, finish
 
-function findClosestValueInBst(tree, target, diff = Infinity) {
-    let closestNode = tree;
+// function findClosestValueInBst(tree, target, diff = Infinity) {
+//     let closestNode = tree;
 
-    let current = closest(target, tree.value)
-    if (current < diff || tree.value === target) {
-        diff = current
-        closestNode = tree
-    }
+//     let current = closest(target, tree.value)
+//     if (current < diff || tree.value === target) {
+//         diff = current
+//         closestNode = tree
+//     }
 
-    if (target > tree.value) {
-        return findClosestValueInBst(tree.right, target)
-    }
-    else if (target < tree.value) {
-        return findClosestValueInBst(tree.left, target)
-    }
+//     if (target > tree.value) {
+//         return findClosestValueInBst(tree.right, target)
+//     }
+//     else if (target < tree.value) {
+//         return findClosestValueInBst(tree.left, target)
+//     }
 
-    if (!tree.right && !tree.left) {
-        return closestNode.value
+//     if (!tree.right && !tree.left) {
+//         return closestNode.value
+//     }
+// } 
+
+function findClosestValueInBst(tree, target) {
+    let diff = Infinity
+    let closest = tree;
+    let queue = [tree];
+    while (queue.length) {
+        let node = queue.pop()
+        let newDiff = diffOp(target, node.value)
+        if (newDiff < diff) {
+            closest = node;
+            diff = newDiff
+                }
+        switch (equalityValue(target, node.value)) {
+            case -1:
+                if (node.right) queue.push(node.right)
+                break;
+            case 1:
+                if (node.left) queue.push(node.left)
+                break;
+            case 0:
+                return node
+        }
+        
     }
+return closest
 }
 
-function closest(target, val) {
-    return Math.abs(val - target)
+function diffOp(target, value) {
+    return Math.abs(value - target)
 }
+    
+    function equalityValue(target, value) {
+        if (target === value) {
+            return 0;
+        } else if (target > value) {
+            return -1
+        } else {
+            return 1
+        }
+    }
 
 
     function BstNode(value) {
