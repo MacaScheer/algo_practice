@@ -14,33 +14,22 @@ class DoublyLinkedList {
     }
 
     setHead(node) {
-        let prevHead = this.head
-        this.head = node
-        this.head.next = prevHead
+        if (this.head === null) {
+            this.head = node;
+            this.tail = node;
+            return
+        }
+        this.insertBefore(this.head, node)
     }
 
     setTail(node) {
-        let prevTail = this.tail
-        this.tail = node;
-        prevTail.next = this.tail
+        if (this.tail === null) {
+            this.setHead(node)
+            return
+        }
+        this.insertAfter(this.tail, node)
     }
 
-    insertBefore(node, nodeToInsert) { // o--O-  -o- -O--
-        // Write your code here.
-        let prevPrev = node.prev;
-        prevPrev.next = nodeToInsert;
-        nodeToInsert.next = node;
-        nodeToInsert.prev = prevPrev;
-        node.prev = nodeToInsert;
-    }
-
-    insertAfter(node, nodeToInsert) {
-        // Write your code here.
-        let prevNext = node.next;
-        node.next = nodeToInsert;
-        nodeToInsert.next = prevNext;
-        prevNext.prev = nodeToInsert;
-    }
 
     insertBefore(node, nodeToInsert) {
         if (nodeToInsert === this.head && nodeToInsert === this.tail) return;
@@ -69,18 +58,44 @@ class DoublyLinkedList {
     }
 
     insertAtPosition(position, nodeToInsert) {
-        // Write your code here.
+        if (position === 1) {
+            this.setHead(nodeToInsert)
+            return
+        }
+        let node = this.head;
+        let curPos = 1;
+        while(node !== null && curPos++ !== position) node = node.next
+        if (node !== null) {
+            this.insertBefore(node, nodeToInsert)
+        } else {
+            this.setTail(nodeToInsert)
+        }
     }
 
     removeNodesWithValue(value) {
-        // Write your code here.
+        let node = this.head;
+        while (node !== null) {
+            const nodeToRemove = node;
+            node = node.next;
+            if(nodeToRemove.value === value) this.remove(nodeToRemove)
+        }
     }
 
     remove(node) {
-        // Write your code here.
+        if (node === this.head) this.head = this.head.next;
+        if (node === this.tail) this.tail = this.tail.prev;
+        this.removeNodeBindings(node)
+    }
+    removeNodeBindings(node) {
+        if (node.prev !== null) node.prev.next = node.next
+        if (node.next !== null) node.next.prev = node.prev
+        node.next = null;
+        node.prev = null
     }
 
     containsNodeWithValue(value) {
-        // Write your code here.
+        let node = this.head;
+        while (node !== null && node.value !== value) node = node.next;
+        return node !== null
     }
 }
