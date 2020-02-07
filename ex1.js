@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 "use strict";
+let args = require("minimist")(process.argv.slice(2))
+console.log(args)
 
-
-printHelp();
+// printHelp();
 
 
 
