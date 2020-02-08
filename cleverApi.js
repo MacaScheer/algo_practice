@@ -5053,6 +5053,10 @@ let dataApi = {
     ]
 }
 
+
+//retrieve sections object from https://api.clever.com/v2.1/sections/ api endpoint
+//save as object called "dataApi"
+
 let dataArr = dataApi["data"]
 let avg = [];
 for (let i = 0; i < dataArr.length; i++){
@@ -5061,4 +5065,8 @@ for (let i = 0; i < dataArr.length; i++){
     avg.push(innerData["students"].length)
 }
 
-
+const reducer = (acc, currVal) => acc + currVal
+let sum = avg.reduce(reducer)
+let averageClassSize = Math.floor(sum / avg.length)
+console.log("AVERAGE STUDENTS PER SECTION: ", averageClassSize)
+return averageClassSize
