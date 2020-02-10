@@ -29,6 +29,8 @@ function threeNumberSum(array, targetSum) {
         console.log("currNum: ", currNum, "  l:",l, "   r:", r, "  currSum: ", currSum,)
         if (i > j) {
             cur += 1;
+            i = cur + 1;
+            j = sortedArr.length - 1
 
         }
         if (currSum < targetSum) {
