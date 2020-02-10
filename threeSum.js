@@ -4,7 +4,26 @@
 
 function threeNumberSum(array, targetSum) {
     let sortedArr = radixSort(array)
-
+    let sumsArr = [];
+    let cur = 0;
+    let i, j;
+    while (cur < array.length) {
+        let l = sortedArr[i]
+        let r = sortedArr[j]
+        let currNum = sortedArr[cur] 
+        let currSum = currNum + l + r;
+        if (i > j) cur += 1
+        if (currSum < targetSum) {
+            r--
+        }
+        if (currSum > targetSum) {
+            l++
+        }
+        if (currSumm === targetSum) {
+            sumsArr.push([sortedArr[cur], l, r])
+        }
+    }
+return sumsArr
 }
 
 function radixSort(arr) {
