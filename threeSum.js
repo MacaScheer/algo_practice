@@ -18,20 +18,25 @@ function threeNumberSum(array, targetSum) {
     console.log("sortedArr: ", sortedArr)
     let sumsArr = [];
     let cur = 0;
-    let i, j;
+    let i = cur + 1;
+    let j = array.length - 1;
     while (cur < array.length) {
         let l = sortedArr[i]
         let r = sortedArr[j]
         let currNum = sortedArr[cur] 
         let currSum = currNum + l + r;
-        console.log("currSum: ", currSum, "    l: ",l, "   r:", r)
-        if (i > j) cur += 1
+        console.log("i: ", i, "  j: ", j)
+        console.log("currNum: ", currNum, "  l:",l, "   r:", r, "  currSum: ", currSum,)
+        if (i > j) {
+            cur += 1;
+
+        }
         if (currSum < targetSum) {
-            j--
+            i++
             continue;
         }
         if (currSum > targetSum) {
-            i++
+            j--
             continue;
         }
         if (currSum === targetSum) {
