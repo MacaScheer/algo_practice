@@ -2,8 +2,20 @@
 
 "use strict"
 
+function mergeSort(arr) {
+    if (arr.length <= 1) return arr;
+    let piv = arr.shift();
+    let left = arr.filter(el => el <= piv)
+    let right = arr.filter(el => el > piv)
+    let sLeft = mergeSort(left);
+    let sRight = mergeSort(right)
+    return sLeft.concat([piv]).concat(sRight)
+}
+
+
 function threeNumberSum(array, targetSum) {
-    let sortedArr = radixSort(array)
+    let sortedArr = mergeSort(array)
+    console.log("sortedArr: ", sortedArr)
     let sumsArr = [];
     let cur = 0;
     let i, j;
@@ -12,47 +24,29 @@ function threeNumberSum(array, targetSum) {
         let r = sortedArr[j]
         let currNum = sortedArr[cur] 
         let currSum = currNum + l + r;
+        console.log("currSum: ", currSum, "    l: ",l, "   r:", r)
         if (i > j) cur += 1
         if (currSum < targetSum) {
-            r--
+            j--
+            continue;
         }
         if (currSum > targetSum) {
-            l++
+            i++
+            continue;
         }
-        if (currSumm === targetSum) {
+        if (currSum === targetSum) {
             sumsArr.push([sortedArr[cur], l, r])
+            j--;
+            i++
         }
     }
 return sumsArr
 }
 
-function radixSort(arr) {
-  if (!Array.isArray(arr)) return null;
-  let maxDigits = getMaxDigits(arr);
-  for (let k = 0; k < maxDigits; k++) {
-    let buckets = Array.from({ length: 10 }, () => []);
-    for (let i = 0; i < arr.length; i++) {
-      let digit = getDigitFrom(arr[i], k);
-      buckets[digit].push(arr[i]);
-    }
-    arr = [].concat(...buckets);
-  }
-  return arr;
-}
+console.log(threeNumberSum([12,3,1,2,-6,5,-8,6], 0))
+// console.log(mergeSort([12,3,1,2,-6,5,-8,6]))
 
-const getDigitFrom = (num, place) =>
-  Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
 
-const getIntLength = num =>
-  num === 0 ? 1 : Math.floor(Math.log10(Math.abs(num))) + 1;
-function getMaxDigits(nums) {
-  let maxDigits = 0;
-  for (let i = 0; i < nums.length; i++) {
-    maxDigits = Math.max(maxDigits, getIntLength(nums[i]));
-  }
-  return maxDigits;
-}
-
-console.log(threeNumberSum([1,2,3], 6), "should equal: [[1,2,3]]")
-console.log(threeNumberSum([1,2,3], 7), "should equal: []")
-console.log(threeNumberSum([12,3,1,2,-6,5,-8,6], 0), "should equal: [[-8,2,6], [-8,3,5], [-6,1,5]]")
+// console.log(threeNumberSum([1,2,3], 6), "should equal: [[1,2,3]]")
+// console.log(threeNumberSum([1,2,3], 7), "should equal: []")
+// console.log(threeNumberSum([12,3,1,2,-6,5,-8,6], 0), "should equal: [[-8,2,6], [-8,3,5], [-6,1,5]]")
