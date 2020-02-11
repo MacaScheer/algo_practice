@@ -17,28 +17,29 @@ function diff(val1, val2){
 }
 
 function smallestDifference(arrayOne, arrayTwo) {
-	let smallestDiff;
+    let smallestDiffArr;
+    let smallestDiff = Infinity
 	let sortedOne = mergeSort(arrayOne);
     let sortedTwo = mergeSort(arrayTwo);
-    let halfOne = Math.floor(sortedOne.length / 2)
-    let halfTwo = Math.floor(sortedTwo.length / 2)
-    let midOne = sortedOne[halfOne]
-    let midTwo = sortedTwo[halfTwo]
-
-	while(midOne < sortedOne.length && midOne > 0 && midTwo > 0 && midTwo < sortedTwo.length){
-        console.log("")
-        let currDiff = diff(midOne, midTwo);
-        if (currDiff < diff(smalllestDiff[0], smallestDiff[1])) smallestDiff = [midOne, midTwo] 
-        if (midOne > midTwo) {
-            halfOne--
-        } else if (midOne < midTwo) {
-            halfTwo++
+    let i = 0; let j = 0;
+    
+	while(i < sortedOne.length && j < sortedTwo.length){
+        let val1 = sortedOne[i]
+        let val2 = sortedTwo[j]
+        let currDiff = diff(val1, val2);
+        if (currDiff < smallestDiff) {
+            smallestDiffArr = [val1, val2]
+            smallestDiff = currDiff
         }
+        if (val1 < val2) i++
+        else if (val1 > val2) j++
     }
     
-    return smallestDiff
+    return smallestDiffArr
 }
 
+
+
 console.log(smallestDifference([-1,5,10,20,3],[26,134,135,15,17]), "Should equal: [20,17]")
-// console.log(smallestDifference([-1,5,10,20,28,3],[26,134,135,15,17]), "Should equal: [28,26]")
-// console.log(smallestDifference([10,0,20,25],[1005,1006,1014,1032,1031]), "Should equal: [25, 1005]")
+console.log(smallestDifference([-1,5,10,20,28,3],[26,134,135,15,17]), "Should equal: [28,26]")
+console.log(smallestDifference([10,0,20,25],[1005,1006,1014,1032,1031]), "Should equal: [25, 1005]")
