@@ -17,7 +17,7 @@ function diff(val1, val2){
 }
 
 function smallestDifference(arrayOne, arrayTwo) {
-    let smallestDiffArr;
+    let smallestDiffArr = [];
     let smallestDiff = Infinity
 	let sortedOne = mergeSort(arrayOne);
     let sortedTwo = mergeSort(arrayTwo);
@@ -33,6 +33,7 @@ function smallestDifference(arrayOne, arrayTwo) {
         }
         if (val1 < val2) i++
         else if (val1 > val2) j++
+        else return [val, val1]
     }
     
     return smallestDiffArr
