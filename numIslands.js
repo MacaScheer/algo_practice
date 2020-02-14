@@ -58,7 +58,7 @@ const numIIslands = function(grid) {
 //   dfs(grid, i, j + 1, visited);
 // };
 
-console.log(numIIslands(ocean1));
+// console.log(numIIslands(ocean1));
 ///////
 
 let numIslands = function(grid) {
@@ -103,7 +103,7 @@ let example2 = [
   ["1", "0", "0", "1", "1"],
   ["1", "0", "0", "1", "1"]
 ];
-
+console.log(numIslands(example2))
 // let islandMap = document.getElementById("islandMap");
 // let output = "";
 // for (let i of example2) {
