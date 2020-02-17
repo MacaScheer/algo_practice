@@ -3,6 +3,7 @@
 console.log("HERE")
 
 function moveElementToEnd(array, toMove) {
+    if (array.length === 0) return array;
     let i = 0; let j = array.length - 1;
     while (i !== j) {
         let iEl = array[i]
