@@ -21,6 +21,8 @@
 // create graph of vertices of the wall
 // excluding 10, select whichever vertice has the most graph entries
 
+//O(n) time O(1) space
+
 function brickWall(array) {
     let graph = {}
     let sum;
@@ -37,7 +39,12 @@ function brickWall(array) {
             }
         }
     }
-    console.log(graph)
+    // console.log(graph)
+    let max = 0
+    for (let vertice in graph) {
+        if (graph[vertice] > max) max = vertice
+    }
+    return max
 }
 
 let arr1 = [
