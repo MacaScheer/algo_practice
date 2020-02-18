@@ -61,44 +61,41 @@ class BST {
     }
 
 
-    remove(self, value, parentNode = null) {
+    remove(self, value, parent = null) {
     //first search for the value
     //if it is a leaf node, make its parent's left/right relation = null
     //if it has left or right child nodes, find the left most child from the right subtree
-        if (!contains(value)) return false;
-        let currNode = self;
-        let parentNode;
-        while (currNode) {
-            if (value < currNode.value) {
-                parentNode = currNode
-                currNode = currNode.left
-            } else if (value > currNode.value) {
-                parentNode = currNode;
-                currNode = currNode.right
-            } else {
-                if (currNode.left && currNode.right) {
-                    currNode.value = currNode.findLeftMostChildFromRightSubTree()
-                    currNode.right.remove(currNode.value, currNode)
-                } else if (!parentNode) {
-                    if (currNode.left) {
-                        currNode.value = currNode.left.value;
-                        currNode.right = currNode.left.right
-                        currNode.left = currNode.left.left
-                    } else if (currNode.right) {
-                        currNode.value = currNode.right.value
-                        currNode.left = currNode.right.left
-                        currNode.right = currNode.right.right
-                    } else {
-                        currNode.value = null;
-                       }
-                } else if (parentNode.left === currNode) {
-                    parentNode.left = currNode.left ? currNode.left : currNode.right
-                } else if (parentNode.right === currNode) {
-                    parentNode.right = currNode.left ? currNode.left : currNode.right
-                }
-                break;
+        if (value < this.value) {
+            if (this.left !== null) {
+                this.left.remove(value, this)
             }
-        }
+        } else if (value > this.value) {
+            if (this.right !== null) {
+                this.right.remove(value, this)
+            }
+        } else {
+            if (this.left !== null && this.right !== null) {
+                this.value = this.right.getMinValue();
+                this.right.remove(value, this);
+            } else if (parent === null) {
+                if (this.left !== null) {
+                    this.value = this.left.value;
+                    this.left = this.left.left;
+                    this.right = this.left.right;
+                } else if (this.right !== null) {
+                    this.value = this.right.value;
+                    this.right = this.right.right;
+                    this.left = this.right.left
+                } else {
+                    this.value = null;
+                }
+            }
+            else if (parent.left === this) {
+                parent.left = this.left !== null ? this.left : this.right
+            } else if (parent.right === this) {
+                parent.right = this.left !== null ? this.left : this.right
+            }
+        } 
     return this;
   }
 }
