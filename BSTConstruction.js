@@ -54,16 +54,10 @@ class BST {
 
     findLeftMostChildFromRightSubTree() {
         let node = this;
-        let switcher = false;
-        node = node.right
-        while (switcher === false) {
-            switcher = true;
-            if (node.left) {
-                node = node.left
-                switcher = false;
-          }
+        while (currNode.left) {
+            node = node.left
         }
-        return node;
+        return node.value
     }
 
     isLeafNode() {
