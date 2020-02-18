@@ -10,21 +10,19 @@ class BST {
   }
 
   insert(value) {
-          if (value >= node.value) {
-              if (this.right !== null) {
-                  this.right.insert(value)
-              } else {
-                  this.right = new BST(value);
-                  break;
-              }
-          } else {
-              if (this.left !== null) {
-                  this.left.insert(value)
-              } else {
-                  this.left = new BST(value);
-                 break;
-              }
-          }
+      if (value < this.value) {
+          if (this.left === null) {
+              this.left = new BST(value);
+        } else {
+            this.left.insert(value)
+            }
+        } else {
+            if (this.right === null) {
+                this.right = new BST(value);
+            } else {
+                this.right.insert(value)
+            }
+    }
     return this;
   }
 
@@ -55,7 +53,7 @@ class BST {
     }
 
 
-    remove(self, value, parent = null) {
+    remove(value, parent = null) {
     //first search for the value
     //if it is a leaf node, make its parent's left/right relation = null
     //if it has left or right child nodes, find the left most child from the right subtree
@@ -70,7 +68,7 @@ class BST {
         } else {
             if (this.left !== null && this.right !== null) {
                 this.value = this.right.getMinValue();
-                this.right.remove(value, this);
+                this.right.remove(this.value, this);
             } else if (parent === null) {
                 if (this.left !== null) {
                     this.value = this.left.value;
@@ -88,8 +86,9 @@ class BST {
                 parent.left = this.left !== null ? this.left : this.right
             } else if (parent.right === this) {
                 parent.right = this.left !== null ? this.left : this.right
+            
             }
-        } 
+        }
     return this;
     }
     getMinValue() {
