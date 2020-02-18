@@ -109,6 +109,7 @@ class BST {
                 } else if (parentNode.right === currNode) {
                     parentNode.right = currNode.left ? currNode.left : currNode.right
                 }
+                break;
             }
         }
     return this;
