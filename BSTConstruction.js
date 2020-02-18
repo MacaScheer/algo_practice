@@ -32,24 +32,21 @@ class BST {
   }
 
   contains(value) {
-      let node = this;
-      
-      while (node.value !== value) {
-          if (node.value === value) return true;
-          if (value > node.value) {
-              if (node.right) {
-                  node = node.right
-              } else {
-                    return false
-              }
+      if (value < this.value) {
+          if (this.left === null) {
+              return false;
           } else {
-              if (node.left) {
-                node = node.left
-              } else {
-                  return false
-            }
+              return this.left.contains(value)
+        }
+      } else if (value > this.value) {
+          if (this.right === null) {
+              return false;
+          } else {
+              return this.right.contains(value)
           }
-      }
+      } else {
+          return true
+    }
   }
 
     findLeftMostChildFromRightSubTree() {
@@ -97,5 +94,12 @@ class BST {
             }
         } 
     return this;
-  }
+    }
+    getMinValue() {
+        if (this.left !== null) {
+            return this.left.getMinValue()
+        } else {
+            return this.value
+        }
+    }
 }
