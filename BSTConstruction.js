@@ -60,11 +60,6 @@ class BST {
         return node.value
     }
 
-    isLeafNode() {
-        if (this.left === null && this.right === null) return true
-
-        return false
-    }
 
     remove(self, value, parentNode = null) {
     //first search for the value
@@ -77,7 +72,6 @@ class BST {
             if (value < currNode.value) {
                 parentNode = currNode
                 currNode = currNode.left
-                
             } else if (value > currNode.value) {
                 parentNode = currNode;
                 currNode = currNode.right
@@ -97,7 +91,6 @@ class BST {
                     } else {
                         currNode.value = null;
                        }
-                    
                 } else if (parentNode.left === currNode) {
                     parentNode.left = currNode.left ? currNode.left : currNode.right
                 } else if (parentNode.right === currNode) {
