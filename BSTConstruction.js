@@ -10,24 +10,21 @@ class BST {
   }
 
   insert(value) {
-		 let node = this;
-      while (node) {
           if (value >= node.value) {
-              if (node.right) {
-                  node = node.right
+              if (this.right !== null) {
+                  this.right.insert(value)
               } else {
-                  node.right = new BST(value);
+                  this.right = new BST(value);
                   break;
               }
-          } else if (value < node.value) {
-              if (node.left) {
-                  node = node.left
+          } else {
+              if (this.left !== null) {
+                  this.left.insert(value)
               } else {
-                  node.left = new BST(value);
+                  this.left = new BST(value);
                  break;
               }
           }
-      }
     return this;
   }
 
