@@ -91,6 +91,19 @@ class BST {
                 if (currNode.left && currNode.right) {
                     currNode.value = currNode.findLeftMostChildFromRightSubTree()
                     currNode.right.remove(currNode.value, currNode)
+                } else if (!parentNode) {
+                    if (currNode.left) {
+                        currNode.value = currNode.left.value;
+                        currNode.right = currNode.left.right
+                        currNode.left = currNode.left.left
+                    } else if (currNode.right) {
+                        currNode.value = currNode.right.value
+                        currNode.left = currNode.right.left
+                        currNode.right = currNode.right.right
+                    } else {
+                        currNode.value = null;
+                       }
+                    
                 } else if (parentNode.left === currNode) {
                     parentNode.left = currNode.left ? currNode.left : currNode.right
                 } else if (parentNode.right === currNode) {
