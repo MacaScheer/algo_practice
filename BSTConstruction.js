@@ -92,17 +92,9 @@ class BST {
                     currNode.value = currNode.findLeftMostChildFromRightSubTree()
                     currNode.right.remove(currNode.value, currNode)
                 } else if (parentNode.left === currNode) {
-                    if (currNode.left) {
-                        parentNode.left = currNode.left
-                    } else {
-                        parentNode.left = currNode.right
-                    }
+                    parentNode.left = currNode.left ? currNode.left : currNode.right
                 } else if (parentNode.right === currNode) {
-                    if (currNode.left) {
-                        parentNode.right = currNode.left
-                    } else {
-                        parentNode.right = currNode.right
-                    }
+                    parentNode.right = currNode.left ? currNode.left : currNode.right
                 }
             }
         }
