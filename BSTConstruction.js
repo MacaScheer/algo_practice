@@ -55,11 +55,7 @@ class BST {
     findLeftMostChildFromRightSubTree() {
         let node = this;
         let switcher = false;
-        if (node.right) {
-            node = node.right
-        } else {
-            return node
-        }
+        node = node.right
         while (switcher === false) {
             switcher = true;
             if (node.left) {
@@ -82,12 +78,27 @@ class BST {
     //if it has left or right child nodes, find the left most child from the right subtree
         if (!contains(value)) return false;
         let currNode = self;
+        let parentNode;
         while (currNode) {
             if (value < currNode.value) {
-                if (currNode.left) {
-                    currNode = currNode.left
+                parentNode = currNode
+                currNode = currNode.left
+                
+            } else if (value > currNode.value) {
+                parentNode = currNode;
+                currNode = currNode.right
+            } else {
+                if (currNode.left && currNode.right) {
+                    currNode.value = currNode.findLeftMostChildFromRightSubTree()
+                    currNode.right.remove(currNode.value, currNode)
+                } else if (parentNode.left = currNode) {
+                    if (currNode.left) {
+                        parentNode.left = currNode.left
+                    } else {
+                        parentNode.left = currNode.right
+                    }
                 }
-            } 
+            }
         }
     return this;
   }
