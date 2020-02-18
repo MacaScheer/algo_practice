@@ -10,21 +10,21 @@ class BST {
   }
 
   insert(value) {
-      let node = this;
-      while (node.value !== value) {
+		 let node = this;
+      while (node) {
           if (value >= node.value) {
               if (node.right) {
                   node = node.right
               } else {
                   node.right = new BST(value);
-                  node = node.right
+                  break;
               }
           } else if (value < node.value) {
               if (node.left) {
                   node = node.left
               } else {
                   node.left = new BST(value);
-                  node = node.left
+                 break;
               }
           }
       }
@@ -52,9 +52,43 @@ class BST {
       }
   }
 
-  remove(value) {
-    // Write your code here.
-    // Do not edit the return statement of this method.
+    findLeftMostChildFromRightSubTree() {
+        let node = this;
+        let switcher = false;
+        if (node.right) {
+            node = node.right
+        } else {
+            return node
+        }
+        while (switcher === false) {
+            switcher = true;
+            if (node.left) {
+                node = node.left
+                switcher = false;
+          }
+        }
+        return node;
+    }
+
+    isLeafNode() {
+        if (this.left === null && this.right === null) return true
+
+        return false
+    }
+
+    remove(self, value, parentNode = null) {
+    //first search for the value
+    //if it is a leaf node, make its parent's left/right relation = null
+    //if it has left or right child nodes, find the left most child from the right subtree
+        if (!contains(value)) return false;
+        let currNode = self;
+        while (currNode) {
+            if (value < currNode.value) {
+                if (currNode.left) {
+                    currNode = currNode.left
+                }
+            } 
+        }
     return this;
   }
 }
