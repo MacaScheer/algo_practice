@@ -40,4 +40,19 @@ function findMin(array, i) {
 
 
 
-console.log(selectionSort([23,7,44,9,8,7,6,5]))
+// console.log(selectionSort([23,7,44,9,8,7,6,5]))
+
+function moveZeros(array) {
+    let endIdx = array.length - 1;
+    let i = 0;
+    while (i < endIdx) {
+        if (array[i] === 0) {
+            [array[i], array[endIdx]] = [array[endIdx], array[i]];
+            endIdx--
+        }
+        i++
+    }
+    return array
+}
+
+console.log(moveZeros([0, 23,0,0,4,0,4,65,78,3,5,1]))
