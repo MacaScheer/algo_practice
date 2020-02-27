@@ -55,4 +55,59 @@ function moveZeros(array) {
     return array
 }
 
-console.log(moveZeros([0, 23,0,0,4,0,4,65,78,3,5,1]))
+// console.log(moveZeros([0, 23,0,0,4,0,4,65,78,3,5,1]))
+
+class Node{
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BST{
+    constructor(root) {
+        this.root = root;
+    }
+
+    findIdenticalNodes(root1 = this.root, root2, value) {
+        if (value < root1.value) {
+            this.findIdenticalNodes(root1.left, root.left, value)
+        } else if (value > root1.value){
+            this.findIdenticalNodes(root1.right, root2.right, value)
+        } else {
+            return [root1, root2]
+        }
+    }
+}
+
+let a = new Node(13);
+let a1 = new Node(13);
+let b = new Node(11);
+let b1 = new Node(11);
+let c = new Node(19);
+let c1 = new Node(19);
+let d = new Node(8);
+let d1 = new Node(8);
+let e = new Node(12);
+let e1 = new Node(12);
+let f = new Node(22);
+let f1 = new Node(22);
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
+a1.left = b1;
+a1.right = c1;
+b1.left = d1;
+b1.right = e1;
+c1.right = f1;
+
+//       13
+//      /  \
+//     11  19
+//    / \    \
+//   8   12   22
+
+console.log(a.findIdenticalNodes(a1, 12));
