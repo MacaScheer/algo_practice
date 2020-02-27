@@ -72,9 +72,9 @@ class BST{
 
     findIdenticalNodes(root1 = this.root, root2, value) {
         if (value < root1.value) {
-            this.findIdenticalNodes(root1.left, root.left, value)
+            if(root1.left) this.findIdenticalNodes(root1.left, root.left, value)
         } else if (value > root1.value){
-            this.findIdenticalNodes(root1.right, root2.right, value)
+           if(root1.right) this.findIdenticalNodes(root1.right, root2.right, value)
         } else {
             return [root1, root2]
         }
