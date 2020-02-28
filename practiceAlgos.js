@@ -65,21 +65,21 @@ class Node{
     }
 }
 
-class BST{
-    constructor(root) {
-        this.root = root;
-    }
+// class BST{
+//     constructor(root) {
+//         this.root = root;
+//     }
 
-    findIdenticalNodes(root1, root2, val) {
-        if (val < root1.val) {
-            if(root1.left) return this.findIdenticalNodes(root1.left, root2.left, val)
-        } else if (val > root1.val){
-           if(root1.right) return this.findIdenticalNodes(root1.right, root2.right, val)
-        } else {
-            return [root1, root2]
-        }
-    }
-}
+//     findIdenticalNodes(root1, root2, val) {
+//         if (val < root1.val) {
+//             if(root1.left) return this.findIdenticalNodes(root1.left, root2.left, val)
+//         } else if (val > root1.val){
+//            if(root1.right) return this.findIdenticalNodes(root1.right, root2.right, val)
+//         } else {
+//             return [root1, root2]
+//         }
+//     }
+// }
 
 let a = new Node(13);
 let a1 = new Node(13);
@@ -103,8 +103,8 @@ a1.right = c1;
 b1.left = d1;
 b1.right = e1;
 c1.right = f1;
-let bst1 = new BST(a);
-let bst2 = new BST(a1)
+// let bst1 = new BST(a);
+// let bst2 = new BST(a1)
 
 //       13
 //      /  \
@@ -172,16 +172,26 @@ function invertBinaryTree(tree) {
 
 function kadanesAlgorithm(array) {
 	let idx1 = 0;
-	let idx2 = 0;
+	let idx2 = 1;
 	let maxSum = 0;
-	while (idx2 < array.length){
-		
-	}
+    while (idx1 < array.length) {
+        let nextSum = sumHelper(array.slice(idx1, idx2))
+        if (nextSum > maxSum) {
+            maxSum = nextSum;
+            idx2++
+        } else {
+            idx1 = idx2;
+            idx2 = idx1 + 1;
+        }
+    }
+    return maxSum
 }
 
 function sumHelper(subArr){
 	return subArr.reduce(summ)
 }
-function summ(el1, el2){
+const summ = (el1, el2) => {
 	return el1+ el2
 }
+                        //    0,1,2,3, 4, 5
+console.log(kadanesAlgorithm([1,1,1,1,-9, 10]))
