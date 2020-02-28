@@ -172,26 +172,31 @@ function invertBinaryTree(tree) {
 
 function kadanesAlgorithm(array) {
 	let idx1 = 0;
-	let idx2 = 1;
+    let idx2 = 1;
+    let i = 0;
     let maxSum = -Infinity;
     let sumsArr = []
-    while (idx1 < array.length) {
-        let nextSum = sumHelper(array.slice(idx1, idx2))
-        sumsArr.push(array.slice(idx1, idx2))
-        console.log("subsection: ", array.slice(idx1, idx2)," sumsArr: ", sumsArr)
-        
-        if (nextSum > maxSum) {
-            maxSum = nextSum;
-            idx2++
-        } else if (array[idx2] > maxSum) {
-            maxSum = array[idx2];
-            idx1 = idx2;
+    let prevSum = array[0];
+    while (i <= array.length) {
+     
+        let currEl = array[i]
+        let currSum = sumHelper(array.slice(idx1, idx2+1))
+        if (currSum > maxSum) {
+            maxSum = currSum
             idx2++
         }
-        else {
-            idx1 = idx2;
-            idx2 = idx1 + 1;
+        if (currSum < maxSum && currSum > prevSum) {
+            idx2++
         }
+        if (currSum < prevSum && currSum < maxSum) {
+            idx1 = idx2 + 1;
+            idx2 = idx1 + 1
+        }
+        else if (currEl > maxSum) {
+            maxSum = currEl
+        }
+        prevSum = currSum
+      i++
     }
     
     if (sumHelper(array.slice(0)) > maxSum) {
@@ -214,7 +219,6 @@ function kadanesBruteForce(array) {
     for (let i = 0; i < array.length; i++){
         for (let j = i + 1; j < array.length; j++){
             sum = sumHelper(array.slice(i, j+1))
-            console.log(array.slice(i,j), "  sum:", sum)
             if(sum > maxSum) maxSum = sum 
         }
     }
@@ -223,5 +227,5 @@ function kadanesBruteForce(array) {
                         //    0,1,2,3, 4, 5
 // console.log(kadanesAlgorithm([1, 1, 1, 1, -9, 10]))
 // console.log(kadanesAlgorithm([-10,-2,-9,-4,-8,-6,-7, -1,-3,-5]))
-// console.log(kadanesAlgorithm([1,2,3,4,5,6,-22,7,8,9,10]))
-console.log(kadanesBruteForce([1,2,3,4,5,6,-22,7,8,9,10]))
+console.log(kadanesAlgorithm([1,20,-22,15,19]))
+// console.log(kadanesBruteForce([1,2,3,4,5,6,-22,7,8,9,10]))
