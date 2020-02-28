@@ -147,7 +147,10 @@ function inOrderTraverse(tree, array) {
 }
 
 function preOrderTraverse(tree, array) {
-
+		array.push(tree.value)
+	if(tree.left) this.preOrderTraverse(tree.left, array)
+	if(tree.right) this.preOrderTraverse(tree.right, array)
+	return array
 }
 
 function postOrderTraverse(tree, array) {
