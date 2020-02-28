@@ -157,3 +157,15 @@ function postOrderTraverse(tree, array) {
 	array.push(tree.value)
 	return array
 }
+
+function invertBinaryTree(tree) {
+	if(tree === null) return
+	let newLeft = null;
+	let newRight = null;
+	if(tree.left) newRight = tree.left
+	if(tree.right) newLeft = tree.right
+	tree.left = newLeft
+	tree.right = newRight
+	invertBinaryTree(tree.left)
+	invertBinaryTree(tree.right)
+}
