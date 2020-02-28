@@ -138,21 +138,22 @@ function validateBst(tree, max = Infinity, min = -Infinity) {
 
 
 function inOrderTraverse(tree, array) {
-    if (tree.left) {
-        this.inOrderTraverse(tree.left, array)
-    }
+    if (tree.left) this.inOrderTraverse(tree.left, array)
     array.push(tree.value)
     if (tree.right) this.inOrderTraverse(tree.right, array)
     return array
 }
 
 function preOrderTraverse(tree, array) {
-		array.push(tree.value)
+	array.push(tree.value)
 	if(tree.left) this.preOrderTraverse(tree.left, array)
 	if(tree.right) this.preOrderTraverse(tree.right, array)
 	return array
 }
 
 function postOrderTraverse(tree, array) {
-
+    if(tree.left) this.postOrderTraverse(tree.left, array)
+	if(tree.right) this.postOrderTraverse(tree.right, array)
+	array.push(tree.value)
+	return array
 }
