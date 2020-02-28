@@ -70,11 +70,11 @@ class BST{
         this.root = root;
     }
 
-    findIdenticalNodes(root1 = this.root, root2, value) {
-        if (value < root1.value) {
-            if(root1.left) this.findIdenticalNodes(root1.left, root.left, value)
-        } else if (value > root1.value){
-           if(root1.right) this.findIdenticalNodes(root1.right, root2.right, value)
+    findIdenticalNodes(root1, root2, val) {
+        if (val < root1.val) {
+            if(root1.left) return this.findIdenticalNodes(root1.left, root2.left, val)
+        } else if (val > root1.val){
+           if(root1.right) return this.findIdenticalNodes(root1.right, root2.right, val)
         } else {
             return [root1, root2]
         }
@@ -103,6 +103,8 @@ a1.right = c1;
 b1.left = d1;
 b1.right = e1;
 c1.right = f1;
+let bst1 = new BST(a);
+let bst2 = new BST(a1)
 
 //       13
 //      /  \
@@ -110,4 +112,4 @@ c1.right = f1;
 //    / \    \
 //   8   12   22
 
-console.log(a.findIdenticalNodes(a1, 12));
+console.log(bst1.findIdenticalNodes(a, a1, 12));
