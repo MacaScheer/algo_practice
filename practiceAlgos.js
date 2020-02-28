@@ -125,7 +125,14 @@ class BST {
   }
 }
 
-function validateBst(tree) {
- 
+function validateBst(tree, max = Infinity, min = -Infinity) {
+    if (tree === null) return true;
+    let val = tree.value;
+    if (val >= max || val < min) return false;
+        const letfValid = this.validateBST(tree.left, val, min) 
+        const rightValid = this.validateBST(tree.right, max, val)
+    
+    return letfValid && rightValid
+
 }
 
