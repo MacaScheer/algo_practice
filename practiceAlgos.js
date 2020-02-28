@@ -176,10 +176,16 @@ function kadanesAlgorithm(array) {
 	let maxSum = -Infinity;
     while (idx1 < array.length) {
         let nextSum = sumHelper(array.slice(idx1, idx2))
+        console.log("idx1:", idx1, "  idx2:", idx2,"  maxSum:", maxSum, "   nextSum:", nextSum)
         if (nextSum > maxSum) {
             maxSum = nextSum;
             idx2++
-        } else {
+        } else if (array[idx2] > maxSum) {
+            maxSum = array[idx2];
+            idx1 = idx2;
+            idx2++
+         }
+        else {
             idx1 = idx2;
             idx2 = idx1 + 1;
         }
@@ -187,7 +193,8 @@ function kadanesAlgorithm(array) {
     return maxSum
 }
 
-function sumHelper(subArr){
+function sumHelper(subArr) {
+    if (subArr.length === 1) return subArr[0]
 	return subArr.reduce(summ)
 }
 const summ = (el1, el2) => {
@@ -195,4 +202,4 @@ const summ = (el1, el2) => {
 }
                         //    0,1,2,3, 4, 5
 // console.log(kadanesAlgorithm([1, 1, 1, 1, -9, 10]))
-console.log(kadanesAlgorithm([-10,-2,-3,-4,-5,-6,-7, -1, -3]))
+console.log(kadanesAlgorithm([-10,-2,-9,-4,-8,-6,-7, -1,-3,-5]))
