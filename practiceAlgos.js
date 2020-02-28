@@ -173,11 +173,13 @@ function invertBinaryTree(tree) {
 function kadanesAlgorithm(array) {
 	let idx1 = 0;
 	let idx2 = 1;
-	let maxSum = -Infinity;
+    let maxSum = -Infinity;
+    let sumsArr = []
     while (idx1 < array.length) {
         let nextSum = sumHelper(array.slice(idx1, idx2))
-        let totalSum = sumHelper(array.slice(0))
-        console.log("idx1:", idx1, "  idx2:", idx2,"  maxSum:", maxSum, "   nextSum:", nextSum)
+        sumsArr.push(array.slice(idx1, idx2))
+        console.log("subsection: ", array.slice(idx1, idx2)," sumsArr: ", sumsArr)
+        
         if (nextSum > maxSum) {
             maxSum = nextSum;
             idx2++
@@ -185,13 +187,15 @@ function kadanesAlgorithm(array) {
             maxSum = array[idx2];
             idx1 = idx2;
             idx2++
-        } else if (totalSum > maxSum) {
-            maxSum = totalSum
         }
         else {
             idx1 = idx2;
             idx2 = idx1 + 1;
         }
+    }
+    
+    if (sumHelper(array.slice(0)) > maxSum) {
+        maxSum = sumHelper(array.slice(0))
     }
     return maxSum
 }
@@ -203,7 +207,18 @@ function sumHelper(subArr) {
 const summ = (el1, el2) => {
 	return el1+ el2
 }
+
+function kadanesBruteForce(array) {
+    let maxSum = -Infinity;
+    for (let i = 0; i < array.length; i++){
+        for (let j = i; j < array.length; j++){
+            let sum = sumHelperarray.slice(i,j)
+            if(sum > maxSum) maxSum = sum 
+        }
+    }
+    return sum
+}
                         //    0,1,2,3, 4, 5
 // console.log(kadanesAlgorithm([1, 1, 1, 1, -9, 10]))
 // console.log(kadanesAlgorithm([-10,-2,-9,-4,-8,-6,-7, -1,-3,-5]))
-console.log(kadanesAlgorithm([-10,-2,-9,-4,-8,-6,-7, -1,-3,-5]))
+console.log(kadanesAlgorithm([1,2,3,4,5,6,-22,7,8,9,10]))
