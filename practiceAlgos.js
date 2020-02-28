@@ -112,4 +112,20 @@ let bst2 = new BST(a1)
 //    / \    \
 //   8   12   22
 
-console.log(bst1.findIdenticalNodes(a, a1, 12));
+// console.log(bst1.findIdenticalNodes(a, a1, 12));
+
+
+
+
+class BST {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+function validateBst(tree) {
+ 
+}
+
