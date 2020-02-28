@@ -210,15 +210,18 @@ const summ = (el1, el2) => {
 
 function kadanesBruteForce(array) {
     let maxSum = -Infinity;
+    let sum = -Infinity
     for (let i = 0; i < array.length; i++){
-        for (let j = i; j < array.length; j++){
-            let sum = sumHelperarray.slice(i,j)
+        for (let j = i + 1; j < array.length; j++){
+            sum = sumHelper(array.slice(i, j+1))
+            console.log(array.slice(i,j), "  sum:", sum)
             if(sum > maxSum) maxSum = sum 
         }
     }
-    return sum
+    return maxSum
 }
                         //    0,1,2,3, 4, 5
 // console.log(kadanesAlgorithm([1, 1, 1, 1, -9, 10]))
 // console.log(kadanesAlgorithm([-10,-2,-9,-4,-8,-6,-7, -1,-3,-5]))
-console.log(kadanesAlgorithm([1,2,3,4,5,6,-22,7,8,9,10]))
+// console.log(kadanesAlgorithm([1,2,3,4,5,6,-22,7,8,9,10]))
+console.log(kadanesBruteForce([1,2,3,4,5,6,-22,7,8,9,10]))
