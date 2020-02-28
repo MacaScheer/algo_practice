@@ -173,7 +173,7 @@ function invertBinaryTree(tree) {
 function kadanesAlgorithm(array) {
 	let idx1 = 0;
 	let idx2 = 1;
-	let maxSum = 0;
+	let maxSum = -Infinity;
     while (idx1 < array.length) {
         let nextSum = sumHelper(array.slice(idx1, idx2))
         if (nextSum > maxSum) {
@@ -194,4 +194,5 @@ const summ = (el1, el2) => {
 	return el1+ el2
 }
                         //    0,1,2,3, 4, 5
-console.log(kadanesAlgorithm([1,1,1,1,-9, 10]))
+// console.log(kadanesAlgorithm([1, 1, 1, 1, -9, 10]))
+console.log(kadanesAlgorithm([-10,-2,-3,-4,-5,-6,-7, -1, -3]))
