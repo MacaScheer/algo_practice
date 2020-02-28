@@ -169,3 +169,19 @@ function invertBinaryTree(tree) {
 	invertBinaryTree(tree.left)
 	invertBinaryTree(tree.right)
 }
+
+function kadanesAlgorithm(array) {
+	let idx1 = 0;
+	let idx2 = 0;
+	let maxSum = 0;
+	while (idx2 < array.length){
+		
+	}
+}
+
+function sumHelper(subArr){
+	return subArr.reduce(summ)
+}
+function summ(el1, el2){
+	return el1+ el2
+}
