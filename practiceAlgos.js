@@ -209,28 +209,22 @@ function invertBinaryTree(tree) {
 function kadanesAlgorithm(array) {
     let startIdx = 0;
     let endIdx = 0
-   
     let max = -Infinity
-    let sumsArr = [] //[1]
+    let sumsArr = []
     while (endIdx < array.length) {
-
         let currNum = array[endIdx]
         let altCurrSum = sumsArr[sumsArr.length - 1] + currNum
         if (altCurrSum > currNum) {
             sumsArr.push(altCurrSum)
         } else {
             sumsArr.push(currNum)
-            // startIdx = endIdx
         }
-        console.log(sumsArr)
         endIdx++
-
     }
     for (let i = 0; i < sumsArr.length; i++){
         if (sumsArr[i] > max) max = sumsArr[i]
     }
     let totalMax = sumHelper(array)
-    
     return max > totalMax ? max : totalMax 
 }
 
