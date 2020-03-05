@@ -47,8 +47,8 @@ const helper2 = function (array, startIdx = 0) {
         while (idx2 < array.length) {
             console.log("INCREMENT: ", increment, "  idx2: ", idx2, "  innerArr: ", innerArr)
             innerArr.push(array[idx2]);
-            idx2 += increment;
             increment++
+            idx2 += increment;
         }
         outerArr.push(innerArr)
     }
