@@ -70,28 +70,70 @@ const helper2 = function (array, startIdx = 0) {
 const helper3 = function (array) {
     let retArr = [];
     let idx1 = 0;
-    while (idx1 < array.length) {
+    while (idx1 < array.length / 2) {
         //change starting idx
         let innerArr = [];
-        let inc = 2;
-        while (inc < array.length) {
+        let i = 2;
+        let inc = 2
+        for (let i = idx1; i < array.length; i++) {
+            let inc = (i%2 + 2);
+            console.log("inc: ",inc)
             //change increment
-            let idx2 = idx1 + inc;
             innerArr = [array[idx1]]
+            let idx2 = idx1 + inc;
             while (idx2 < array.length) {
                 //increment until end of array
                 innerArr.push(array[idx2])
                 idx2+=inc
             }
-            inc++
+            retArr.push(innerArr)
         }
         idx1++
     }
+    return retArr
 }
+
+const helper4 = function (array) {
+    let returnArr = [];
+    //changing increment loop
+    for (let inc = 2; inc < array.length / 2; inc++){
+        let startIdx = 0;
+        
+        //changing startIdx loop
+        while (startIdx <= inc) {
+            let endIdx = startIdx + inc;
+            console.log("ENDIDX: ", endIdx)
+            let innerArr = [array[startIdx]]
+            
+            //iterating over the array loop
+            while (endIdx < array.length) {
+                
+                innerArr.push(array[endIdx])
+                endIdx += inc
+            }
+            
+            returnArr.push(innerArr)
+            startIdx++
+        }
+    }
+    return returnArr
+}
+
+
+// const modder = function (array) {
+//     let retArr = [];
+//     for (let i = 0; i < array.length; i++){
+//         retArr.push(i%2 + 2)
+//     }
+//     return retArr
+// }
+
+// console.log(modder([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+console.log(helper4([0,1,2,3,4,5,6,7,8,9,10]))
 
 //should not concatenate strings, but sum numbers
 const sum = (a,b) => a += b
-console.log(helper2([75, 105, 120, 75, 90, 135]))
-console.log(helper([75, 105, 120, 75, 90, 135]))
+// console.log(helper2([75, 105, 120, 75, 90, 135]))
+// console.log(helper([75, 105, 120, 75, 90, 135]))
 // console.log(maxSubsetSumNoAdjacent([75,105,120,75,90,135])) //should be 330 [75, 120,135]
 
