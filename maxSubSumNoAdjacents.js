@@ -112,8 +112,8 @@ const sumMer = function (arr) {
 // console.log(helper4([0,1,2,3,4,5,6,7,8,9,10]))
 // console.log(helper2([75, 105, 120, 75, 90, 135]))
 // console.log(helper([75, 105, 120, 75, 90, 135]))
-console.log(maxSubsetSumNoAdjacent([75, 105, 120, 75, 90, 135])) //should be 330 [75, 120,135]
-console.log(maxSubsetSumNoAdjacent([1,15,3])) //should be 15
+// console.log(maxSubsetSumNoAdjacent([75, 105, 120, 75, 90, 135])) //should be 330 [75, 120,135]
+// console.log(maxSubsetSumNoAdjacent([1,15,3])) //should be 15
 
 
  const perms = (array) => {
@@ -123,17 +123,13 @@ console.log(maxSubsetSumNoAdjacent([1,15,3])) //should be 15
 
 }
 
-
+//creates max sums array then picks the biggest sum
 const maxSums = array => {
-    if (array.length < 3) {
-        return findmax(array)
-    } else {
-        let maxArray = [array[0]]
+    if(array.length === 0) return 0
+    let maxArray = [array[0]]
         maxArray.push(findmax(array.slice(0,2)))
-    }
+    
     for (let i = 2; i < array.length; i++){
-        
-
         maxArray.push(findmax([maxArray[i - 1], array[i]+maxArray[i - 2]]))
     }
     return findmax(maxArray)
@@ -147,3 +143,9 @@ const findmax = array => {
     }
     return max
 }
+
+console.log(maxSums([75, 105, 120, 75, 90, 135])) //should be 330 [75, 120,135]
+console.log(maxSums([1, 15, 3]))
+
+// console.log(findmax([1, 15, 3]))
+// console.log(findmax([75, 105, 120, 75, 90, 135]))
