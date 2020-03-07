@@ -15,16 +15,16 @@ function numberOfWaysToMakeChange(n, denoms) {
     for (let i = 1; i <= n; i++){
         ways[i] = 0;
     }
-    console.log("ways: ", ways)
         for (let i = 0; i < denoms.length; i++) {
             let denom = denoms[i];
             console.log("denom: ", denom)
-            for (let amt = 1; amt <= ways.length; amt++){
+            for (let amt = denom; amt <= n; amt++){
                 if (denom <= amt) {
                     ways[amt] += ways[amt - denom]
                 }
             }
         }
+    console.log("ways, filled in: ", ways)
         return ways[n]
 }
 
