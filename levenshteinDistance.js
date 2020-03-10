@@ -2,7 +2,28 @@
 'use strict';
 
 function levenshteinDistance(str1, str2) {
-    
+    let outterArr = twoArrMaker(str1, str2);
+        for (let i = 0; i < outterArr.length; i++){
+        let row = outterArr[i];
+        for (let j = 0; j < row.length; j++){
+            if (i > 0 && j > 0) {
+                if (str1[i] === str2[j]) {
+                    console.log("str1[i]: ",str1[i], " str2[j]: ", str2[j])
+                    outterArr[i][j] = outterArr[i-1][j - 1];
+                } else {
+                    outterArr[i][j] = Math.min(outterArr[i-1][j-1], outterArr[i-1][j], outterArr[i][j - 1]) + 1;
+                }
+            } else {
+                outterArr[i][j] = Math.max(i,j)
+            }
+        }
+        }
+    let cols = outterArr[0].length - 1;
+    let rows = outterArr.length - 1;
+    console.log(outterArr, "rows: ",rows, " cols: ", cols)
+    console.log(outterArr[rows][cols])
+    return outterArr[rows][cols]
+    // return outterArr[outterArr[0].length-1][outterArr.length-1]
 }
 
 function twoArrMaker(str1, str2) {
@@ -20,23 +41,7 @@ function twoArrMaker(str1, str2) {
         outterArr.push(row)
     }
     outterArr[0][0] = 0;
-    console.log(outterArr)
-
-    for (let i = 0; i < outterArr.length; i++){
-        let row = outterArr[i];
-        for (let j = 0; j < row.length; j++){
-            if (i > 0 && j > 0) {
-                if (str2[i] === str1[j]) {
-                    outterArr[i][j] = outterArr[i-1][j - 1];
-                } else {
-                    outterArr[i][j] = Math.min(outterArr[i-1][j-1], outterArr[i-1][j], outterArr[i][j - 1]) + 1;
-                }
-            } else {
-                outterArr[i][j] = Math.max(i,j)
-            }
-        }
-    }
-    console.log(outterArr)
+    return outterArr;
 }
 
 
@@ -46,6 +51,6 @@ function twoArrMaker(str1, str2) {
 // console.log(levenshteinDistance('', 'abc'), "should be 3") //should be 3
 // console.log(levenshteinDistance('abc', 'yabcx'), "should be 2") //should be 2
 // console.log(levenshteinDistance('biting', 'mitten'), "should be 4") //should be 0
-// console.log(levenshteinDistance('cereal', 'saturday'), "should be 6") //should be 0
+console.log(levenshteinDistance('cereal', 'saturday'), "should be 6") //should be 0
 
-console.log(twoArrMaker('abc','yabcx'))
+// console.log(twoArrMaker('abc','yabcx'))
