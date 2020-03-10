@@ -19,20 +19,27 @@ function twoArrMaker(str1, str2) {
         }
         outterArr.push(row)
     }
+    outterArr[0][0] = 0;
     console.log(outterArr)
 
     for (let i = 0; i < outterArr.length; i++){
         let row = outterArr[i];
         for (let j = 0; j < row.length; j++){
-            if (str2[i] === str1[j]) {
-                outterArr[i][j] = 1;
+            if (i > 0 && j > 0) {
+                if (str2[i] === str1[j]) {
+                    outterArr[i][j] = outterArr[i-1][j - 1];
+                } else {
+                    outterArr[i][j] = Math.min(outterArr[i-1][j-1], outterArr[i-1][j], outterArr[i][j - 1]) + 1;
+                }
             } else {
-                outterArr[i][j] = 0;
+                outterArr[i][j] = Math.max(i,j)
             }
         }
     }
     console.log(outterArr)
 }
+
+
 
 // console.log(levenshteinDistance('', ''), "should be 0") //should be 0
 // console.log(levenshteinDistance('abc', 'abc'), "should be 0") //should be 0
