@@ -7,8 +7,8 @@ function levenshteinDistance(str1, str2) {
         let row = outterArr[i];
         for (let j = 0; j < row.length; j++){
             if (i > 0 && j > 0) {
-                if (str1[i] === str2[j]) {
-                    console.log("str1[i]: ",str1[i], " str2[j]: ", str2[j])
+                if (str2[i - 1] === str1[j - 1]) {
+                    console.log("str1[i]: ",str2[i - 1], " str2[j]: ", str1[j - 1])
                     outterArr[i][j] = outterArr[i-1][j - 1];
                 } else {
                     outterArr[i][j] = Math.min(outterArr[i-1][j-1], outterArr[i-1][j], outterArr[i][j - 1]) + 1;
