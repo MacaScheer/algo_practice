@@ -22,28 +22,50 @@
 // }
 
 
-function isMonotonic(array) {
-    if (array.length <= 1) return true
-    let el;
-    let prevEl;
-    let even = false
-    let inc = false;git
+// function isMonotonic(array) {
+//     if (array.length <= 1) return true
+//     let el;
+//     let prevEl;
+//     let even = false
+//     let inc = false;git
+//     let dec = false;
+//     for (let i = 1; i < array.length; i++) {
+//         el = array[i];
+//         prevEl = array[i - 1]
+//         if (el > prevEl) {
+//             inc = true;
+//         } else if (el < prevEl) {
+//             dec = true;
+//         } else if (el === prevEl) {
+//             even = true
+//         }
+//     }
+//     // let val = inc ^ dec
+//     if (inc && !dec) return true;
+//     if (!inc && dec) return true;
+//     if (even && !inc && !dec) return true
+//     return false
+// }
+
+
+
+
+
+
+
+
+function isMonotonic(arr) {
+    let inc = false;
     let dec = false;
-    for (let i = 1; i < array.length; i++) {
-        el = array[i];
-        prevEl = array[i - 1]
-        if (el > prevEl) {
-            inc = true;
-        } else if (el < prevEl) {
-            dec = true;
-        } else if (el === prevEl) {
-            even = true
-        }
+    let even = false;
+    let numDifference = 0
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > arr[i + 1]) inc = true;
+        if (arr[i] === arr[i + 1]) even = true;
+        if (arr[i] < arr[i + 1]) dec = true;
+        if (inc && dec) return false;
     }
-    // let val = inc ^ dec
-    if (inc && !dec) return true;
-    if (!inc && dec) return true;
-    if (even && !inc && !dec) return true
-    return false
+    return true
 }
+
 console.log(isMonotonic([-1, -5, -10, -1100, -1100, -1101, -1102, -9001]), "should be true");
