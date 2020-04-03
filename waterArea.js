@@ -43,19 +43,26 @@ console.log("WATER AMOUNTS")
 const heights = [0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3];  //48
 
 function waterArea(array) {
-    let firstPeak = findNextPeak(array, 0);
-    if (firstPeak[0] === "end") {
-        
-    } else {
-
+    let peaks = [];
+    let totalSum;
+    let peak = findNextPeak(array, 0);
+    while(peak[0] !== "end"){
+        peaks.push(peak)
+        peak = findNextPeak(array, peak[2])
     }
-
+    for (let i = 0; i < peaks.length - 1; i++){
+        let p1 = peaks[i];
+        let p2 = peaks[i + 1]
+        totalSum += sumMer(p1, p2, array)
+    }
+    return totalSum
 }
+
 function sumMer(idx1, idx2, array) {
     let peak1 = array[idx1];
     let peak2 = array[idx2];
     let height;
-    if (peak1 >= peak2) {
+    if (peak1 <= peak2) {
         height = peak1
     } else {
         height = peak2
@@ -66,15 +73,20 @@ function sumMer(idx1, idx2, array) {
     }
     return totalArea;
 }
+
 function findNextPeak(array, idx) {
     let firstPeakVal = array[idx];
     while (array[idx] > firstPeakVal) {
         
-        if (array[idx] > firstPeakVal) {
+        if (array[idx] > firstPeakVal && idx < array.length - 1) {
             firstPeakIdx = idx;
             firstPeakVal = array[idx]
-        } 
-        if (idx === array.length - 1) {
+        } else if (array[idx] > firstPeakVal && idx === array.length - 1) {
+            firstPeakIdx = idx;
+            firstPeakVal = array[idx]
+            return ["end", firstPeakVal, idx]
+        }
+        else if (array[idx] <= firstPeakVal && idx === array.length - 1) {
             return ["end", firstPeakVal, idx]
         }
         idx++
