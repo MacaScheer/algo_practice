@@ -1,25 +1,21 @@
-#!/usr/bin/env ndoe
+#!/usr/bin/env node
 'use strict';
 
 const singleCycleCheck = function (array) {
-    // for (let i = 0; i < array.length; i++){
-    //     visited[array[i]] = 0;
-    // }
-    // let firstEl = array[0];
-    // visited[firstEl] += 1
-
-}
-const visitedObject = function (array) {
-    
+    let visited = traverse(0, array);
+    for (let key in visited) {
+        if (!visited[key]) return false
+    }
+    return true;
 }
 
-const traverse = function (idx, array, visited) {
+const traverse = function (idx, array, visited = {}) {
     
     // FIRST JUMP
     
     let val = array[idx];
     if (visited[idx]) {
-        return
+        return visited
     } else {
         visited[idx] = true
     }
@@ -27,7 +23,7 @@ const traverse = function (idx, array, visited) {
     if (idx + val > array.length - 1) {
         newIdx = (idx + val) % array.length
     } else if (idx + val < 0) {
-        newIdx = arr.length - ((array.length - (idx + val)) % arr.length);
+        newIdx = array.length - ((array.length - (idx + val)) % array.length);
     } else {
         newIdx = idx + val
     }
@@ -38,11 +34,6 @@ const traverse = function (idx, array, visited) {
 
 }
 
-const check = function (visited) {
-    for (let key in visited) {
-        if (visited[key] === false) return false
-    }
-    return true;
-}
+
 
 console.log(singleCycleCheck([2,3,1,-4,-4,2]), "should be TRUE")
