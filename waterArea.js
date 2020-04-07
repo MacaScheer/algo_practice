@@ -42,21 +42,6 @@ console.log("WATER AMOUNTS")
 
 const heights = [0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3];  //48
 
-function waterArea(array) {
-    let peaks = [];
-    let totalSum;
-    let peak = findNextPeak(array, 0);
-    while(peak[0] !== "end"){
-        peaks.push(peak)
-        peak = findNextPeak(array, peak[2])
-    }
-    for (let i = 0; i < peaks.length - 1; i++){
-        let p1 = peaks[i];
-        let p2 = peaks[i + 1]
-        totalSum += sumMer(p1, p2, array)
-    }
-    return totalSum
-}
 
 function sumMer(idx1, idx2, array) {
     let peak1 = array[idx1];
@@ -68,7 +53,7 @@ function sumMer(idx1, idx2, array) {
         height = peak2
     }
     let totalArea = height * (idx2 - idx1 - 1); 
-    for (let i = idx1 + 1; idx < idx2; i++){
+    for (let i = idx1 + 1; i < idx2; i++){
         totalArea -= array[i]
     }
     return totalArea;
@@ -76,23 +61,49 @@ function sumMer(idx1, idx2, array) {
 
 function findNextPeak(array, idx) {
     let firstPeakVal = array[idx];
-    while (array[idx] > firstPeakVal) {
-        
-        if (array[idx] > firstPeakVal && idx < array.length - 1) {
+    let firstPeakIdx = idx
+    console.log("firstPeakVal: ",firstPeakVal)
+    while (array[idx] >= firstPeakVal) {
+        console.log("VAL: ",array[idx], idx)
+        if (array[idx] >= firstPeakVal && idx < array.length - 1) {
             firstPeakIdx = idx;
             firstPeakVal = array[idx]
-        } else if (array[idx] > firstPeakVal && idx === array.length - 1) {
+        } else if (array[idx] >= firstPeakVal && idx === array.length - 1) {
             firstPeakIdx = idx;
             firstPeakVal = array[idx]
             return ["end", firstPeakVal, idx]
         }
-        else if (array[idx] <= firstPeakVal && idx === array.length - 1) {
+            
+            
+        else if (idx === array.length - 1) {
             return ["end", firstPeakVal, idx]
         }
         idx++
     }
-     return ["not-end", firstPeakVal, idx] 
+     return ["not-end", firstPeakVal, firstPeakIdx] 
 }
+
+
+function waterArea(array) {
+    let peaks = [];
+    let totalSum;
+    let peak = findNextPeak(array, 0);
+    while (peak[0] !== "end") {
+        peaks.push(peak)
+        peak = findNextPeak(array, peak[2])
+    }
+    console.log("PEAKS: ",peaks)
+    for (let i = 0; i < peaks.length - 1; i++) {
+        let p1 = peaks[i];
+        let p2 = peaks[i + 1]
+        totalSum += sumMer(p1, p2, array)
+    }
+    return totalSum
+}
+
+console.log(findNextPeak(heights, 0))
+
+// console.log(waterArea(heights))
 
 // function nearestPeak(idx, array) {
 //     let currPeak = array[idx];
@@ -111,7 +122,7 @@ function findNextPeak(array, idx) {
 
 
 
-console.log(waterArea(heights))
+// console.log(waterArea(heights))
 
 
 
