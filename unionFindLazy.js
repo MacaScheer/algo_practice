@@ -65,3 +65,45 @@ class WeightedQuickUnionFind {
 // UNION: takes constant time, given roots
 
 // PROPOSITION: DEPTH OF ANY NODE x if at most log(N)
+// When does depth of x increase?
+
+// Increase by 1 when tree T1 containing x is merged into another tree T2
+// The size of the tree containing x at least doubles since |T2| >= |T1|
+// size of tree containing x can double at most Log N times...Why?
+
+
+// PATH COMPRESSION
+
+// Quick Union with Path Compression. Just after computing the root of p,
+// set the id of each examined node to point to that root
+
+
+// TWO-PASS IMPLEMENTATION: add second loop to root() method to set the array[i] of each examined node to the root
+// SIMPLER ONE-PASS VARIANT: Make every other node in path point to its grandparent (thereby halving the length).
+
+
+class UnionFindPathCompression{
+    constructor(idArr) {
+        this.idArr = idArr;
+        this.size = [];
+    }
+    // ...
+    root(i) {
+        while (this.idArr[i] !== i) {
+            this.idArr[i] = this.idArr[this.idArr[i]];
+            i = this.idArr[i]
+        }
+        return i;
+    }
+}
+
+// for (let i = 1; i < 2 ** 65336; i *=2){
+//     console.log("i: ", i, "  logi: ", Math.floor(Math.log(i)))
+// }
+
+
+// PROPOSITION:
+// Starting from an empty data structure, any sequence of M union-find ops of N objects
+//  makes <= c(N + Mlog*N) array accesses
+// log * N is the number of times you have to take log of N to get 1
+// Analysis can be improved to N + M@(M, N) where "@" is alpha  NOT SURE WHAT THAT EXPRESSION IS
