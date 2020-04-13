@@ -20,20 +20,14 @@ const longestPeak = function (array) {
 
 
 const peak = function (idx, array){
-    let el = array[idx];
     let idxF = idx;
     let idxB = idx - 1;
     let count = 0;
     while (idxF < array.length && array[idxF] > array[idxF + 1]) {
-        el = array[idxF];
         idxF++
         count++;
-        // console.log("FRWDR: ", el, "  idxF: ", idxF, "  array.length: ", array.length)
     }
     while (idxB >= 0 && array[idxB] < array[idxB + 1]) {
-        // console.log("BKWRD: ", el)
-
-        el = array[idxB];
         idxB--
         count++;
     }
