@@ -1,13 +1,13 @@
 #! /usr/bin/env node
 
 'use strict';
+// at least 3 integers required
+// must be strictly increasing until the tip is reached, after which integers must be strictly decreasing
+// must be increasing until it stays strictly decreasing
+//difference would be positive
 
 console.log("LONGEST PEAK ALGORITHM")
 const longestPeak = function (array) {
-    // at least 3 integers required
-    // must be strictly increasing until the tip is reached, after which integers must be strictly decreasing
-    // must be increasing until it stays strictly decreasing
-    //difference would be positive
     let maxPeak = 0;
     for (let i = 0; i < array.length; i++){
         let count = peak(i, array)
