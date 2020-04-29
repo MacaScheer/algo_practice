@@ -71,11 +71,13 @@ function spiralTraverse(array) {
     }
 }
 
-console.log("Test Case #1: ", spiralTraverse([[1]]))
+// console.log("Test Case #1: ", spiralTraverse([[1]]))
 
-console.log("Test Case #2: ",spiralTraverse([
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [22, 23, 24, 25, 26, 27, 28, 29, 10],
-    [21, 36, 35, 34, 33, 32, 31, 30, 11],
-    [20, 19, 18, 17, 16, 15, 14, 13, 12]
-]));
+// console.log("Test Case #2: ",spiralTraverse([
+//     [1, 2, 3, 4, 5, 6, 7, 8, 9],
+//     [22, 23, 24, 25, 26, 27, 28, 29, 10],
+//     [21, 36, 35, 34, 33, 32, 31, 30, 11],
+//     [20, 19, 18, 17, 16, 15, 14, 13, 12]
+// ]));
+
+
