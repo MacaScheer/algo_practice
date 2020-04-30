@@ -35,7 +35,7 @@ function levenshteinDist(str1, str2) {
                 } 
             } else if (i > 0 && j > 0) {
                     if (char1 !== char2) {
-                        compareArr[i][j] = Math.min(compareArr[i][j - 1], compareArr[i - 1][j]) + 1
+                        compareArr[i][j] = Math.min(compareArr[i][j - 1], compareArr[i - 1][j], compareArr[i-1][j-1]) + 1
                     } else {
                         compareArr[i][j] = compareArr[i - 1][j - 1]
                     }
