@@ -9,8 +9,8 @@ console.log("Levenshtein Distance Algo")
 // (i, j - 1) and (i - 1, j)
 function levenshteinDist(str1, str2) {
     
-    let arr1 = " ".concat(str1).split("");
-    let arr2 = " ".concat(str2).split("");
+    let arr1 = " ".concat(str1).split(""); //[' ', 'a', 'ab', 'abc']
+    let arr2 = " ".concat(str2).split("");// [' ', 'y', 'ya', 'yabd']
     let compareArr = [];
 
     for (let i = 0; i < arr1.length; i++){
@@ -18,13 +18,22 @@ function levenshteinDist(str1, str2) {
         let char1 = arr1[i];
         for (let j = 0; j < arr2.length; j++){
             let char2 = arr2[j];
-            if (i === 0 || j === 0) {
+            if (i === 0 && j === 0) {
+                compareArr[i][j] = 0;
+            }
+            if (i === 0 && j !== 0) {
                 if (char1 === char2) {
-                    compareArr[i][j] = 0
+                    compareArr[i][j] = compareArr[i][j - 1]
                 } else {
-                    compareArr[i][j] = 1
+                    compareArr[i][j] = compareArr[i][j - 1] + 1
                 }
-            } else {
+            } else if (i !== 0 && j === 0) {
+               if (char1 === char2) {
+                    compareArr[i][j] = compareArr[i - 1][j]
+                } else {
+                    compareArr[i][j] = compareArr[i - 1][j] + 1
+                } 
+            } else if (i > 0 && j > 0) {
                     if (char1 !== char2) {
                         compareArr[i][j] = Math.min(compareArr[i][j - 1], compareArr[i - 1][j]) + 1
                     } else {
