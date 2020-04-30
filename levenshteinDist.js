@@ -3,9 +3,10 @@
 
 console.log("Levenshtein Distance Algo")
 
-// use 2d array to compare all substrings from length 0 to whole of the two strings
-// create compare function that will count how many changes (i.e. substitution/deletion/addition) necessary to obtain identical substring
-// as it iterates, building out the substrings, that number can just be added to the previous
+// iterate through the two strings comparing each of the possible substrings against the other (O(n**2)) in a nested array
+// since we start with just one char compared against one, as each char is added/compared against the other, if it
+// is the same, the number of changes at (i, j) will be equal (i - 1, j - 1), otherwise it will be equal to the minimum changes between
+// (i, j - 1) and (i - 1, j)
 function levenshteinDist(str1, str2) {
     
     let arr1 = " ".concat(str1).split("");
@@ -17,18 +18,18 @@ function levenshteinDist(str1, str2) {
         let char1 = arr1[i];
         for (let j = 0; j < arr2.length; j++){
             let char2 = arr2[j];
-            if (i > 0 && j > 0) {
-                if (char1 !== char2) {
-                    compareArr[i][j] = Math.min(compareArr[i][j - 1], compareArr[i - 1][j]) + 1
-                } else {
-                    compareArr[i][j] = compareArr[i - 1][j - 1]
-                }
-            } else {
+            if (i === 0 || j === 0) {
                 if (char1 === char2) {
                     compareArr[i][j] = 0
                 } else {
                     compareArr[i][j] = 1
                 }
+            } else {
+                    if (char1 !== char2) {
+                        compareArr[i][j] = Math.min(compareArr[i][j - 1], compareArr[i - 1][j]) + 1
+                    } else {
+                        compareArr[i][j] = compareArr[i - 1][j - 1]
+                    }
             }
             
         }
