@@ -95,7 +95,30 @@ function levDistOptimized(str1, str2) {
 
     const evenEdits = [];
     const oddEdits = new Array(small.length + 1);
-    
+    for (let j = 0; j < small.length + 1; j++){
+        evenEdits.push(j)
+    }
+    console.log("evenEdits: ", evenEdits)
+    for (let i = 1; i < big.length + 1; i++){
+        let currentEdits, previousEdits;
+        if (i % 2 === 0) {
+            currentEdits = evenEdits;
+            previousEdits = oddEdits
+        } else {
+            currentEdits = oddEdits;
+            previousEdits = evenEdits;
+        }
+        currentEdits[0] = i;
+        for (let j = 1; j < small.length + 1; j++){
+            if (big[i - 1] === small[j - 1]) {
+                currentEdits[j] = previousEdits[j - 1]
+            } else {
+                currentEdits[j] = 1 + Math.min(previousEdits[j - 1], previousEdits[j], currentEdits[j - 1])
+            }
+        }
+        console.log(currentEdits, previousEdits)
+    }
+    return big.length % 2 === 0 ? evenEdits[small.length] : oddEdits[small.length]
 
 }
 console.log(levDistOptimized('biting', 'mitten'), "should be 4")
