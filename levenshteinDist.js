@@ -90,35 +90,46 @@ function levDist(str1, str2) {
 
 
 function levDistOptimized(str1, str2) {
-    const small = str1.length > str2.length ? str2 : str1;
-    const big = str1.length > str2.length ? str1 : str2;
+    const small = str1.length > str2.length ? str2 : str1;  //'abc'
+    const big = str1.length > str2.length ? str1 : str2;    //'yabd'
 
     const evenEdits = [];
-    const oddEdits = new Array(small.length + 1);
-    for (let j = 0; j < small.length + 1; j++){
+    const oddEdits = new Array(small.length + 1, 0); //odd = [0,0,0,0]
+    for (let j = 0; j < small.length + 1; j++){   //even = [0,1,2,3]
         evenEdits.push(j)
     }
-    console.log("evenEdits: ", evenEdits)
-    for (let i = 1; i < big.length + 1; i++){
+    for (let i = 1; i < big.length + 1; i++){  //i = 1
         let currentEdits, previousEdits;
         if (i % 2 === 0) {
             currentEdits = evenEdits;
             previousEdits = oddEdits
         } else {
-            currentEdits = oddEdits;
-            previousEdits = evenEdits;
+            currentEdits = oddEdits;                //  currentEdits = [0,1,0,0]
+            previousEdits = evenEdits;              //  previousEdits = [0,1,2,3]
         }
-        currentEdits[0] = i;
-        for (let j = 1; j < small.length + 1; j++){
-            if (big[i - 1] === small[j - 1]) {
+        currentEdits[0] = i;                        //   currentEdits = [1,1,2,0]
+        for (let j = 1; j < small.length + 1; j++){      //j = 1       //           j = 2
+            if (big[i - 1] === small[j - 1]) {        //'[y]abd'    '[a]bc'    //'[y]abd'  'a[b]c'
                 currentEdits[j] = previousEdits[j - 1]
             } else {
-                currentEdits[j] = 1 + Math.min(previousEdits[j - 1], previousEdits[j], currentEdits[j - 1])
+                currentEdits[j] = 1 + Math.min(previousEdits[j - 1], previousEdits[j], currentEdits[j - 1])  // currentEdits[2] = 1 + (previousEdits[1] = 1, previousEdits[1] = 2, currentEdits[0] = 1)
             }
         }
-        console.log(currentEdits, previousEdits)
+        console.log(" currentEdits: ",currentEdits, "  previousEdits:",previousEdits, "evenEdits: ", evenEdits, "  oddEdits: ",oddEdits)
     }
     return big.length % 2 === 0 ? evenEdits[small.length] : oddEdits[small.length]
 
 }
-console.log(levDistOptimized('biting', 'mitten'), "should be 4")
+// console.log(levDistOptimized('abc', 'yabd'))
+// console.log(levDistOptimized('biting', 'mitten'), "should be 4")
+
+function pointers() {
+    let a = [0,5];
+    let b = a;
+    b[1] += 1
+    console.log(a)
+    a[0] += 1
+    console.log(b)
+}
+
+console.log(pointers())
