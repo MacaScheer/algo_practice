@@ -31,12 +31,25 @@ function powerSet(array) {
 		outer.push(el)
 	}
 	console.log("outer: ",outer, "  i:",i)
+	let startIdx = 2;
 	for (let j = 0; j < array.length; j++){
+		// let nextOuter = outer  //[[],[1],[2],[3]]
 		let el2 = array[j];
-		let idx = outer.indexOf(el2)
-		let subArr = outer[idx + 1]
-		console.log("idx: ", idx)
+		// let countUp = startIdx; //2
+		// console.log("nextOuter: ",nextOuter)
+		(function(n, c, o) {
+			while (c < o) {
+				let newSub = n[c]
+				console.log("outer: ", outer)
+				newSub.push(el2)
+				n.push(newSub)
+				c++
+			}
+			
+		})(outer, startIdx, outer.length)
+		startIdx++
 	}
+	console.log(outer)
 
 }
 
