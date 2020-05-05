@@ -33,7 +33,8 @@ if(node.value && startIdx){
 }
        }
 return startIdx - endIdx
-}
+ }
+
 
 
 function dist(S, C) {
