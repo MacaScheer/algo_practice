@@ -34,3 +34,44 @@ if(node.value && startIdx){
        }
 return startIdx - endIdx
 }
+
+
+function dist(S, C) {
+	outputArr = [];
+	for (let i = 0; i < S.length; i++) {
+		let char = S[i];
+		forwardCount = 0;
+		reverseCount = 0;
+		if (char === C) {
+			outputArr.push(0);
+		} else {
+            for (j = i + 1; j < S.length; j++) {
+                console.log("j: ",j)
+                forwardCount++;
+                if (S[j] === C) {
+                break;
+                }
+            }
+            for (k = i - 1; k >= 0; k--) {
+                console.log("k: ",k)
+                
+                reverseCount++;
+                if (S[k] === C) break;
+            }
+            console.log("forwardCOunt: ", forwardCount, " reverseCOunt: ", reverseCount)
+            outputArr.push(Math.min(forwardCount, reverseCount));
+        }
+ 
+    }
+	return outputArr;
+}
+
+
+
+
+// Input: S = "loveleetcode", C = 'e'
+// Output: [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0]
+
+
+
+console.log(dist("loveleetcode",'e'), "should be [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0]")
