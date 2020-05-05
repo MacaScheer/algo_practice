@@ -77,28 +77,40 @@
 // console.log(arr1)
 
 
+// function powerSet(array) {
+// 	let outer = [[]];
+// 	for (let i = 0; i < array.length; i++){
+// 		let el = array[i];  //1     //2            //3
+// 		// console.log("i: ",i)
+// 		let newSub = []
+// 		console.log("outer: ", outer)
+// 		let newOuter = [...outer]
+// 		newOuter.map(sub => {  //[]    //[], [1]      //[],[1],[2],[1,2]
+// 			sub.push(el)    //[1]   
+// 			newSub.push(sub)//[[1]] //[[2], [1,2]] //[[3],[1,3],[2,3],[1,2,3]]
+// 			console.log("sub: ",sub)
+// 			console.log("newSub: ", newSub)
+// 		})
+
+
+
+// 		outer.push(...newSub) //[[],[1]]  //[[],[1],[2],[1,2]]  // [[],[1],[2],[1,2][3],[1,3],[2,3],[1,2,3]]
+// 	}
+// 	return outer
+// }
+
 function powerSet(array) {
-	let outer = [[]];
+	let subsets = [[]];
 	for (let i = 0; i < array.length; i++){
-		let el = array[i];  //1     //2            //3
-		// console.log("i: ",i)
-		let newSub = []
-		console.log("outer: ", outer)
-		let newOuter = [...outer]
-		newOuter.map(sub => {  //[]    //[], [1]      //[],[1],[2],[1,2]
-			sub.push(el)    //[1]   
-			newSub.push(sub)//[[1]] //[[2], [1,2]] //[[3],[1,3],[2,3],[1,2,3]]
-			console.log("sub: ",sub)
-			console.log("newSub: ", newSub)
-		})
-
-
-
-		outer.push(...newSub) //[[],[1]]  //[[],[1],[2],[1,2]]  // [[],[1],[2],[1,2][3],[1,3],[2,3],[1,2,3]]
+		let el = array[i];
+		const length = subsets.length
+		for (let j = 0; j < length; j++){
+			let currSub = subsets[j];
+			subsets.push(currSub.concat([el]))
+		}
 	}
-	return outer
+	return subsets
 }
-
 
 console.log(powerSet([1, 2, 3]))
 // [[],[1],[2],[3]...[1,2],[1,3],[2,3],[1,2,3]]
