@@ -43,7 +43,7 @@ function levenshteinDist(str1, str2) {
             
         }
     }
-    // console.log(compareArr)
+    console.log(compareArr)
     return compareArr[compareArr.length - 1][compareArr[0].length - 1]
 }
 
@@ -72,12 +72,13 @@ function levDist(str1, str2) {
             }
         }
     }
+    console.log(edits)
     return edits[str2.length][str1.length]
 }
 
 
 // console.log(levDist('abc', 'yabd'))
-// console.log(levenshteinDist("abc", "yabd"), "should be 2")
+console.log(levenshteinDist("abc", "yabd"), "should be 2")
 
 //       _|a|ab|abc
 //      | | |  |   |
@@ -132,4 +133,4 @@ function pointers() {
     console.log(b)
 }
 
-console.log(pointers())
+// console.log(pointers())
