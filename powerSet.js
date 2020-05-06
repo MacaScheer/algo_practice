@@ -112,7 +112,7 @@ function powerSet(array) {
 	return subsets
 }
 
-console.log(powerSet([1, 2, 3]))
+// console.log(powerSet([1, 2, 3]))
 // [[],[1],[2],[3]...[1,2],[1,3],[2,3],[1,2,3]]
 // [[]] //first array to iterate over with input array
 // [[],[1]]
@@ -122,3 +122,22 @@ console.log(powerSet([1, 2, 3]))
 // [[1,2], [1,3]] starting with 1 + idx of 1  in output array or the next element from the one you're unshifting in
 // [2,3] for 1 + idx of 2 + idx of 2 in output array
 //  [1,2,3] for 1 + idx of 3 in output array
+
+function powerSetRecursive(array, idx = null) {
+	if (idx === null) {
+		idx = array.length - 1
+	} else if(idx < 0){
+		return [[]]
+	}
+	
+	let el = array[idx]
+	let subs = powerSetRecursive(array, idx - 1) //[[],[1],[2],[3]]
+	const length = subs.length;
+	for (let i = 0; i < length; i++){
+		let currSub = subs[i];
+		subs.push(currSub.concat([el]))
+	}
+	return subs
+}
+
+console.log(powerSetRecursive([1,2,3]))
