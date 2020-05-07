@@ -56,11 +56,11 @@ function oddOneOut(array) {
         if (length % 2 === 0) {
             let newArr = array.splice(0,midIdx)          //if side is even length, search left side
             // console.log("search left side:", newArr)
-            oddOneOut(newArr)
+            return oddOneOut(newArr)
         } else {
             let newArr = array.splice(midIdx)
             // console.log("search right side: ", newArr)                  //if side if odd length, search right side
-            oddOneOut(newArr)
+            return oddOneOut(newArr)
         }
     } else if (midEle === array[midIdx - 1]) {
         // console.log("same to the left")
@@ -68,11 +68,11 @@ function oddOneOut(array) {
         if (length % 2 === 0) {  //search right
             let newArr = array.splice(midIdx)   
             // console.log("search right side: ", newArr)
-            oddOneOut(newArr)
+            return oddOneOut(newArr)
         } else {
             let newArr = array.splice(0,midIdx)  
             // console.log("search left side:", newArr)
-            oddOneOut(newArr)
+            return oddOneOut(newArr)
         }
     } else {
         console.log("found the odd one out: ", midEle)
