@@ -43,25 +43,30 @@ let A = new TreeNode()
 
 
 function oddOneOut(array) {
+    console.log(array)
     if (array.length === 1) return array[0];
     let midIdx = Math.floor(array / 2);
     let midEle = array[midIdx];
     // same to the right
     if (midEle === array[midIdx + 1]) {
         let length = array.length - midIdx;
-        if (length % 2 === 0) {          //if side is even length, search left side
-            oddOneOut(array.slice(0,midIdx))
-        } else {                        //if side if odd length, search right side
-            oddOneOut(array.slice(midIdx))
+        if (length % 2 === 0) {
+            let newArr = array.slice(0,midIdx)          //if side is even length, search left side
+            oddOneOut(newArr)
+        } else {
+            let newArr = array.slice(midIdx)                  //if side if odd length, search right side
+            oddOneOut(array.slice(newArr))
         }
     }
     //same to the left, i.e.  [1,1,2,2,4,5,5]
     else if (midEle === array[midIdx - 1]) {
         let length = midIdx
         if (length % 2 === 0) {  //search right
-            oddOneOut(array.slice(midIdx))
+            let newArr = array.slice(midIdx)   
+            oddOneOut(newArr)
         } else {
-            oddOneOut(array.slice(0,midIdx))
+            let newArr = array.slice(0,midIdx)  
+            oddOneOut(newArr)
         }
     } else {
         return midEle
