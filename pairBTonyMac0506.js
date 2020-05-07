@@ -43,39 +43,42 @@ let A = new TreeNode()
 
 
 function oddOneOut(array) {
-    console.log(array)
+    // console.log(array)
     if (array.length === 1) return array[0];
     let midIdx = Math.floor(array.length / 2);
     let midEle = array[midIdx];
     // same to the right
-    console.log("midEle: ", midEle)
+    // console.log("midEle: ", midEle)
+    // console.log("to the left: ", array[midIdx - 1])
+    // console.log("to the right : ", array[midIdx + 1])
     if (midEle === array[midIdx + 1]) {
-        console.log("same to the right")
+        // console.log("same to the right")
         let length = array.length - midIdx;
         if (length % 2 === 0) {
             let newArr = array.splice(0,midIdx)          //if side is even length, search left side
-            console.log("search left side:", newArr)
+            // console.log("search left side:", newArr)
             oddOneOut(newArr)
         } else {
             let newArr = array.splice(midIdx)
-            console.log("search right side: ", newArr)                  //if side if odd length, search right side
+            // console.log("search right side: ", newArr)                  //if side if odd length, search right side
             oddOneOut(newArr)
         }
     }
     //same to the left, i.e.  [1,1,2,2,4,5,5]
     else if (midEle === array[midIdx - 1]) {
-        console.log("same to the left")
+        // console.log("same to the left")
         let length = midIdx - 1
         if (length % 2 === 0) {  //search right
             let newArr = array.splice(midIdx)   
-            console.log("search right side: ", newArr)
+            // console.log("search right side: ", newArr)
             oddOneOut(newArr)
         } else {
             let newArr = array.splice(0,midIdx)  
-            console.log("search left side:", newArr)
+            // console.log("search left side:", newArr)
             oddOneOut(newArr)
         }
     } else {
+        console.log("found the odd one out", midEle)
         return midEle
     }
 
