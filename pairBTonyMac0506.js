@@ -16,15 +16,15 @@ function TreeNode(val, left, right) {
  * @param {number} R
  * @return {TreeNode}
  */
-var trimBST = function(root, L, R) {
+var trimBST = function (root, L, R) {
     if (root === null) return null;
     if (root.val < L) {
-        
-    }
-    if (root.val > R) {
-        
+        return trimBST(root.right, L, R)
+    } else if (root.val > R) {
+        return trimBST(root.left, L, R)        
     } else {
-
+        root.right = trimBST(root.right, L, R)
+        root.left = trimBST(root.left, L, R)
         return root
     }
 };
@@ -43,7 +43,6 @@ let A = new TreeNode()
 
 
 function oddOneOut(array) {
-    // console.log(array)
     if (array.length === 1) return array[0];
     let midIdx = Math.floor(array.length / 2);
     let midEle = array[midIdx];
@@ -63,9 +62,7 @@ function oddOneOut(array) {
             // console.log("search right side: ", newArr)                  //if side if odd length, search right side
             oddOneOut(newArr)
         }
-    }
-    //same to the left, i.e.  [1,1,2,2,4,5,5]
-    else if (midEle === array[midIdx - 1]) {
+    } else if (midEle === array[midIdx - 1]) {
         // console.log("same to the left")
         let length = midIdx - 1
         if (length % 2 === 0) {  //search right
@@ -78,12 +75,12 @@ function oddOneOut(array) {
             oddOneOut(newArr)
         }
     } else {
-        console.log("found the odd one out", midEle)
+        console.log("found the odd one out: ", midEle)
         return midEle
     }
 
 }
 let arr1 = [1, 1, 2, 3, 3, 4, 4, 8, 8];
 console.log(oddOneOut(arr1));
-// let arr2 = [3, 3, 7, 7, 10, 11, 11];
-// console.log(oddOneOut(arr2));
+let arr2 = [3, 3, 7, 7, 10, 11, 11];
+console.log(oddOneOut(arr2));
