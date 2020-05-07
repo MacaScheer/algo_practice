@@ -59,7 +59,7 @@ function oddOneOut(array) {
             return oddOneOut(newArr)
         } else {
             let newArr = array.splice(midIdx)
-            // console.log("search right side: ", newArr)                  //if side if odd length, search right side
+            // console.log("search right side: ", newArr) //if side if odd length, search right side
             return oddOneOut(newArr)
         }
     } else if (midEle === array[midIdx - 1]) {
