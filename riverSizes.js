@@ -89,7 +89,18 @@ function dfsNode(i, j, matrix, visited, sizes) {
         visited[i][j] = true;
         if (matrix[i][j] === 0) continue;
         currRiverSize++
+        const unvisited = getUnvisited(i, j, matrix, visited)
+        nodesToExplore.push(...unvisited)
     }
+    if(currRiverSize > 0) sizes.push(currRiverSize)
+}
+function getUnvisited(i, j, matrix, visited) {
+    const unvisitedNeighbors = [];
+    if (i > 0 && !visited[i - 1][j]) unvisitedNeighbors.push([i - 1, j]);
+    if (i < matrix.length - 1 && !visited[i + 1][j]) unvisitedNeighbors.push([i + 1, j]);
+    if (j > 0 && !visited[i][j - 1]) unvisitedNeighbors.push([i, j - 1]);
+    if (j < matrix[0].length - 1 && !visited[i, j + 1]) unvisitedNeighbors.push([i, j + 1]);
+    return unvisitedNeighbors
 }
 
 
