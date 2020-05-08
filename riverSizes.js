@@ -57,13 +57,7 @@ function riverSizes(matrix) {
         return sizes
 }
 
-const m1 = [
-    [1, 0, 0, 1, 0],
-    [1, 0, 1, 0, 0],
-    [0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1],
-    [1, 0, 1, 1, 0]
-];
+
 // console.log(riverSizes(m1), "should be [1,2,2,2,5]");
 
 function riverSizes1(matrix) {
@@ -91,6 +85,9 @@ function dfsNode(i, j, matrix, visited, sizes) {
         currRiverSize++
         const unvisited = getUnvisited(i, j, matrix, visited)
         nodesToExplore.push(...unvisited)
+        // for (const n of unvisited) {
+        //     nodesToExplore.push(n)
+        // }
     }
     if(currRiverSize > 0) sizes.push(currRiverSize)
 }
@@ -99,11 +96,17 @@ function getUnvisited(i, j, matrix, visited) {
     if (i > 0 && !visited[i - 1][j]) unvisitedNeighbors.push([i - 1, j]);
     if (i < matrix.length - 1 && !visited[i + 1][j]) unvisitedNeighbors.push([i + 1, j]);
     if (j > 0 && !visited[i][j - 1]) unvisitedNeighbors.push([i, j - 1]);
-    if (j < matrix[0].length - 1 && !visited[i, j + 1]) unvisitedNeighbors.push([i, j + 1]);
+    if (j < matrix[0].length - 1 && !visited[i][j + 1]) unvisitedNeighbors.push([i, j + 1]);
     return unvisitedNeighbors
 }
 
-
+const m1 = [
+    [1, 0, 0, 1, 0],
+    [1, 0, 1, 0, 0],
+    [0, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1],
+    [1, 0, 1, 1, 0]
+];
 
 console.log(riverSizes1(m1), "should be [1,2,2,2,5]");
 
