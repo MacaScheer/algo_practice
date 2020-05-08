@@ -24,11 +24,11 @@ console.log("RIVER SIZES");
 
 function riverSizes(matrix) {
     let sizes = [];
-    let visited = {};
+    let visited = matrix.map(row => row.map(val => false));
     for (let i = 0; i < matrix.length; i++){
         for (let j = 0; j < matrix[i].length; j++){
-            if (!visited[[i, j]]) {
-                visited[[i, j]] = true
+            if (visited[i][j]) {
+                visited[i][j] = true
                 if (matrix[i][j] === 1) {
                     let size = dfs(i, j, visited, matrix)
                     sizes.push(size) 
@@ -37,17 +37,17 @@ function riverSizes(matrix) {
         }
     }
 
-    function dfs(i,j, visited, matrix, count = 0,) {
+    function dfs(i,j, visited, matrix, count = 0) {
         if (i < 0 || j < 0 || i > matrix.length - 1 || j > matrix[0].length - 1) return count;
-        if (visited[[i, j]] === true) return count;
-        visited[[i, j]] = true
+        if (visited[i][j] === true) return count;
+        visited[i][j] = true
         if (matrix[i][j] === 1) {
             // count++
             
-            dfs(i - 1, j, visited, matrix, count++);
-            dfs(i, j - 1, visited, matrix, count++);
-            dfs(i, j + 1, visited, matrix, count++);
-            dfs(i + 1, j, visited, matrix, count++);
+            count += dfs(i - 1, j, visited, matrix, count++);
+            count += dfs(i, j - 1, visited, matrix, count++);
+            count += dfs(i, j + 1, visited, matrix, count++);
+            count += dfs(i + 1, j, visited, matrix, count++);
                 
         } else {
             return count;
@@ -64,5 +64,35 @@ const m1 = [
     [1, 0, 1, 0, 1],
     [1, 0, 1, 1, 0]
 ];
-console.log(riverSizes(m1), "should be [1,2,2,2,5]");
+// console.log(riverSizes(m1), "should be [1,2,2,2,5]");
+
+function riverSizes1(matrix) {
+    const sizes = [];
+    const visited = matrix.map(row => row.map(val => false));
+    for (let i = 0; i < matrix.length; i++){
+        for (let j = 0; j < matrix[i].length; j++){
+            if (visited[i][j]) continue;
+            dfsNode(i, j, matrix, visited, sizes)
+        }
+    }
+    return sizes;
+}
+
+function dfsNode(i, j, matrix, visited, sizes) {
+    let currRiverSize = 0;
+    const nodesToExplore = [[i, j]]
+    while (nodesToExplore.length) {
+        const currNode = nodesToExplore.pop();
+        i = currNode[0];
+        j = currNode[1];
+        if (visited[i][j]) continue;
+        visited[i][j] = true;
+        if (matrix[i][j] === 0) continue;
+        currRiverSize++
+    }
+}
+
+
+
+console.log(riverSizes1(m1), "should be [1,2,2,2,5]");
 
