@@ -60,13 +60,16 @@ class Trie{
             nextNode.addWord(chars.join(""))
         }
     }
-    wordsWithPrefix(string) {
+    wordsWithPrefix(string, root = this.root) {
         let allWords = [];
+        if (this.root.isTerminal) allWords.push("")
         if (string.length === 0) {
-            let nodes = this.root.children;
-            for (let node of nodes) {
-                
-                if(node.children)
+            
+            for (let node in this.root.children) {
+                if (node.isTerminal) allWords.push("");
+                let suffixes = this.root.children[node].wordsWithPrefix("");
+                suffixes.map(suf => )
+                allWords.push(...suffixes);
             }
         }
     }
