@@ -62,15 +62,28 @@ class Trie{
     }
     wordsWithPrefix(string, root = this.root) {
         let allWords = [];
-        if (this.root.isTerminal) allWords.push("")
+        if (root.isTerminal) allWords.push("")
         if (string.length === 0) {
             
-            for (let node in this.root.children) {
-                if (node.isTerminal) allWords.push("");
-                let suffixes = this.root.children[node].wordsWithPrefix("");
-                suffixes.map(suf => )
+            for (let letter in root.children) {
+                let node = this.root.children[letter]
+                let suffixes = this.wordsWithPrefix("", node);
+                suffixes.map(suf => letter + suf)
                 allWords.push(...suffixes);
             }
+            return allWords;
+        } else {
+            let firstLetter = string[0];
+            if (root.children[firstLetter]) {
+                let nextNode = root.chidren[firstLetter];
+       
+                let suffs = this.wordsWithPrefix(nextNode, string.slice(1))
+                let words = suffs.map(suf => firstLetter + suf)
+                return words;
+            } else {
+                return []
+            }
         }
+        
     }
 }
