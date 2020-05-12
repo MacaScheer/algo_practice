@@ -28,13 +28,25 @@ class BST{
 }
 
 function minHeightBst(array) {
-    if (array.length === 0) return
-    let midIdx = Math.floor(array.length / 2)
+    return makeBst(array)
+}
+
+function makeBst(array, startIdx = 0, endIdx = array.length - 1) {
+    let startIdx = 0;
+    let endIdx = array.length - 1;
+    if (endIdx < startIdx) return null
+    
+
+    let midIdx = Math.floor(startIdx)
     let mid = array[midIdx]
     let root = new BST(mid);
-    root.left = minHeightBst(array.slice(0, midIdx))
+    root.left = minHeightBst(array.slice(0, midIdx - 1))
     root.right = minHeightBst(array.slice(midIdx))
+    return root
+    
 }
+
+
 let b1 = minHeightBst([1, 2, 5, 7, 10, 13, 14, 15, 22])
 console.log("using minHeightBst: ", b1)
 
