@@ -11,18 +11,33 @@ class SuffixTrie{
     }
 
     populateSuffixTrieFrom(string) {
-        if (string.length === 1) this.root[this.endSymbol] = new SuffixTrie
-        let chars = string.split("");
-        let firstChar = chars.shift();
-        if (this.root[firstChar]) {
-            this.root[firstChar].populateSuffixTrieFrom(chars)
-        } else {
-
+        for (let j = 0; j < string.length; j++){
+            this.insertSubstringStartingAt(j, string)
         }
     }
-
+    insertSubstringStartingAt(self, idx, string) {
+        let node = self.root;
+        for (let i = idx; i < string.length; i++){
+            let letter = string[i]
+            if (!node[letter]) {
+                node[letter] = {}   
+            }
+            node = node[letter]
+        }
+        node[this.endSymbol] = true;
+    }
     contains(string) {
-        
+        let node = this.root;
+        for (let i = 0; i < string.length; i++){
+            let letter = string[i];
+            if (node[letter]) {
+                node = node[letter]
+            } else {
+                return false;
+            }
+        }
+        if(node[this.endSymbol]) return true;
+        return false
     }
 }
 
