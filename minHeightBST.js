@@ -32,8 +32,7 @@ function minHeightBst(array) {
 }
 
 function makeBst(array, startIdx = 0, endIdx = array.length - 1) {
-    let startIdx = 0;
-    let endIdx = array.length - 1;
+  
     if (endIdx < startIdx) return null
     
 
@@ -41,8 +40,8 @@ function makeBst(array, startIdx = 0, endIdx = array.length - 1) {
     let mid = array[midIdx]
     const root = new BST(mid);
     
-    root.left = minHeightBst(array, startIdx, midIdx - 1)
-    root.right = minHeightBst(array, midIdx + 1, endIdx)
+    root.left = makeBst(array, startIdx, midIdx - 1)
+    root.right = makeBst(array, midIdx + 1, endIdx)
     return root
     
 }
