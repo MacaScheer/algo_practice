@@ -39,15 +39,18 @@ const singleCycleCheck = function(array){
     let counter = 0;
     let currIdx = 0;
     while (counter < array.length) {
-        el = array[el]
-
+        if (counter > 0 && currIdx === 0) return false;
         counter++
+        currIdx = getNextidx(currIdx, array)
+
     }
-    return el === firstEl
+    return currIdx === 0
 }
 
 function getNextidx(idx, array) {
-    
+    let jump = array[idx];
+    let nextIdx = (idx + jump) % array.length
+    return nextIdx >= 0 ? nextIdx : nextIdx + array.length
 }
 
 
