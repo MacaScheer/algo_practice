@@ -37,14 +37,17 @@
 
 const singleCycleCheck = function(array){
     let counter = 0;
-    const firstEl = array[0];
-    let el = firstEl;
+    let currIdx = 0;
     while (counter < array.length) {
         el = array[el]
 
         counter++
     }
     return el === firstEl
+}
+
+function getNextidx(idx, array) {
+    
 }
 
 
