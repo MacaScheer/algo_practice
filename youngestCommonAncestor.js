@@ -5,9 +5,9 @@ console.log("Youngest Common Ancestor Algo:");
 // PSEUDOCODE:
 // use a BFS approach to traversing the tree
 // use a queue to keep all nodes of a certain level
-// once one of the descendents has been traversed, store that descendent's ancestor, and all descendents
-// until the second descendent has been traversed. 
-// but since there are only upwards references are stored on each node, we have to traverse upwards.
+// OR, find the deeper of the two descendents
+// move the deeper up to the level of the other descendent, while noting which one is deeper
+// traverse from both up in tandem until finding a common ancestor
 class AncestralTree {
   constructor(name) {
     this.name = name;
