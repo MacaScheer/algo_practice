@@ -22,15 +22,19 @@ class MinHeap{
         let newIdx = Math.floor((i - 1) / 2);
         return newIdx >= 0 ? newIdx : 0
     }
-    siftUp(i) {
-        let array = this.heap
-        let pIdx = this.getParentIdx(i);
-        console.log("parentIdx:", pIdx, " i:", i, " this.heap[i]:", this.heap[i], " this.heap[parentIdx]:", this.heap[pIdx])
-        // this.heap[parentIdx,i] = this.heap[i,parentIdx]
-        // [array[pIdx], array[i]] = [array[i], array[pIdx]]
-        let temp = array[pIdx];
-        array[pIdx] = array[i];
-        array[i] = temp
+    siftUp(idx) {
+        let pIdx = this.getParentIdx(idx);
+        // console.log("parentIdx:", pIdx, " i:", idx, " this.heap[i]:", this.heap[idx], " this.heap[parentIdx]:", this.heap[pIdx])
+        if (this.heap(pIdx) < this.heap(idx)) {
+            this.swap(pIdx, idx)
+            this.siftUp(pIdx)
+        }
+        
+    }
+    swap(pIdx, idx) {
+         let temp = this.heap[pIdx];
+        this.heap[pIdx] = this.heap[idx];
+        this.heap[idx] = temp
     }
 }
 let test = new MinHeap([8,12,23,17,31,30,44,102,18])
