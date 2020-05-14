@@ -16,22 +16,36 @@ class AncestralTree {
 }
 
 function getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo) {
-	let depthOne = findDepth(descendentOne);
-	let depthTwo = findDepth(descendentTWo);
-	let deeper = depthTwo > depthOne ? descendentTwo : descendentTwo;
-	let diff = Math.abs(depthOne - depthTwo)
-	let deeperMovedUp = moveUp(deeper, findDepth(deeper,diff))
-	
-	while(node.ancestor){
-		if(node.name === descendentTwo.ancestor.name){
-			return descendentTwo.ancestor.name
-		}
-		let node = node.ancestor
-	}
+	let depthOne = findDepth(descendantOne);
+    let depthTwo = findDepth(descendantTwo);
+    let deep, shallow
+    if (depthOne > depthTwo) {
+        deep = descendantOne;
+        shallow = descendantTwo
+    } else {
+        deep = descendantTwo;
+        shallow = descendantOne;
+    }
+
+    let diff = Math.abs(depthOne - depthTwo)
+    // console.log("diff: ",diff, deep.name,shallow.name)
+	let deeperMovedUp = moveUp(deep, diff, topAncestor)
+	// console.log("deeperMovedUp: ", deeperMovedUp.name)
+	while(deeperMovedUp.ancestor && shallow.ancestor){
+        if (deeperMovedUp.name === shallow.name) {
+            return shallow.name;
+        }
+        deeperMovedUp = deeperMovedUp.ancestor
+        shallow = shallow.ancestor
+    }
+    return deeperMovedUp.name
 }
-function moveUp(node, diff){
-	while(diff > 0){
-		node = node.ancestor
+function moveUp(node, diff, topAncestor) {
+    // console.log("name: ",node.name, " diff: ", diff, " topAncestor: ", topAncestor.name)
+    while (diff > 0) {
+        // console.log("node.name: ", node.name)
+        node = node.ancestor
+        diff--
 	}
 	return node
 }
