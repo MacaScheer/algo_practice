@@ -31,16 +31,16 @@ function getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo) {
     // console.log("diff: ",diff, deep.name,shallow.name)
 	let deeperMovedUp = moveUp(deep, diff, topAncestor)
 	// console.log("deeperMovedUp: ", deeperMovedUp.name)
-	while(deeperMovedUp.ancestor && shallow.ancestor){
-        if (deeperMovedUp.name === shallow.name) {
-            return shallow.name;
-        }
+	while(deeperMovedUp !== shallow){
+        // if (deeperMovedUp.name === shallow.name) {
+        //     return shallow.name;
+        // }
         deeperMovedUp = deeperMovedUp.ancestor
         shallow = shallow.ancestor
     }
     return deeperMovedUp.name
 }
-function moveUp(node, diff, topAncestor) {
+function moveUp(node, diff) {
     // console.log("name: ",node.name, " diff: ", diff, " topAncestor: ", topAncestor.name)
     while (diff > 0) {
         // console.log("node.name: ", node.name)
