@@ -45,17 +45,18 @@ class MinHeap{
         let newIdx = Math.floor((i - 1) / 2);
         return newIdx >= 0 ? newIdx : -1
     }
-    siftUp(idx) {
+    siftUp(idx, heap) {
         let pIdx = this.getParentIdx(idx);
-        if (this.heap[pIdx] > this.heap[idx]) {
-            this.swap(pIdx, idx);
-            this.siftUp(pIdx)
+        while (pIdx !== -1 && heap[pIdx] > heap[idx]) {
+            this.swap(pIdx, idx, heap);
+            let idx = pIdx
+            pIdx = this.getParentIdx(pIdx);
         }
     }
     siftDown(idx, endIdx, array) {
-        let LChildIdx = this.getLeftChildIdx(idx, length);
-        let RChildIdx = this.getRightChildIdx(idx, length);
-        while (LChildIdx <= endIdx) {
+        let LChildIdx = this.getLeftChildIdx(idx, endIdx);
+        let RChildIdx = this.getRightChildIdx(idx, endIdx);
+        while (LChildIdx <= endIdx && LChildIdx !== -1) {
             let idxToSwap;
             if (RChildIdx !== -1 && array[RChildIdx] < array[LChildIdx]) {
                 idxToSwap = RChildIdx
@@ -64,6 +65,10 @@ class MinHeap{
             }
             if (array[idxToSwap] < array[idx]) {
                 this.swap(idx, idxToSwap, array)
+                idx = idxToSwap;
+                LChildIdx = this.getLeftChildIdx(idx, endIdx)
+            } else {
+                return
             }
         }
         
