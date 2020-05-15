@@ -2,8 +2,9 @@
 'use strict';
 
 console.log(`MIN HEAP CONSTRUCTION. Min Heap property:  ${"\n"}Every node's value has to be less than or equal to its child nodes. ${"\n"}After we add a value to the heap (pushing it onto the end) ${"\n"}we sift it up to the correct position`);
-
-class MinHeap{
+console.log("siftDown and siftUp time-complexity: O(logN), eliminating half of the tree on every comparison")
+console.log("buildHeap time: O(N) because as the number of nodes grows, the number of nodes that needed to be inspected in siftDown increases linear-ly")
+class MinHeap{ 
     constructor(array) {
         // this.heap = array
         this.heap = this.buildHeap(array)
