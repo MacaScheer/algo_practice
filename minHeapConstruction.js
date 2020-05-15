@@ -31,6 +31,17 @@ class MinHeap{
         }
         
     }
+    siftDown(idx) {
+        let LChild = this.getLeftChildIdx(idx);
+        let RChild = this.getRightChildIdx(idx);
+        if (this.heap[idx] > this.heap[RChild]) {
+            this.swap(LChild, idx);
+            this.siftDown(LChild)
+        } else if (this.heap[idx] > this.heap[RChild]) {
+            this.swap(RChild, idx);
+            this.siftDown(RChild)
+        }
+    }
     swap(pIdx, idx) {
          let temp = this.heap[pIdx];
         this.heap[pIdx] = this.heap[idx];
