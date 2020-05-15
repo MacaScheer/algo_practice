@@ -14,6 +14,17 @@ class MinHeap{
         //     let el = array[i];
         //     this.insert(el)
         // }
+        // call siftDown method on every parentNode in heap/tree
+        let lastIdx = array.length - 1;
+        let pIdx = this.getParentIdx(lastIdx)
+        let pNodes = []
+        while (pIdx >= 0) {
+            pNodes.push(pIdx);
+            pIdx = this.getParentIdx(pIdx)
+        }
+        for (let i = 0; i < pNodes.length; i++){
+            this.siftDown(pNodes[i])
+        }
     }
     getLeftChildIdx(i) {
        return (2 * i) + 1
@@ -52,9 +63,9 @@ class MinHeap{
         this.heap[idx] = temp
     }
     insert(val) {
-        this.heap.push(val);
-        let idx = this.heap.length - 1;
-        this.siftUp(idx)
+        this.heap.unshift(val);
+        
+        this.siftDown(0)
     }
     peak(idx) {
         return this.heap[idx]
