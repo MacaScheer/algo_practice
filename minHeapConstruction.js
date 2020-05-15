@@ -3,7 +3,8 @@
 
 console.log(`MIN HEAP CONSTRUCTION. Min Heap property:  ${"\n"}Every node's value has to be less than or equal to its child nodes. ${"\n"}After we add a value to the heap (pushing it onto the end) ${"\n"}we sift it up to the correct position`);
 console.log("siftDown and siftUp time-complexity: O(logN), eliminating half of the tree on every comparison")
-console.log("buildHeap time: O(N) because as the number of nodes grows, the number of nodes that needed to be inspected in siftDown increases linear-ly")
+// console.log("buildHeap time: O(N) using siftDown because as the number of nodes grows, the number of nodes that needed to be inspected in siftDown increases linear-ly")
+console.log(`using siftDown, buildHeap takes O(N) time because the majority of the nodes are at the bottom and have less far to be sifted, ${"\n"}whereas if we call siftUp, the majority of the nodes being called siftUp on are at the bottom and have farther to sift and so will operate at O(NlogN)}`)
 class MinHeap{ 
     constructor(array) {
         // this.heap = array
@@ -16,26 +17,33 @@ class MinHeap{
         //     this.insert(el)
         // }
         // call siftDown method on every parentNode in heap/tree
-        let lastIdx = array.length - 1;
-        let pIdx = this.getParentIdx(lastIdx)
-        let pNodes = []
-        while (pIdx >= 0) {
-            pNodes.push(pIdx);
-            pIdx = this.getParentIdx(pIdx)
+        // let lastIdx = array.length - 1;
+        // let pIdx = this.getParentIdx(lastIdx)
+        // let pNodes = []
+        // while (pIdx >= 0) {
+        //     pNodes.push(pIdx);
+        //     pIdx = this.getParentIdx(pIdx)
+        // }
+        // for (let i = 0; i < pNodes.length; i++){
+        //     this.siftDown(pNodes[i])
+        // }
+        const firstParentIdx = Math.floor((array.length - 2) / 2);
+        for (let currIdx = firstParentIdx; currIdx >= 0; currIdx--){
+            this.siftDown(currIdx, array.length - 1, array)
         }
-        for (let i = 0; i < pNodes.length; i++){
-            this.siftDown(pNodes[i])
-        }
+        return array    
     }
-    getLeftChildIdx(i) {
-       return (2 * i) + 1
+    getLeftChildIdx(i, length) {
+       let childIdx = (2 * i) + 1 <= length ? (2 * i) + 1 : -1
+       return childIdx
     }
-    getRightChildIdx(i) {
-        return (2 * i) + 2
+    getRightChildIdx(i, length) {
+        let childIdx = (2 * i) + 2 <= length ? (2 * i) + 2 : -1
+        return childIdx
     }
     getParentIdx(i) {
         let newIdx = Math.floor((i - 1) / 2);
-        return newIdx >= 0 ? newIdx : 0
+        return newIdx >= 0 ? newIdx : -1
     }
     siftUp(idx) {
         let pIdx = this.getParentIdx(idx);
@@ -44,24 +52,36 @@ class MinHeap{
             this.siftUp(pIdx)
         }
     }
-    siftDown(idx) {
-        let LChild = this.getLeftChildIdx(idx);
-        let RChild = this.getRightChildIdx(idx);
-        let smaller;
-        if (this.heap[LChild] && this.heap[RChild]) {     
-            smaller = this.heap[LChild] > this.heap[RChild] ? RChild : LChild
-        } else if (this.heap[LChild]) {
-            smaller = LChild
-        } else if (this.heap[RChild]) {
-            smaller = RChild
+    siftDown(idx, endIdx, array) {
+        let LChildIdx = this.getLeftChildIdx(idx, length);
+        let RChildIdx = this.getRightChildIdx(idx, length);
+        while (LChildIdx <= endIdx) {
+            let idxToSwap;
+            if (RChildIdx !== -1 && array[RChildIdx] < array[LChildIdx]) {
+                idxToSwap = RChildIdx
+            } else {
+                idxToSwap = LChildIdx
+            }
+            if (array[idxToSwap] < array[idx]) {
+                this.swap(idx, idxToSwap, array)
+            }
         }
-        this.swap(idx, smaller);
-        this.siftDown(smaller)
+        
+        // let smallerChildIdx;
+        // if (array[LChildIdx] !== -1 && array[RChildIdx] !== -1) {     
+        //     smallerChildIdx = array[LChildIdx] > array[RChildIdx] ? RChildIdx : LChildIdx
+        // } else if (array[LChildIdx] !== -1) {
+        //     smallerChildIdx = LChildIdx
+        // } else if (array[RChildIdx] !== -1) {
+        //     smallerChildIdx = RChildIdx
+        // }
+        // this.swap(idx, smallerChildIdx);
+        // this.siftDown(smallerChildIdx, length, array)
     }
-    swap(pIdx, idx) {
-         let temp = this.heap[pIdx];
-        this.heap[pIdx] = this.heap[idx];
-        this.heap[idx] = temp
+    swap(pIdx, idx, array=this.heap) {
+         let temp = array[pIdx];
+        array[pIdx] = array[idx];
+        array[idx] = temp
     }
     insert(val) {
         this.heap.unshift(val);
