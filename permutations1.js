@@ -3,26 +3,26 @@
 
 console.log("PERMUTATIONS");
 
-function getPermutations(array){
-    let counter = 0
-    let i = 0;
-    let permsArr = [];
-    // while (i < numFact(array.length)) {
+// function getPermutations(array){
+//     let counter = 0
+//     let i = 0;
+//     let permsArr = [];
+//     // while (i < numFact(array.length)) {
         
-    // }
-    for (let i = 0; i < array.length; i++){
-        let el = array[i];
-        let newRemainders = pluck(array, i);
-        let subArr = [];
-        for (let j = 0; j < newRemainders.length; j++){
+//     // }
+//     for (let i = 0; i < array.length; i++){
+//         let el = array[i];
+//         let newRemainders = pluck(array, i);
+//         let subArr = [];
+//         for (let j = 0; j < newRemainders.length; j++){
             
-        }
+//         }
 
-    }
+//     }
     // getPermutations(array, i, permsArr);
     // let permsArr = rems.map(r => rems.unshift(firstEl));
     // return permsArr.push(...array);
-}
+// }
 
 function onePerm(array) {
     let onePerm = []
@@ -46,7 +46,7 @@ function onePerm(array) {
      }
     return onePerm
 }
-console.log(onePerm([1, 2, 3, 4]))
+// console.log(onePerm([1, 2, 3, 4]))
 // console.log(insert([2,3,4], 2, 1))
 
 function insert(array, idx, el) {
@@ -83,7 +83,6 @@ function numFact(n) {
     return numFact(n - 1) * n
 }
 
-// console.log(getPermutations([1, 2, 3]), "should be [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]");
 function getPermutations(array) {
     const perms = [];
     permsHelper(array, [], perms);
@@ -94,6 +93,12 @@ function permsHelper(array, currPerm, permutations) {
     if (!array.length && currPerm.length) {
         permutations.push(currPerm)
     } else {
-        
+        for (let i = 0; i < array.length; i++){
+            const newArr = pluck(array, i);
+            const newPerm = currPerm.concat(array[i]);
+            permsHelper(newArr, newPerm, permutations)
+        }
     }
 }
+
+console.log(getPermutations([1, 2, 3]), "should be [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]");
