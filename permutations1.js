@@ -29,23 +29,31 @@ function onePerm(array) {
      for (let i = 0; i < array.length; i++){
         let el = array[i];
          let remainders = pluck(array, i);
-        for (let j = 0; j < remainders.length; j++){
-            onePerm.push(insert(remainders, j, el))
+         console.log(remainders)
+         let subArr = [];
+        for (let j = i + 1; j < remainders.length; j++){
+            subArr.push(insert(remainders, j, el))
+            console.log("subArr: ", subArr)
         }
-
+        onePerm.push(...subArr)
      }
     return onePerm
 }
-
+// console.log(onePerm([1, 2, 3, 4]))
+console.log(insert([2,3,4], 2, 1))
 function insert(array, idx, el) {
     if (idx === 0) {
-        return array.unshift(el)
+        array.unshift(el)
+        return array
     } else if (idx === array.length - 1) {
-        return array.push(el)
+        array.push(el)
+        return array
     } else {
         let firstHalf = array.slice(0, idx);
         let secondHalf = array.slice(idx);
-        return firstHalf.concat[el].concat(secondHalf);
+        // console.log("firstHalf: ", firstHalf, " el: ", el)
+        let arr = firstHalf.concat([el]).concat(secondHalf);
+        return arr
     }
 }
 function pluck(array, idx) {
