@@ -29,18 +29,26 @@ function onePerm(array) {
      for (let i = 0; i < array.length; i++){
         let el = array[i];
          let remainders = pluck(array, i);
-         console.log(remainders)
-         let subArr = [];
-        for (let j = i + 1; j < remainders.length; j++){
-            subArr.push(insert(remainders, j, el))
-            console.log("subArr: ", subArr)
-        }
-        onePerm.push(...subArr)
+        //  console.log(remainders, el)
+         let subArr = remainders.concat([el])
+         console.log(subArr)
+
+        //  loop with remainders X 3
+        //  create new remainders
+        //  loop with those remainders X 2
+         
+        // for (let j = i + 1; j < remainders.length; j++){
+        //     subArr.push(insert(remainders, j, el))
+        //     console.log("subArr: ", subArr)
+        // }
+        //  onePerm.push(...subArr)
+        //  console.log("onePerm: ", onePerm)
      }
     return onePerm
 }
-// console.log(onePerm([1, 2, 3, 4]))
-console.log(insert([2,3,4], 2, 1))
+console.log(onePerm([1, 2, 3, 4]))
+// console.log(insert([2,3,4], 2, 1))
+
 function insert(array, idx, el) {
     if (idx === 0) {
         array.unshift(el)
@@ -51,7 +59,6 @@ function insert(array, idx, el) {
     } else {
         let firstHalf = array.slice(0, idx);
         let secondHalf = array.slice(idx);
-        // console.log("firstHalf: ", firstHalf, " el: ", el)
         let arr = firstHalf.concat([el]).concat(secondHalf);
         return arr
     }
@@ -77,3 +84,16 @@ function numFact(n) {
 }
 
 // console.log(getPermutations([1, 2, 3]), "should be [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]");
+function getPermutations(array) {
+    const perms = [];
+    permsHelper(array, [], perms);
+    return perms
+}
+
+function permsHelper(array, currPerm, permutations) {
+    if (!array.length && currPerm.length) {
+        permutations.push(currPerm)
+    } else {
+        
+    }
+}
