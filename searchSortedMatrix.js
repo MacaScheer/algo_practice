@@ -9,14 +9,31 @@ function searchInSortedMatrix(matrix, target) {
     let midEle = matrix[midRowIdx][midColIdx];
     let smallerMatrix;
     if (midEle > target) {
-        smallerMatrix = createSmallerMatrix("LARGE", matrix, midRowIdx, midColIdx);
+        smallerMatrix = createSmallerMatrix("DOWNRIGHT", matrix, midRowIdx, midColIdx);
         let returnVal = searchInSortedMatrix(smallerMatrix, target);
-        return returnVal !== [-1,-1] ? [returnVal[0] + midRowIdx, returnVal[1] + midColIdx] : [-1,-1]
+        return returnVal !== [-1,-1] ? [returnVal[0] + midRowIdx + 1, returnVal[1] + midColIdx + 1] : [-1,-1]
     } else if (midEle < target) {
-        return smallerMatrix("SMALL", matrix, midRowIdx, midColIdx);
+        smallerMatrix = smallerMatrix("UPLEFT", matrix, midRowIdx, midColIdx);
+        return searchInSortedMatrix(smallerMatrix, target)
     } else return [midRowIdx, midColIdx]
 }
 
+function createSmallerMatrix(whichWay, matrix, row, col) {
+    let newMatrix = [];
+    switch (whichWay) {
+        case "DOWNRIGHT":
+            for (let i = row; i < matrix.length; i++){
+              newMatrix.push(matrix[i].slice(col))
+            }
+            break;
+            case "UPLEFT":
+            for (let j = 0; j <= row; j++){
+                newMatrix.push(matrix[j].slice(0, col + 1))
+            }
+            break;
+    }
+    return newMatrix
+}
 const mat = [
     [1, 4, 7, 12, 15, 1000],
     [2, 5, 19, 31, 32, 1001],
@@ -25,4 +42,6 @@ const mat = [
     [99,100,103,106,128,1004]
 ]
 
-console.log(searchInSortedMatrix(mat, 44))
+// console.log(searchInSortedMatrix(mat, 44))
+
+console.log(createSmallerMatrix("DOWNRIGHT", mat, 2, 3))
