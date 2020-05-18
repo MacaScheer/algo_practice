@@ -96,6 +96,7 @@ function permsHelper(array, currPerm, permutations) {
         for (let i = 0; i < array.length; i++){
             const newArr = pluck(array, i);
             const newPerm = currPerm.concat(array[i]);
+            console.log( "i: ", i, " array: ", array, " newArr:", newArr, "  currPerm: ", newPerm)
             permsHelper(newArr, newPerm, permutations)
         }
     }
