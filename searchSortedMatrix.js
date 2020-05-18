@@ -4,6 +4,8 @@
 console.log(`search sorted matrix: given a two-dimensional array of distinct integers and a target integer, ${"\n"}Write a function that returns the indices or row/column of the target number.${"\n"}Each row in the matrix is sorted and each column in the matrix is sorted. ${"\n"}The matrix does not necessarily have equal height and width.`);
 console.log(`PSEUDOCODE: ${"\n"}I plan on using a sort of 2D binary search method on the matrix so that the search time will be logarithmic`)
 console.log(`CANNOT eliminate a quarter of the matrix on each call, because there isn't a way to tell (if the target is greater/less than the number in the row/col ${"\n"}being looked at, that the number may still be in the same row and not on the next column`)
+console.log("\n");
+console.log(`NEW APPROACH: compare the top right element to the target. ${"\n"}We know that the number that is smaller than that number but greater than its neighbor to the left is down and left one${"\n"}We should be searching in a diagonal direction through the matrix, possibly shrinking the array from the top right, down/left`)
 function searchInSortedMatrix(matrix, target) {
     let midColIdx = Math.floor(matrix[0].length / 2);
     let midRowIdx = Math.floor(matrix.length / 2);
@@ -36,6 +38,14 @@ function searchInSortedMatrix(matrix, target) {
 //     return newMatrix
 // }
 
+// function lookAtHalves(matrix) {
+//     if (matrix.length === 0) return
+//     console.log(matrix)
+//     let midColIdx = Math.floor(matrix[0].length / 2)
+//     console.log("IDX: ", midColIdx)
+//     let smaller = createSmallerMatrix("LEFT", matrix, midColIdx);
+//     return lookAtHalves(smaller)
+// }
 function createSmallerMatrix(whichWay, matrix, col) {
     let newMatrix = [];
     switch (whichWay) {
@@ -62,4 +72,25 @@ const mat = [
 
 // console.log(searchInSortedMatrix(mat, 44))
 
-console.log(createSmallerMatrix("LEFT", mat, 2))
+// console.log(createSmallerMatrix("LEFT", mat, 2))
+
+// console.log(lookAtHalves(mat))
+
+function searchSortedMatrix(matrix, target) {
+    let topRight = matrix[0][matrix[0].length - 1]
+    let bool = topRight > target;
+    let bool2 = topRight === target;
+    if (bool && !bool2) {
+        
+    } else if (!bool && !bool2) {
+        
+    } else {
+        
+    }
+}
+
+function crawlDiagonal(matrix, row, col) {
+    
+}
+
+console.log(searchSortedMatrix(mat, 44))
