@@ -19,16 +19,33 @@ function searchInSortedMatrix(matrix, target) {
     } else return [midRowIdx, midColIdx]
 }
 
-function createSmallerMatrix(whichWay, matrix, row, col) {
+// function createSmallerMatrix(whichWay, matrix, row, col) {
+//     let newMatrix = [];
+//     switch (whichWay) {
+//         case "DOWNRIGHT":
+//             for (let i = row; i < matrix.length; i++){
+//               newMatrix.push(matrix[i].slice(col))
+//             }
+//             break;
+//             case "UPLEFT":
+//             for (let j = 0; j <= row; j++){
+//                 newMatrix.push(matrix[j].slice(0, col + 1))
+//             }
+//             break;
+//     }
+//     return newMatrix
+// }
+
+function createSmallerMatrix(whichWay, matrix, col) {
     let newMatrix = [];
     switch (whichWay) {
-        case "DOWNRIGHT":
-            for (let i = row; i < matrix.length; i++){
+        case "RIGHT":
+            for (let i = 0; i < matrix.length; i++){
               newMatrix.push(matrix[i].slice(col))
             }
             break;
-            case "UPLEFT":
-            for (let j = 0; j <= row; j++){
+            case "LEFT":
+            for (let j = 0; j < matrix.length; j++){
                 newMatrix.push(matrix[j].slice(0, col + 1))
             }
             break;
@@ -43,6 +60,6 @@ const mat = [
     [99,100,103,106,128,1004]
 ]
 
-console.log(searchInSortedMatrix(mat, 44))
+// console.log(searchInSortedMatrix(mat, 44))
 
-console.log(createSmallerMatrix("DOWNRIGHT", mat, 2, 3))
+console.log(createSmallerMatrix("LEFT", mat, 2))
