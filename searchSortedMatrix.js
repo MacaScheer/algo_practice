@@ -76,21 +76,21 @@ const mat = [
 
 // console.log(lookAtHalves(mat))
 
-function searchSortedMatrix(matrix, target) {
-    let topRight = matrix[0][matrix[0].length - 1]
+function searchSortedMatrix(matrix, target, currIdx = [0,matrix.length - 1]) {
+    let topRight = matrix[currIdx[0]][currIdx[1]]
     let bool = topRight > target;
     let bool2 = topRight === target;
     if (bool && !bool2) {
-        
+        currIdx[0]++;
+        currIdx[1]--
+        searchSortedMatrix(matrix, target, currIdx)
     } else if (!bool && !bool2) {
-        
+        currIdx[0]++
+        searchSortedMatrix(matrix, target, currIdx)
     } else {
-        
+        return [0, matrix[0].length -1]
     }
 }
 
-function crawlDiagonal(matrix, row, col) {
-    
-}
 
 console.log(searchSortedMatrix(mat, 44))
