@@ -93,6 +93,7 @@ function outwardCheckEven(string, i) {
             return pal
         }
     }
+    return pal
 }
 function outwardCheckOdd(string, i) {
     let pal = string[i];
@@ -108,6 +109,7 @@ function outwardCheckOdd(string, i) {
             return pal
         }
     }
+    return pal
 }
 
 
