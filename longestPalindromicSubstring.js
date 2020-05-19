@@ -72,7 +72,7 @@ function longestPalidromicSubstring(string) {
         let pal2 = outwardCheckEven(string, i)
         pal1.length > pal2.length ? pals.push(pal1) : pals.push(pal2)
     }
-    let max = -Infinity
+    let max = ''
     for (let j = 0; j < pals.length; j++){
         if (pals[j].length > max.length) max = pals[j]
     }
@@ -113,8 +113,8 @@ function outwardCheckOdd(string, i) {
 }
 
 
-console.log(outwardCheckEven('aabbaacc', 3));
-console.log(outwardCheckOdd('aabbcbbaax', 4))
+// console.log(outwardCheckEven('aabbaacc', 3));
+// console.log(outwardCheckOdd('aabbcbbaax', 4))
 // console.log(longestPalidromicSubstring("abba"))
 // console.log(longestPalidromicSubstring("abcba"))
-// console.log(longestPalidromicSubstring("abaxyzzyxf"), "should return 'xyzzyx'");
+console.log(longestPalidromicSubstring("abaxyzzyxf"), "should return 'xyzzyx'");
