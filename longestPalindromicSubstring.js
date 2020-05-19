@@ -29,12 +29,27 @@ function createMatrix(string) {
     }
     return matrix
 }
-function longestPalidromicSubstring(string) {
+
+
+function longestPalidromicSubstring1(string) {
     const matrix = createMatrix(string);
-    
+    console.log(matrix);
+    for (let i = 1; i < matrix.length; i++){
+        for (let j = 1; j < matrix[i].length; j++){
+            let el = matrix[i][j]
+            let row = matrix[i][0]
+            let col = matrix[0][j]
+            // console.log("el:", el, " row:", row, " col:", col)
+            if (row === col) {
+                matrix[i][j] = 1
+            }
+        }
+    }
+    // console.log(matrix)
+    let retString = findLongestStreak(matrix)
+    return retString
 }
 
-console.log(longestPalidromicSubstring("abaxyzzyxf"), "should return 'xyzzyx'");
 
 function bruteForce(string) {
     let arr = [];
@@ -49,3 +64,55 @@ function bruteForce(string) {
 }
 
 // console.log(bruteForce("abaxyzzyxf"))
+
+function longestPalidromicSubstring(string) {
+    let pals = [];
+    for (let i = 0; i < string.length; i++) {
+        let pal1 = outwardCheckOdd(string, i)
+        let pal2 = outwardCheckEven(string, i)
+        pal1.length > pal2.length ? pals.push(pal1) : pals.push(pal2)
+    }
+    let max = -Infinity
+    for (let j = 0; j < pals.length; j++){
+        if (pals[j].length > max.length) max = pals[j]
+    }
+    return max
+}
+
+function outwardCheckEven(string, i) {
+    let pal = ''
+    let x = i;
+    let y = i - 1;
+    while (x < string.length && y >= 0) {
+        if (string[x] === string[y]) {
+            pal += string[x]
+            pal = string[y].concat(pal)
+            x++;
+            y--;
+        } else {
+            return pal
+        }
+    }
+}
+function outwardCheckOdd(string, i) {
+    let pal = string[i];
+    let x = i + 1;
+    let y = i - 1;
+    while (x < string.length && y >= 0) {
+        if (string[x] === string[y]) {
+            pal += string[x]
+            pal = string[y].concat(pal)
+            x++;
+            y--
+        } else {
+            return pal
+        }
+    }
+}
+
+
+console.log(outwardCheckEven('aabbaacc', 3));
+console.log(outwardCheckOdd('aabbcbbaax', 4))
+// console.log(longestPalidromicSubstring("abba"))
+// console.log(longestPalidromicSubstring("abcba"))
+// console.log(longestPalidromicSubstring("abaxyzzyxf"), "should return 'xyzzyx'");
