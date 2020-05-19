@@ -15,12 +15,26 @@ console.log("SECOND APPROACH: create matrix of the characters in the string with
 // a | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 // b | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 |
 // a | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+function createMatrix(string) {
+    let string1 = " " + string;
+    let string2 = string + " ";
+    let chArr1 = string1.split("");
+    let chArr2 = string2.split("")
+    let matrix = chArr1.map(el => (chArr2.map(ch => 0)))
+    for (let i = 0; i < matrix.length; i++){
+        let ch = chArr1[i];
+        let ch2 = chArr2[chArr2.length - 1 - i]
+        matrix[i][0] = ch;
+        matrix[0][i] = ch2
+    }
+    return matrix
+}
 function longestPalidromicSubstring(string) {
-    let chArr = string.split("");
-
+    const matrix = createMatrix(string);
+    
 }
 
-// console.log(longestPalidromicSubstring("abaxyzzyxf"), "should return 'xyzzyx'");
+console.log(longestPalidromicSubstring("abaxyzzyxf"), "should return 'xyzzyx'");
 
 function bruteForce(string) {
     let arr = [];
@@ -34,4 +48,4 @@ function bruteForce(string) {
     return [arr.length, string.length]
 }
 
-console.log(bruteForce("abaxyzzyxf"))
+// console.log(bruteForce("abaxyzzyxf"))
