@@ -100,7 +100,7 @@ const mat = [
 function searchMatrix(matrix, target) {
     let idx = [0, matrix[0].length - 1]
     
-    while (idx[0] < matrix.length && idx[1] < matrix[0].length) {
+    while (idx[0] < matrix.length && idx[1] < matrix[0].length && idx[1] >= 0) {
         let val = matrix[idx[0]][idx[1]]
         console.log(val)
         if (target < val) {
