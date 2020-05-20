@@ -10,10 +10,11 @@ function validateSubsequence(array, sequence) {
         el1 = sequence[i - 1]
         idx1 = array.indexOf(el1);
         idx2 = array.indexOf(el2);
-        // console.log("el1:",el1," el2:", el2, " idx1: ",idx1, "idx2: ", idx2, array)
+        console.log("el1:",el1," el2:", el2, " idx1: ",idx1, "idx2: ", idx2, array)
+        if(array[idx1] === null || array[idx2] === null) return false
         array[idx1] = null;
         array[idx2] = null;
-        if(idx1 > idx2 || idx1 === -1 || idx2 === -1) return false
+        if(idx1 >= idx2 || idx1 === -1 || idx2 === -1) return false
 
     }
     console.log(array)
