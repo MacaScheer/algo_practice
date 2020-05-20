@@ -2,7 +2,7 @@
 'use strict';
 console.log("VALIDATE SUBSEQUENCE");
 console.log("given two non-empty arrays of integers, \n write a function that determines whether the second array is a subsequence of the first one \n a subsequence of an array is a set of numbers that aren't necessarily adjacent in the array \n but are in the same order as they appear in the array")
-
+console.log("PSEUDOCODE: brute force approach: \n iterate through the subsequnce array and not the index of each element as it appears in the larger array \n compare the indices two by two to make sure their order is kept, \n only need two extra spaces in memory but O(n) time")
 function validateSubsequence(array, sequence) {
     
 
