@@ -22,7 +22,10 @@
 // }
 // There are N network nodes, labelled 1 to N.
 
-// Given times, a list of travel times as directed edges times[i] = (u, v, w), where u is the source node, v is the target node, and w is the time it takes for a signal to travel from source to target.
+// Given times, a list of travel times as directed edges times[i] = (u, v, w), 
+// u is the source node, 
+// v is the target node, 
+// w is the time it takes for a signal to travel from source to target.
 
 // Now, we send a signal from a certain node K. How long will it take for all nodes to receive the signal? If it is impossible, return -1.
 
@@ -93,7 +96,7 @@ var findNextNode = function(times, target){
 
 const findShortestDist = function (times, targetA) {
     let minTime = Infinity;
-    let 
+ 
     for (let i = 0; i < times.lenth; i++){
         let node = times[i];
         let targetB = node[1];
@@ -104,10 +107,7 @@ const findShortestDist = function (times, targetA) {
     }
 }
 
-const times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]];
-// [src, target, time]
 
-console.log(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))
 // console.log(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]],4,2))
 // 
 // console.log(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]],4,2))
@@ -121,12 +121,34 @@ console.log(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))
 // if this is the currently - fastest signal at this node, let's broadcast signals from this node.
 // To speed things up, at each visited node we'll consider signals exiting the node that are faster first, by sorting the edges.
 
-const networkDelayTime = function (times, K, N) {
+const times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]];
+// [src, target, time]
+const networkDelayTime = function (times, N, K) {
     let dist = {};
+    let paths = {};
     for (let i = 0; i < times.length; i++){
-        let node = times[i][1];
-        dist[node] = times[i][2];
+        let node = times[i]
+        dist[node[0]] = {};
     }
-    dist[K] = 0;
+    console.log("dist:",dist)
+    // dist = {2:{1:1,3:1},3:{4:1}}
+    for (let i = 0; i < times.length; i++){
+        let node = times[i];
+        let source = node[0];
+        let target = node[1];
+        let time = node[2];
+        // console.log("node: ", node, "source: ", source, " target:", target, "dist[source]", dist[source])
+        dist[source][target] = time
+        // console.log(dist)
+        // if (dist[source][target]) {
+        //     dist[source].push(node[1])
+        // } else {
+        //     dist[source]
+        // }
+    }
+    // dist[K][K] = 0;
 
+    console.log("dist: ", dist, "paths: ", paths)
+   
 }
+console.log(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))
