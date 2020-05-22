@@ -44,7 +44,7 @@
 // All edges times[i] = (u, v, w) will have 1 <= u, v <= N and 0 <= w <= 100.
 
 
-var networkDelayTime = function(times, N, K) {
+var networkDelayTimeOLD = function(times, N, K) {
     let visited = {};
     let time = 0;
     let targets = {};
@@ -91,7 +91,42 @@ var findNextNode = function(times, target){
     return nextNodes;
 }
 
+const findShortestDist = function (times, targetA) {
+    let minTime = Infinity;
+    let 
+    for (let i = 0; i < times.lenth; i++){
+        let node = times[i];
+        let targetB = node[1];
+        let time = node[2];
+        if (targetA === targetB) {
+            
+        }
+    }
+}
+
+const times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]];
+// [src, target, time]
+
 console.log(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))
 // console.log(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]],4,2))
 // 
 // console.log(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]],4,2))
+
+// Let's record the time dist[node] when the signal reaches the node. 
+// If some signal arrived earlier, we don't need to broadcast it anymore. 
+// Otherwise, we should broadcast the signal.
+
+// We'll maintain dist[node], the earliest that we arrived at each node. 
+// When visiting a node while elapsed time has elapsed, 
+// if this is the currently - fastest signal at this node, let's broadcast signals from this node.
+// To speed things up, at each visited node we'll consider signals exiting the node that are faster first, by sorting the edges.
+
+const networkDelayTime = function (times, K, N) {
+    let dist = {};
+    for (let i = 0; i < times.length; i++){
+        let node = times[i][1];
+        dist[node] = times[i][2];
+    }
+    dist[K] = 0;
+
+}
