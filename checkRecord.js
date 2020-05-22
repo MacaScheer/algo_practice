@@ -54,7 +54,6 @@ var networkDelayTime = function(times, N, K) {
 //     find next nodes, add their travel times
     while(nodes.length){
         let node = nodes.shift();
-        numVisited++
         // console.log(node)
         if (!targets[node[1]]) {
             targets[node[1]] = true;
@@ -69,17 +68,17 @@ var networkDelayTime = function(times, N, K) {
     for (let obj in targets) {
         numVisited++
     }
+    console.log("numVisited: ", numVisited)
     if (numVisited < N) {
         return -1
     } else {
-
         return time;
     }
 };
 
 
-// CAN'T SIMULTANEOUS TRAVEL TIMES AS SEPARATE
-
+// CAN'T COUNT SIMULTANEOUS TRAVEL TIMES AS SEPARATE
+// SHOULD SORT DIFFERENT TRAVEL TIMES TO THE SAME NODE, AND ONLY CONSIDER THE SHORTER DISTANCE
 var findNextNode = function(times, target){
     let nextNodes = []
     for (let i = 0; i < times.length; i++){
@@ -92,4 +91,7 @@ var findNextNode = function(times, target){
     return nextNodes;
 }
 
-console.log(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]],4,2))
+console.log(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))
+// console.log(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]],4,2))
+// 
+// console.log(networkDelayTime([[2,1,1],[2,3,1],[3,4,1]],4,2))
