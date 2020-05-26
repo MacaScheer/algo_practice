@@ -123,32 +123,39 @@ const findShortestDist = function (times, targetA) {
 
 const times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]];
 // [src, target, time]
+// K is starting node;
+// N is total number of nodes
 const networkDelayTime = function (times, N, K) {
+    let graph = buildGraph(times)
+    // dist = {2:{1:1,3:1},3:{4:1}}
+    // console.log("dist: ", dist)
+    // dist[K][K] = 0;
+    // console.log(Object.keys(graph), Object.values(graph))
+
+    let unvisited = new Set(Object.values(graph))
+    console.log("unvisited: ",unvisited)
+    let totalDelayTime = 0;
+
+   
+}
+
+function buildGraph(times) {
     let dist = {};
-    let paths = {};
+    // let paths = {};
     for (let i = 0; i < times.length; i++){
         let node = times[i]
         dist[node[0]] = {};
     }
-    console.log("dist:",dist)
+    // console.log("dist:",dist)
     // dist = {2:{1:1,3:1},3:{4:1}}
     for (let i = 0; i < times.length; i++){
         let node = times[i];
         let source = node[0];
         let target = node[1];
         let time = node[2];
-        // console.log("node: ", node, "source: ", source, " target:", target, "dist[source]", dist[source])
         dist[source][target] = time
-        // console.log(dist)
-        // if (dist[source][target]) {
-        //     dist[source].push(node[1])
-        // } else {
-        //     dist[source]
-        // }
     }
-    // dist[K][K] = 0;
-
-    console.log("dist: ", dist, "paths: ", paths)
-   
+    return dist
 }
+
 console.log(networkDelayTime([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2))
