@@ -2,7 +2,7 @@
 'use strict';
 
 console.log("Node Depths: \n PSEUDOCODE: DFS Search through the branches and add node depths to a counter \n keep track of current node depth i.e. within each stack of the DFS search.");
-
+console.log("Actually it could be BFS approach that sums all of the nodes at that level, using a level-scaler, but need to keep track of when the next level is reached in queue")
 class BinaryTree{
     constructor(value) {
         this.value = value;
@@ -13,7 +13,10 @@ class BinaryTree{
 function nodeDepths(root) {
     let nodeDepth = 0;
 
+
 }
+
+// function BFS(root)
 
 function DFS(root, val) {
     let queue = [root];
