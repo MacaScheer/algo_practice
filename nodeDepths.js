@@ -6,7 +6,8 @@ console.log("Node Depths: \n PSEUDOCODE: DFS Search through the branches and add
 class BinaryTree{
     constructor(value) {
         this.value = value;
-        this.left, this.right = null;
+        this.left = null;
+        this.right = null;
     }
 }
 function nodeDepths(root) {
@@ -14,16 +15,26 @@ function nodeDepths(root) {
 
 }
 
-function DFS(node, val) {
+function DFS(root, val) {
+    let queue = [root];
+    while (queue.length) {
+        let node = queue.shift()
+        console.log(node.value, val)
+        if (node.value === val) {
+            return true;
+        } else {
 
-    if (node.value === val) return true;
-    if (node.left) {
-        return DFS(node.left, val)
+            if (node.right) {
+                queue.unshift(node.right)
+            }
+            if (node.left) {
+                queue.unshift(node.left)
+            }
+        }
     }
-    if (node.right) {
-        return DFS(node.right, val)
-    }
-    if (!node.left && !node.right) return;
+    return false
+    // return ans
+    // else return null;
 }
 
 
