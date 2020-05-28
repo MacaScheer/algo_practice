@@ -5,11 +5,13 @@ console.log("COUNTING SORT: \n PSEUDO CODE: (first for strictly positive integer
 
 function countingSort(arr, max) {
     if (arr.length === 0) return [];
-    const countingArr = new Array(max);
-    for (let i = 0; i < max; i++){
-        countingArr[i] = 0;
+    const countingArr = new Array(max + 1).fill(0);
+    for (let i = 0; i < arr.length; i++){
+        let el = arr[i];
+        console.log(el)
+        countingArr[el]++
     }
     console.log(countingArr)
 }
 
-console.log(countingSort([90,1,2,3,4,54,6,5,44,66,56,45,34,44,23,12,34,12],90))
+console.log(countingSort([20,19,17,18,13,14,15,1,2,4,3,6,5,5,8,9,10,10],20))
