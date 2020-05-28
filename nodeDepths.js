@@ -10,28 +10,37 @@ class BinaryTree{
         this.right = null;
     }
 }
-function nodeDepths(root) {
-    let nodeDepth = 1;
-    let queue = [root];
-    // let finalQueue = [root, 1]
-    while (queue.length) {
-        let node = queue.shift();
-        let numNodesperLevel = 0;
-        nodeDepth++
-        if (node.left) {
-            queue.push(node.left);
-            numNodesperLevel++
-            // finalQueue.push(node.left)
-        }
-        if (node.right) {
-            queue.push(node.right);
-            numNodesperLevel++
-        }
-        // finalQueue.push(nodeDepth)
+// function nodeDepths(root) {
+//     let nodeDepth = 1;
+//     let queue = [root];
+//     // let finalQueue = [root, 1]
+//     while (queue.length) {
+//         let node = queue.shift();
+//         let numNodesperLevel = 0;
+//         nodeDepth++
+//         if (node.left) {
+//             queue.push(node.left);
+//             numNodesperLevel++
+//             // finalQueue.push(node.left)
+//         }
+//         if (node.right) {
+//             queue.push(node.right);
+//             numNodesperLevel++
+//         }
+//         // finalQueue.push(nodeDepth)
+//     }
+
+// }
+
+function nodeDepths(root, depth = 0) {
+    if(!root)return depth
+    if (root.left) {
+        return nodeDepths(root.left, depth+=1)
     }
-
+    if (root.right) {
+        return nodeDepths(root.right, depth+=1)
+    }
 }
-
 
 
 // function BFS(root)
@@ -77,6 +86,6 @@ C.right = G;
 D.left = H;
 D.right = I;
 
-console.log(DFS(A, 9));
+// console.log(DFS(A, 9));
 
-// console.log(nodeDepths(A));
+console.log(nodeDepths(A));
