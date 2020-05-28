@@ -5,22 +5,22 @@ console.log("radix sort");
 
 
 function radixSort(array) {
-    const buckets = new Array(10).fill([]);
-    // console.log(buckets[4])
+    const buckets = new Array(10);
     for (let i = 0; i < array.length; i++){
         let el = array[i]
         let last = lastDigit(el);
-        buckets[last].push(el)
-        console.log(last, el, buckets[last], buckets)
-        
+        if (buckets[last] instanceof Array) {
+            buckets[last].push(el)
+        } else {
+            buckets[last] = [el]
+        } 
     }
-    // console.log(buckets)
     let nextList = [];
-    // while (buckets.length) {
-    //     let el = buckets.shift();
-    //     nextList.push(...el)
-    // }
-    // console.log(nextList)
+    while (buckets.length) {
+        let el = buckets.shift();
+        if(el)nextList.push(...el)
+    }
+    console.log(nextList)
 }
 
 function lastDigit(num) {
