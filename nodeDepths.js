@@ -11,10 +11,28 @@ class BinaryTree{
     }
 }
 function nodeDepths(root) {
-    let nodeDepth = 0;
-
+    let nodeDepth = 1;
+    let queue = [root];
+    // let finalQueue = [root, 1]
+    while (queue.length) {
+        let node = queue.shift();
+        let numNodesperLevel = 0;
+        nodeDepth++
+        if (node.left) {
+            queue.push(node.left);
+            numNodesperLevel++
+            // finalQueue.push(node.left)
+        }
+        if (node.right) {
+            queue.push(node.right);
+            numNodesperLevel++
+        }
+        // finalQueue.push(nodeDepth)
+    }
 
 }
+
+
 
 // function BFS(root)
 
