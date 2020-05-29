@@ -71,9 +71,8 @@ class BinaryTree{
 // f(n, d) = d + f(l, d+1) + f(r, d+1)
 function nodeDepthRecursive(root, depth = 0) {
     if (!root) {
-        return
-    }
-    else depth += 1
+        return depth
+    } else depth += 1
     if (root.left) {
         return nodeDepthRecursive(root.left, depth)
     }
@@ -84,7 +83,13 @@ function nodeDepthRecursive(root, depth = 0) {
 }
 
 function nodeDepthIterative(root){
+    let stack = [];
+    stack.unshift({ root, 0});
+    let depth = 0
+    while (stack.length) {
+        let node = stack.shift();
 
+    }
 }
 
 let A = new BinaryTree(1);
