@@ -1,18 +1,30 @@
 #!/usr/bin/env node
 'use strict';
+// build out array of objects of the words sorted alphabetically pointing to the unsorted words
+// when inserting a new word, check if the word already exists in array
+// if it does,
 
 function groupAnagrams(words) {
-    let objs = [];
-    let output = [];
+    let output = {};
     for (let i = 0; i < words.length; i++){
-        let subArr = [];
         let word = words[i];
-        let obj = wordsObj(word)
-        if (objs.includes(obj)) {
-            
+        let sortedWord = sorter(word);
+        
+        if (!output[sortedWord]){
+            output[sortedWord] = [word]
+        } else if (output[sortedWord] instanceof Array) {
+            output[sortedWord].push(word)
         }
-        objs.push()
+        
+        
     }
+    let arr = [];
+    for (let obj in output) {
+        if (output[obj].length > 1) {
+            arr.push(output[obj])
+        }
+    }
+    console.log(arr)
 
 }
 
@@ -45,12 +57,12 @@ function sorter(word) {
     }
     while (wordArr.length > 0) {
         let el = wordArr.shift();
-        output.push(...el)
+        if(el)output.push(...el)
     }
     return output.join("")
 }
 
-console.log(sorter("zyxwvut"))
+// console.log(sorter("zyxwvut"))
 
-// let words1 = ["yo", "act", "flop", "tac", "cat", "oy", "olfp"];
-// console.log(groupAnagrams(words1), `[["yo","oy"],["flop","olfp"],["act","tac","cat"]`)
+let words1 = ["yo", "act", "flop", "tac", "cat", "oy", "olfp"];
+console.log(groupAnagrams(words1), `[["yo","oy"],["flop","olfp"],["act","tac","cat"]`)
