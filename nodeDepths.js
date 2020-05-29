@@ -69,17 +69,22 @@ class BinaryTree{
 //     // else return null;
 // }
 // f(n, d) = d + f(l, d+1) + f(r, d+1)
-function nodeDepthRecursive(root, depth = 0) {
-    if (!root) {
-        return depth
-    } else depth += 1
-    if (root.left) {
-        return nodeDepthRecursive(root.left, depth)
-    }
-    if (root.right) {
-        // depth += 1;
-        return nodeDepthRecursive(root.right, depth)
-    }
+// function nodeDepthRecursive(root, depth = 0) {
+//     if (!root) {
+//         return depth
+//     } else depth += 1
+//     if (root.left) {
+//         return nodeDepthRecursive(root.left, depth)
+//     }
+//     if (root.right) {
+//         // depth += 1;
+//         return nodeDepthRecursive(root.right, depth)
+//     }
+// }
+
+function nodeDepthsRecursive(root, depth = 0) {
+    if (root === null) return 0;
+    return depth + nodeDepthsRecursive(root.left, depth+1) + nodeDepthsRecursive(root.right, depth + 1)
 }
 
 function nodeDepths(root) {
