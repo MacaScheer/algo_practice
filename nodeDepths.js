@@ -82,26 +82,20 @@ function nodeDepthRecursive(root, depth = 0) {
     }
 }
 
-function nodeDepthIterative(root){
-    let stack = [];
-    stack.unshift({ "node": root, "depth": 0});
-    let depth = 0
+function nodeDepths(root) {
+        let stack = [];
+    stack.unshift({ node: root, depth: 0});
+    let sumDepths = 0
     while (stack.length) {
-        let nodePack = stack.shift();
-        let node = nodePack["node"];
-        let level = nodePack["depth"];
-        if(!node) continue
-        if (node.left) {
-            stack.unshift({"node": node.left, "depth":depth + 1})
-        }
-           if (node.right) {
-            stack.unshift({"node": node.right, "depth":depth + 1})
-        }
+       const {depth, node} = stack.pop()
+        if (node === null) continue
+        sumDepths += depth
+        stack.push({node: node.left, depth:depth + 1})
+        stack.push({node: node.right, depth:depth + 1})
+        
     }
-    return sumStack(stack)
+    return sumDepths
 }
-
-
 
 let A = new BinaryTree(1);
 let B = new BinaryTree(2);
