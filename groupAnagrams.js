@@ -20,26 +20,13 @@ function groupAnagrams(words) {
     }
     let arr = [];
     for (let obj in output) {
-        if (output[obj].length > 1) {
+        // if (output[obj].length > 1) {
             arr.push(output[obj])
-        }
+        // }
     }
-    console.log(arr)
-
+    // console.log(arr)
+    return arr
 }
-
-// function wordsObj(word) {
-//     let obj = {};
-//     for (let i = 0; i < word.length; i++){
-//         let char = word[i];
-//         if (obj[char]) {
-//             obj[char]++
-//         } else {
-//             obj[char] = 1;
-//         }
-//     }
-//     return obj
-// }
 
 function sorter(word) {
     let alph = "abcdefghijklmnopqrstuvwxyz";
@@ -66,3 +53,17 @@ function sorter(word) {
 
 let words1 = ["yo", "act", "flop", "tac", "cat", "oy", "olfp"];
 console.log(groupAnagrams(words1), `[["yo","oy"],["flop","olfp"],["act","tac","cat"]`)
+
+
+// function wordsObj(word) {
+//     let obj = {};
+//     for (let i = 0; i < word.length; i++){
+//         let char = word[i];
+//         if (obj[char]) {
+//             obj[char]++
+//         } else {
+//             obj[char] = 1;
+//         }
+//     }
+//     return obj
+// }
