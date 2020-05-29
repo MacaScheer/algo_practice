@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-console.log("Node Depths: \n PSEUDOCODE: DFS Search through the branches and add node depths to a counter \n keep track of current node depth i.e. within each stack of the DFS search.");
-console.log("Actually it could be BFS approach that sums all of the nodes at that level, using a level-scaler, but need to keep track of when the next level is reached in queue")
+// console.log("Node Depths: \n PSEUDOCODE: DFS Search through the branches and add node depths to a counter \n keep track of current node depth i.e. within each stack of the DFS search.");
+// console.log("Actually it could be BFS approach that sums all of the nodes at that level, using a level-scaler, but need to keep track of when the next level is reached in queue")
 class BinaryTree{
     constructor(value) {
         this.value = value;
@@ -32,41 +32,60 @@ class BinaryTree{
 
 // }
 
-function nodeDepths(root, depth = 0) {
-    if(!root)return depth
-    if (root.left) {
-        return nodeDepths(root.left, depth+=1)
-    }
-    if (root.right) {
-        return nodeDepths(root.right, depth+=1)
-    }
-}
+// function nodeDepths(root, depth = 0) {
+//     if (!root) return depth
+//     console.log(root.value, depth)
+//     if (root.left) {
+//         return nodeDepths(root.left, depth+=1)
+//     }
+//     if (root.right) {
+//         return nodeDepths(root.right, depth+=1)
+//     }
+//     return depth
+// }
 
 
 // function BFS(root)
 
-function DFS(root, val) {
-    let queue = [root];
-    while (queue.length) {
-        let node = queue.shift()
-        console.log(node.value, val)
-        if (node.value === val) {
-            return true;
-        } else {
+// function DFS(root, val) {
+//     let queue = [root];
+//     while (queue.length) {
+//         let node = queue.shift()
+//         console.log(node.value, val)
+//         if (node.value === val) {
+//             return true;
+//         } else {
 
-            if (node.right) {
-                queue.unshift(node.right)
-            }
-            if (node.left) {
-                queue.unshift(node.left)
-            }
-        }
+//             if (node.right) {
+//                 queue.unshift(node.right)
+//             }
+//             if (node.left) {
+//                 queue.unshift(node.left)
+//             }
+//         }
+//     }
+//     return false
+//     // return ans
+//     // else return null;
+// }
+// f(n, d) = d + f(l, d+1) + f(r, d+1)
+function nodeDepthRecursive(root, depth = 0) {
+    if (!root) {
+        return
     }
-    return false
-    // return ans
-    // else return null;
+    else depth += 1
+    if (root.left) {
+        return nodeDepthRecursive(root.left, depth)
+    }
+    if (root.right) {
+        // depth += 1;
+        return nodeDepthRecursive(root.right, depth)
+    }
 }
 
+function nodeDepthIterative(root){
+
+}
 
 let A = new BinaryTree(1);
 let B = new BinaryTree(2);
