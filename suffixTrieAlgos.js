@@ -31,6 +31,21 @@ class SuffixTrie{
         }
         node['*'] = true;
     }
+
+    contains(string) {
+        let stringArr = string.split("");
+        let node = this.root;
+        while (stringArr.length) {
+            let char = stringArr.shift();
+            if (node[char]) {
+                node = node[char]
+            } else {
+                return false
+            }
+        }
+        if (!node['*']) return false
+        return true
+    }
 }
 
 let sufX = new SuffixTrie('babc')
