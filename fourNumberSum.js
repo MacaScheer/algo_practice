@@ -33,11 +33,12 @@ const fourNumberSum = function(array, target){
     const output = [];
     console.log(twoSums(array))
     let twos = twoSums(array);
-    let sumsArr = Object.keys(twos);
-    for (const sum in sumsArr) {
+    // let sumsArr = Object.keys(twos);
+    for (const sum in twos) {
         const potentialMatch = target - sum;
-        if (potentialMatch in sumsArr) {
-            output.push([...sumsArr[sum], ...sumsArr[potentialMatch]])
+        console.log("sum: ", sum, " potentialMatch: ",potentialMatch)
+        if (potentialMatch in twos) {
+            output.push([...twos[sum], ...twos[potentialMatch]])
         }
     }
     return output
@@ -48,6 +49,9 @@ const sum = (a, b) => {
 }
 
 
+// const fourNumberSum = function (array, target) {
+    
+// }
+
 // console.log(twoSums([7,6,4,-1,1,2], 8))
 console.log(fourNumberSum([7,6,4,-1,1,2], 16))
-
