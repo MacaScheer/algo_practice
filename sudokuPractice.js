@@ -24,6 +24,19 @@ const sudokuTest = function (array) {
         numsObj = resetObj(numsObj)
     }
     // grid test
+const ys = [[0,1,2],[3,4,5],[6,7,8]]
+for (let i = 0; i < 3; i++){   // i = 1  
+    for (let x = (3 * i); x < ((3 * i) + 3); x++){ //x = 3 // 4 // 5 
+        for (let j = 0; j < 3; j++){    //j = 0 // 1 // 2
+            let subsub = ys[i];  //[3,4,5]                       
+            let y = subsub[j] //y = 3 // 4 // 5
+            numsObj[array[x][y]]++
+            console.log(`coordinate: (${x}, ${y})`)
+        }
+    }
+    if (!checkObj(numsObj)) return false
+    numsObj = restObj(numsObj)
+}
 }
 
 const checkObj = function (object) {
@@ -55,8 +68,39 @@ const board = [
     [2, 3, 9, 8, 4, 1, 5, 6, 7]
 ];
 
-    for (let i = 0; i < board.length; i++){
-        for (let j = 0; j < board.length; j++){
-            console.log(board[j][i])
-        }
-    }
+const indices = [
+    [1, 2, 3, 1, 2, 3, 1, 2, 3],
+    [3, 4, 5, 3, 4, 5, 3, 4, 5],
+    [6, 7, 8, 6, 7, 8, 6, 7, 8],
+    
+]
+
+// for (let i = 0; i < 9; i++){
+//     // let start = Math.floor(i / 3);
+//     // let arr = [];
+//     let start = Math.floor(i / 3) * 3;
+//     for (let x = 0; x < 3; x++){
+//         // let subArr = []
+//         for (let y = 0; y < 3; y++){
+//             // console.log(board[j + start][x + start])
+//             // console.log("start: ", start, " x:", x," y:",y, "coord:", [x + start, y + start])
+//             // console.log(`coordinate: (${j + start}, ${x + start})`)
+//         }
+//         // arr.push(subArr)
+//     }
+//     // console.log(arr)
+// }
+
+// const ys = [[0,1,2],[3,4,5],[6,7,8]]
+// for (let i = 0; i < 3; i++){   // i = 1  
+//     for (let x = (3 * i); x < ((3 * i) + 3); x++){ //x = 3 // 4 // 5 
+//         for (let j = 0; j < 3; j++){    //j = 0 // 1 // 2
+//             let subsub = ys[i];  //[3,4,5]                       
+//             let y = subsub[j] //y = 3 // 4 // 5
+//             numsObj[array[x][y]]++
+//             console.log(`coordinate: (${x}, ${y})`)
+//         }
+//     }
+//     if (!checkObj(numsObj)) return false
+//     numsObj = restObj(numsObj)
+// }
