@@ -31,18 +31,79 @@ function twoSums(array) {
 // const fourNumberSum = (array, target) => {
 const fourNumberSum = function(array, target){
     const output = [];
-    console.log(twoSums(array))
+    // console.log(twoSums(array))
     let twos = twoSums(array);
     // let sumsArr = Object.keys(twos);
     for (const sum in twos) {
         const potentialMatch = target - sum;
-        console.log("sum: ", sum, " potentialMatch: ",potentialMatch)
+        // console.log("sum: ", sum, " potentialMatch: ",potentialMatch)
         if (potentialMatch in twos) {
-            output.push([...twos[sum], ...twos[potentialMatch]])
+            let subArr = [...twos[sum], ...twos[potentialMatch]]
+            subArr = radixSort(subArr)
+            if (!output.includes(subArr)) {
+                // console.log("NEW ARRAY:", subArr, " output:", output)
+                output.push(subArr)
+            }
         }
     }
     return output
 }
+
+
+// function sorter(array) {
+//     if (array.length <= 1) return array;
+//     let piv = array.shift();
+//     let left = array.filter(el => el <= piv);
+//     let right = array.filter(el => el > piv);
+//     let sLeft = sorter(left);
+//     let sRight = sorter(right);
+//     return sLeft.concat([piv]).concat(sRight)
+// }
+
+
+
+function radixSort(array) {
+    let maxDigit = getMaxDigits(array)
+  
+    for (let i = 1; i <= maxDigit; i++){
+       array = sortByDigit(i, array)
+    }
+    return array
+}
+
+function getDigit(num, digit) {
+    let newDigit = 10 ** digit
+    let wholeNum = num % newDigit
+    return Math.floor(wholeNum / 10 ** (digit - 1))
+}
+// console.log(getDigit(54321, 3))
+
+function getMaxDigits(array) {
+    let maxNum = Math.max(...array);
+    let numString = maxNum.toString();
+    return numString.length
+}
+
+function sortByDigit(digit, array) {
+     const buckets = new Array(10);
+    for (let i = 0; i < array.length; i++){
+        let el = array[i]
+        let dig = getDigit(el, digit);
+        if (buckets[dig] instanceof Array) {
+            buckets[dig].push(el)
+        } else {
+            buckets[dig] = [el]
+        }
+    }
+    let nextList = [];
+    while (buckets.length) {
+        let el = buckets.shift();
+        if(el)nextList.push(...el)
+    }
+    // console.log(nextList)
+    return nextList
+}
+
 
 const sum = (a, b) => {
     return a + b
