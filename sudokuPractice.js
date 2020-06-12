@@ -5,7 +5,7 @@ console.log("Sudoku Practice");
 
 const sudokuTest = function (array) {
     // object keeping track of num occurences
-    let numsObj = restObj({});
+    let numsObj = resetObj({});
     // row test
     for (let i = 0; i < array.length; i++){
         let row = array[i];
@@ -24,22 +24,23 @@ const sudokuTest = function (array) {
         numsObj = resetObj(numsObj)
     }
     // grid test
-const ys = [[0,1,2],[3,4,5],[6,7,8]]
-for (let i = 0; i < 3; i++){   // i = 1  
-    for (let x = (3 * i); x < ((3 * i) + 3); x++){ //x = 3 // 4 // 5 
-        for (let j = 0; j < 3; j++){    //j = 0 // 1 // 2
-            let subsub = ys[i];  //[3,4,5]                       
-            let y = subsub[j] //y = 3 // 4 // 5
-            numsObj[array[x][y]]++
-            console.log(`coordinate: (${x}, ${y})`)
+    const ys = [[0,1,2],[3,4,5],[6,7,8]]
+    for (let i = 0; i < 3; i++){   // i = 1  
+        for (let x = (3 * i); x < ((3 * i) + 3); x++){ //x = 3 // 4 // 5 
+            for (let j = 0; j < 3; j++){    //j = 0 // 1 // 2
+                let subsub = ys[i];  //[3,4,5]                       
+                let y = subsub[j] //y = 3 // 4 // 5
+                numsObj[array[x][y]]++
+                console.log(`coordinate: (${x}, ${y})`)
+            }
         }
+        if (!checkObj(numsObj)) return false
+        numsObj = resetObj(numsObj)
     }
-    if (!checkObj(numsObj)) return false
-    numsObj = restObj(numsObj)
-}
+    return true
 }
 
-const checkObj = function (object) {
+const checkObj = function (obj) {
     for (let i = 1; i < 10; i++){
         if (!obj[i] || obj[i] !== 1) {
             return false;
@@ -68,12 +69,20 @@ const board = [
     [2, 3, 9, 8, 4, 1, 5, 6, 7]
 ];
 
-const indices = [
-    [1, 2, 3, 1, 2, 3, 1, 2, 3],
-    [3, 4, 5, 3, 4, 5, 3, 4, 5],
-    [6, 7, 8, 6, 7, 8, 6, 7, 8],
-    
-]
+const board1 = [
+    [8, 2, 7, 1, 5, 4, 3, 9, 6],
+    [9, 6, 5, 3, 1, 7, 1, 4, 8],
+    [3, 4, 1, 6, 8, 9, 7, 5, 2],
+    [5, 9, 3, 4, 6, 8, 2, 7, 1],
+    [4, 7, 2, 5, 1, 3, 6, 8, 9],
+    [6, 1, 8, 9, 7, 2, 4, 3, 5],
+    [7, 8, 6, 2, 3, 5, 9, 1, 4],
+    [1, 5, 4, 7, 9, 6, 8, 2, 3],
+    [2, 3, 9, 8, 4, 1, 5, 6, 7]
+];
+
+console.log(sudokuTest(board), "Should be TRUE")
+console.log(sudokuTest(board1), "Should be FALSE")
 
 // for (let i = 0; i < 9; i++){
 //     // let start = Math.floor(i / 3);
