@@ -52,3 +52,18 @@ console.log(getMaxProfit(yesterdaysPrices))
 // [0, -3, -2, 3, 3, -2] diff from Previous
 
 // compare: prices[i] - prices[i - 1] to 
+
+// [10,7,5,8,11,9]
+// SLIGHTLY FASTER, O(n) VS O(2n) => O(n)
+function max_profit(prices) {
+    if(stockPrices.length < 2) console.error("Getting a profit requires more than one post");
+    let minPrice = prices[0];                                     //10
+    let maxProfit = prices[1] - prices[0];                        //-3
+    for (let currTime = 1; currTime < prices.length; currTime++){
+        let currPrice = prices[currTime];                         // 7 // 5// 8 //11// 9
+        let potentialProfit = currPrice - minPrice                //-3 //-2// 3 // 6// 4
+        maxProfit = Math.max(maxProfit, potentialProfit);         //-3 //-2// 3 // 6// 6
+        minPrice = Math.min(minPrice, currPrice)                  // 7 // 5// 5 // 5// 5
+    }
+    return maxProfit //6
+}
