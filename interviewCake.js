@@ -199,3 +199,33 @@ function maxWorth(types) {
 // console.log(maxDuffelBagValue(cakeTypes1, capacity1))
 
 // console.log(maxWorth(cakeTypes1))
+
+
+// ALGORITHMS RUNNING O(n*logn) time:
+// MERGE SORT:
+// O(logn) comes from splitting the array in half down to lengths of 1
+// the n scaler comes from merging the halves back together, because for each of the times you halve the array
+// you have to go through all n elements when comparing the elements of both halves to each other
+
+function mergeSort(arrayToSort) {
+    if (arrayToSort.length < 2) return arrayToSort;
+    const midIdx = Math.floor(arrayToSort.length / 2);
+    const left = arrayToSort.slice(0, midIdx);
+    const right = arrayToSort.slice(midIdx);
+    const sLeft = mergeSort(left);
+    const sRight = mergeSort(right);
+    const sortedArr = [];
+    let currLeftIdx = 0;
+    let currRightIdx = 0;
+
+    while (sortedArr.length < left.length + right.length) {
+        if (currLeftIdx < left.length && (currRightIdx === right.length || sLeft[currLeftIdx] < sRight[currRightIdx])) {
+            sortedArr.push(sLeft[currLeftIdx]);
+            currLeftIdx++
+        } else {
+            sortedArr.push(sRight[currRightIdx]);
+            currRightIdx++
+        }
+    }
+    return sortedArr;
+}
