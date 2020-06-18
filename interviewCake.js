@@ -84,12 +84,12 @@ function maxDuffelBagValue(cakeTypes, capacity){
 
         for (let i = 0; i < sortedTypesByWorth.length; i++){
             let cake = sortedTypesByWorth[i];
-            console.log("cake: ", cake)
-            if (capacity > cake.weight) {
+            console.log("cake: ", cake, " capacity: ", capacity, " cakeWeight: ", cake.weight)
+            if (capacity >= cake.weight) {
                 let numOfCake = Math.floor(capacity / cake.weight);
                 sumValue += (cake.value * numOfCake);
-                console.log('numCake: ', numOfCake, " cake: ", cake, " capacity: ", capacity)
                 capacity -= (numOfCake * cake.weight)   
+                console.log('numCake: ', numOfCake, " cake: ", cake, " capacity: ", capacity)
             }
             // if(capacity < smallestWeight) return sumValue
         }
