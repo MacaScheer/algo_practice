@@ -78,18 +78,25 @@ const capacity1 = 20;
 
 function maxDuffelBagValue(cakeTypes, capacity){
     if (capacity === 0) return 0;
-    let sumWeight = 0;
-    let max = maxWorth(cakeTypes);
-    let maxW = max.weight
-    let maxV = max.value
-    let cakeToRemove = cakeTypes.indexOf(max)
-    console.log(cakeToRemove)
-    // console.log('weight: ', maxW, ' value:', maxV)
-    // if (capacity % maxW === 0) {
-    //     let quot
-    // }
+    let sumValue = 0;
+    let sortedTypesByWorth = sortByWorth(cakeTypes)
+    let smallestWeight = sortedTypesByWorth[sortedTypesByWorth.length - 1].weight
 
+        for (let i = 0; i < sortedTypesByWorth.length; i++){
+            let cake = sortedTypesByWorth[i];
+            while (capacity > cake.weight) {
+                let numOfCake = Math.floor(capacity / cake.weight);
+                sumValue += cake.value * numOfCake;
+                capacity -= numOfCake * cake.weight   
+            }
+            if(capacity < smallestWeight) return sumValue
+        }
+    return sumValue
 }
+
+// function numThatFit(capacity, weight) {
+    
+// }
 
 function spliceOut(array, idx) {
     if (idx === 0) {
@@ -101,6 +108,19 @@ function spliceOut(array, idx) {
     }
     return array
 }
+
+function sortByWorth(cakeTypes) {
+    let newTypes = [];
+    while (cakeTypes.length) {
+        let max = maxWorth(cakeTypes)
+        newTypes.push(max)
+        let idx = cakeTypes.indexOf(max)
+        cakeTypes = spliceOut(cakeTypes, idx)
+    }
+    return newTypes
+}
+
+// console.log(sortByWorth(cakeTypes1))
 // function maxWorth(object) {
 //     let maxKey;
 //     let maxWorth = 0;
