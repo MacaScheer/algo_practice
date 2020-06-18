@@ -33,16 +33,6 @@ function max_profit(prices) {
     return maxProfit //6
 }
 // function getMaxProfit(stockPrices) {
-//     // let differences = [0, (stockPrices[1] - stockPrices[0])];
-//     // for (let i = 2; i < stockPrices.length; i++){
-//     //     // let nextDiff = Math.max(stockPrices[i] - stockPrices[0], differences[i - 1] + stockPrices[i] - )
-//     //     let diffFromPrev = stockPrices[i] - stockPrices[i - 1];
-
-        
-//     //     differences.push(nextDiff)
-//     // }
-//     // console.log(differences)
-//     // return differences.pop()
 //     let diff1s = diffs(stockPrices);
 //     let maxSum = maxConsecutiveSum(diff1s)
 //     return maxSum
@@ -65,22 +55,18 @@ function max_profit(prices) {
 //     return maxSum
 // }
 
-
-// const summer = function (a, b) {
-//     return a + b
-// }
 // const yesterdaysPrices = [10, 7, 5, 8, 11, 9];
 // console.log(getMaxProfit(yesterdaysPrices))
 // [10, 7,  5,      , 8             , 11                ,  9]
 // [0 ,-3,(-2 or -5),(3 or -2 or -1), (1 or 4 or 6 or 3), (-1, or 2 or 4 or 1 or -2 or 6)]
 // [0, -3, -2,  3, 6, 4] greatest diffs
 // [0, -3, -2, 3, 3, -2] diff from Previous
-
-// compare: prices[i] - prices[i - 1] to 
-
 // [10,7,5,8,11,9]
 // SLIGHTLY SLOWER, O(n) VS O(2n) => O(n)
 
+/*/
+WHERE GREEDY APPROACH WON'T WORK:
+/*/
 
 const cakeTypes1 = [
     { weight: 7, value: 160 },
@@ -91,6 +77,52 @@ const cakeTypes1 = [
 const capacity1 = 20;
 
 function maxDuffelBagValue(cakeTypes, capacity){
-    
+    if (capacity === 0) return 0;
+    let sumWeight = 0;
+    let max = maxWorth(cakeTypes);
+    let maxW = max.weight
+    let maxV = max.value
+    let cakeToRemove = cakeTypes.indexOf(max)
+    console.log(cakeToRemove)
+    // console.log('weight: ', maxW, ' value:', maxV)
+    // if (capacity % maxW === 0) {
+    //     let quot
+    // }
+
+}
+
+function spliceOut(array, idx) {
+    if (idx === 0) {
+        array.shift()
+    } else {
+        let f = array.slice(0, idx);
+        let l = array.slice(idx + 1);
+        array = f.concat(l)
+    }
+    return array
+}
+// function maxWorth(object) {
+//     let maxKey;
+//     let maxWorth = 0;
+//     for (let k in object) {
+//         let worth = object[k].value / object[k].weight
+//         console.log("k: ", k)
+//         if (maxWorth < worth) {
+//             maxWorth = worth;
+//             maxKey = object[k]
+//         } 
+//     }
+// }
+function insertWorth(types) {
+    for (let i = 0; i < types.length; i++){
+        let cake = types[i];
+        cake['worth'] = cake.value / cake.weight
+    }
+    return types
+}
+function maxWorth(types) {
+    return types.reduce((a, b) => ((b.value/b.weight) > (a.value/a.weight) ? b : a))
 }
 console.log(maxDuffelBagValue(cakeTypes1, capacity1))
+
+// console.log(maxWorth(cakeTypes1))
