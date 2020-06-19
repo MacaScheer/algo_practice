@@ -257,12 +257,42 @@ function product1ToNB(n) {
 
 
 // Given an array of integers, find the highest product you can get from three integers
-
+// Negative numbers are present.
+// Strategy: Keep track of the highest product of 2 and the lowest product of 2 (could be a low negative number)
+// If the current number times one of those is higher than the current, then it's the new highest product of 3
+// How to keep track of the highest product of 2 and the lowest product of 2 at each iteration:
+//          We have to keep track of the highest and lowest numbers.
+//          If the current number times the current highest, or the current lowest (if current number is negative),
+//          is greater than the current highest product of 2, we have a new highest product of two, same for the lowest product of 2
+//          So, keep track of:
+//              highest product of 3, highest product of 2, highest, lowest, lowest product of 2
 function highestProductOfThree(array) {
-    array = radixSort(array);
-
+    // array = radixSort(array);
+    // let lowest, highest, hi3, hi2, low2 = 0;
+   if(array.length < 3) throw new Error("less than three items")
+    let highest = Math.max(array[0], array[1]);
+    let lowest = Math.max(array[0], array[1]);
+    let highestProd2 = array[0] * array[1];
+    let lowestProd2 = array[0] * array[1];
+    let highestProd3 = array[0] * array[1] * array[2];
+    for (let i = 2; i < array.length; i++){
+        const current = array[i];
+        highestProd3 = Math.max(highestProd3, current * lowestProd2, current * highestProd2);
+        highestProd2 = Math.max(highestProd2, current * highest, current * lowest);
+        lowestProd2 = Math.min(current * highest, current * lowest);
+        highest = math.max(highest, current);
+        lowest = Math.min(lowest, current)
+    }
+    return highestProd3
 }
 
+// function iterateOverMiddleArea(array, l, r) {
+    
+//     for (let i = l + 1; i < r; i++){
+
+//     }
+// }
+// NO NEED TO SORT THE ARRAY WITH THIS APPROACH
 function radixSort(array) {
     let maxDigit = getMaxDig(array);
     for (let i = 0; i < maxDigit; i++){
