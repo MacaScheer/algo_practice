@@ -229,3 +229,87 @@ function mergeSort(arrayToSort) {
     }
     return sortedArr;
 }
+
+// Perfect BST
+// number of nodes on bottom level is (n+1)/2 where is n is the total
+// height h = log2((n+1)/2) + 1 since the height is the number of times
+// we have to double 1 to get to (n+1)/2
+// h = log2(n + 1)
+
+// O(logn) is really O(log2n) although in other maths logn is really log10n or logen
+// in big-O notation the base is considered a constant and so it's not included
+// We should really use the notation O(lgn)
+
+// TOP DOWN APPROACH
+function product1ToNA(n) {
+    return (n > 1) ? (n * product1ToN(n - 1)) : 1;
+}
+
+// BOTTOM UP APPROACH
+function product1ToNB(n) {
+    let result = 1;
+    for (let num = 1; num <= n; num++){
+        result *= num
+    }
+    return result
+}
+
+
+
+// Given an array of integers, find the highest product you can get from three integers
+
+function highestProductOfThree(array) {
+    array = radixSort(array);
+
+}
+
+function radixSort(array) {
+    let maxDigit = getMaxDig(array);
+    for (let i = 0; i < maxDigit; i++){
+        array = sortByDig(array, i)
+    }
+    return array
+}
+// starting at 0 as the 1's place
+function sortByDig(array, digit) {
+    const buckets = new Array(10);
+    const negBuckets = new Array(10)
+    for (let i = 0; i < array.length; i++){
+        let el = array[i];
+        let dig = Math.abs(getDigitAtNPlace(el, digit));
+        console.log("el:", el, " dig:", dig)
+        if (el < 0) {
+            if (negBuckets[dig] instanceof Array) {
+                negBuckets[dig].push(el)
+            } else {
+                negBuckets[dig] = [el]
+            }
+        } else {
+            if (buckets[dig] instanceof Array) {
+                buckets[dig].push(el)
+            } else {
+                buckets[dig] = [el]
+            }
+        }
+    }
+    let nextList = [];
+    for (let i = negBuckets.length - 1; i >= 0; i--){
+        if(negBuckets[i])nextList.push(...negBuckets[i])
+    }
+    for (let j = 0; j < buckets.length; j++){
+        if(buckets[j])nextList.push(...buckets[j])
+    }
+    return nextList;
+}
+
+function getMaxDig(array) {
+    let max = Math.max(...array);
+    return max.toString().length
+}
+
+function getDigitAtNPlace(num, n) {
+    let numUntilDig = Math.floor(num / (10 ** n));
+    return numUntilDig % 10
+}
+
+console.log(radixSort([123456, 6, 345,77,2, 345,-77,333,-2,-12,55,65,3,56,77]))
