@@ -342,4 +342,61 @@ function getDigitAtNPlace(num, n) {
     return numUntilDig % 10
 }
 
-console.log(radixSort([123456, 6, 345,77,2, 345,-77,333,-2,-12,55,65,3,56,77]))
+// console.log(radixSort([123456, 6, 345,77,2, 345,-77,333,-2,-12,55,65,3,56,77]))
+
+
+// SLOW APPROACH O(n**3)
+
+function productOfOtherNumbersSlow(array) {
+    let retArr = [];
+    for (let i = 0; i < array.length; i++){
+        retArr.push(product(splicer(array, i)))
+    }
+    return retArr;
+}
+function splicer(array, idx) {
+    let firstH = array.slice(0, idx);
+    let lastH = array.slice(idx + 1);
+    return firstH.concat(lastH)
+}
+
+function product(array) {
+    let prod = 1;
+    for (let i = 0; i < array.length; i++){
+        prod *= array[i]
+    }
+    return prod;
+}
+
+// console.log(productOfOtherNumbersSlow([1, 7, 3, 4]))
+
+// FAST APPROACH O(n) space/time
+function productOfOtherNumbers(array) {
+    let counter = 0;
+    const productArray = [1];
+    for (let i = 0; i < array.length; i++){
+        let el = array[i];
+        let prevEl = productArray[productArray.length - 1]
+        let product = prevEl * array[i]
+        console.log("el: ", el, " prevEl:", prevEl, " product: ", product)
+        productArray.push(product)
+    }
+    return productArray
+}
+
+function prodOther(array) {
+    const productsOfAllIntsBeforeIndex = []
+    let prodSoFar = 1;
+    for (let i = 0; i < array.length; i++){
+        productsOfAllIntsBeforeIndex[i] = prodSoFar;
+        prodSoFar *= array[i]
+    }
+    const productsOfAllIntsAfterIndex = [];
+    let prodSoFarB = 1;
+    for (let j = array.length - 1; j >= 0; j--){
+        productsOfAllIntsAfterIndex[i] = prodSoFarB;
+        prodSoFarB *= array[i]
+    }
+}
+
+console.log(productOfOtherNumbers([3,1,2,5,6,4]))
