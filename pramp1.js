@@ -56,13 +56,119 @@ function reverseWords(arr) {
 // [output] array.character
 
 
-// work backwards from target word.
-// have helper function that checks whether two words are only 1 character different
-// run through the words that have pass the helper function and collect them in an array
+// create a Trie data structure and then a function to traverse the trie from source to target,
+// passing into an array
+
+class Node{
+    constructor(){
+        this.children = {};
+        this.isTerminal = false;
+    }
+}
+
+class Trie{
+    constructor() {
+       this.root = new Node()
+    }
+    buildTrie(word) {
+        let chars = word.split("");
+        let node = this.root;
+        while (chars.length) {
+            let char = chars.shift()
+            if (node.children[char]) {
+                node = node.children[char];
+            } else {
+                node.children[char] = new Node();
+                node = node.children[char]
+            }
+        }
+        node.isTerminal = true;
+    }
+    traversePrintDFS() {
+        let node = this.root;
+        let queue = [node]
+        while (queue.length) {
+            node = queue.pop()
+            console.log(node.children);
+            // if(node.isTerminal) return
+            for (let child in node.children) {
+                child = node.children[child]
+                queue.push(child)
+            }
+            
+        }
+    }
+}
+let m = new Trie;
+// m.buildTrie("words");
+// m.buildTrie("works")
+// console.log(m.traversePrintDFS())
 
 function shortestWordPath(source, target, words) {
+    // build out trie with words
+    // let trie = new Trie;
+    // let queue = [source, target,...words]
+    // for (let word in queue) {
+    //     trie.buildTrie(word)
+    // }
+    // AFTER SKETCHING OUT A TRIE OF THE SAMPLE INPUTS, IT BECOMES CLEAR
+    // THAT A TRIE WON'T REALLY HELP BECAUSE THERE IS NO OBVIOUS DISTANCE BETWEEN WORDS
+    // FOR EXAMPLE, TWO WORDS WHOSE ONLY DIFFERENCE IS THEIR FIRST LETTER OR MIDDLE LETTER
+    // WILL NOT HAVE A CLOSE RELATIONSHIP ON THE TRIE, OR AT LEAST VISUALLY CLOSE
+    // LIKE TWO WORDS THAT ONLY DIFFER IN THEIR LAST LETTER
+
+    // MY ONLY OTHER APPROACH AT THE MOMENT IS TO USE THE differenceOfOne HELPER FUNCTION
+    // TO KEEP UPDATING A QUEUE OF WORDS THAT ARE ONLY 1 EDIT AWAY
+    //  IT WILL BE CLOSER TO DJIKSTRAS ALGORITHM THAN A TRIE SUFFIX COMPARISON
+    // SO KEEP TRACK OF VISITED AND UNVISITED ADN PREVIOUS AS OBJECTS
+    // POSSIBLY ALSO KEEPING TRACK OF MIN DISTANCES OF WORDS FROM THE SOURCE WORD
+    // SO I WILL BE USING A NUMBER OF OBJECTS AS GRAPH CONSTRUCTS IN THE SAME WAY THAT DJIKSTRAS DOES
+    let visited = new Set();
+    let prev = {};
+    let unvisited = new Set()
+    let neighbors = {};
+    unvisited.add(source)
+    for (let i = 0; i < words.length; i++){
+        unvisited.add(words[i])
+    }
+    //
+    //  'bit': ['but','big'],
+    //   
+    // let word = source;
+    let queue = [source]; //['bit',]
+    while (queue.length && unvisited.size > 0) {
+        let word = queue.shift()  //'bit'//'but'//'big'//'put'//'pot'//'pog'//'lot'//'dog'
+        // console.log(word)
+        if (word === target) {
+            return visited.size - 2
+        }
+        visited.add(word)  //{'bit','but','big','put','pot','pog','lot','dog'}
+        unvisited.delete(word) //{}
+        neighbors = generateNeighbors(neighbors, word, words) // {'bit':['but','big'],'but':['bit','put'],'big':['bit'], 'put':['pot','but'],'pot':['pog','put','lot'],'pog':['dog','pot'],'lot':['pot']}
+        // console.log("visited: ", visited, "neighbors: ", neighbors, " queue: ", queue)
+        for (let j = 0; j < neighbors[word].length; j++){
+            let w = neighbors[word][j]
+            if(!visited.has(w)) queue.push(w)  //queue = ['but','big'] //['big','put']//['put']//['pot']//['pog','lot']//['lot','dog']//['dog']
+        }
+        // queue.push(...neighbors[word])
+    }
     
 }
+
+function generateNeighbors(neighbors, word, words) {
+    if (neighbors[word] === undefined) {
+        neighbors[word] = [];   
+    }
+    for (let i = 0; i < words.length; i++){
+        // console.log("word1: ",word, " word2: ", words[i])
+        if (differenceOfOne(word, words[i])) {
+            neighbors[word].push(words[i])
+        }
+    }
+    // console.log("neighbors: ", neighbors)
+    return neighbors
+}
+
 
 function differenceOfOne(word1, word2) {
     let diff = 0;
