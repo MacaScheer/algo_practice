@@ -117,52 +117,70 @@ function shortestWordPath(source, target, words) {
     // WILL NOT HAVE A CLOSE RELATIONSHIP ON THE TRIE, OR AT LEAST VISUALLY CLOSE
     // LIKE TWO WORDS THAT ONLY DIFFER IN THEIR LAST LETTER
 
-    // MY ONLY OTHER APPROACH AT THE MOMENT IS TO USE THE differenceOfOne HELPER FUNCTION
+    // MY NEXT APPROACH IS TO USE THE differenceOfOne HELPER FUNCTION
     // TO KEEP UPDATING A QUEUE OF WORDS THAT ARE ONLY 1 EDIT AWAY
     //  IT WILL BE CLOSER TO DJIKSTRAS ALGORITHM THAN A TRIE SUFFIX COMPARISON
-    // SO KEEP TRACK OF VISITED AND UNVISITED ADN PREVIOUS AS OBJECTS
+    // SO KEEP TRACK OF VISITED AND UNVISITED AND PREVIOUS AS OBJECTS
     // POSSIBLY ALSO KEEPING TRACK OF MIN DISTANCES OF WORDS FROM THE SOURCE WORD
     // SO I WILL BE USING A NUMBER OF OBJECTS AS GRAPH CONSTRUCTS IN THE SAME WAY THAT DJIKSTRAS DOES
+    let neighbors = buildGraph(source, target, words);
+    let min = Infinity;
+    for (let node in neighbors) {
+        for (let subNeighbor in neighbors[node]) {
+            console.log(subNeighbor)
+            if (subNeighbor === target) {
+                if(neighbors[node][target] - 1 < min) min = neighbors[node][target] -1
+            }
+           
+       }
+    }
+    if (min === Infinity) return -1
+    return min
+}
+
+    function buildGraph(source, target, words){
     let visited = new Set();
-    let prev = {};
+    // let prev = {};
     let unvisited = new Set()
     let neighbors = {};
-    unvisited.add(source)
+        unvisited.add(source)
+        let level = 0;
     for (let i = 0; i < words.length; i++){
         unvisited.add(words[i])
     }
-    //
-    //  'bit': ['but','big'],
-    //   
-    // let word = source;
+    // let count = 0;
     let queue = [source]; //['bit',]
     while (queue.length && unvisited.size > 0) {
         let word = queue.shift()  //'bit'//'but'//'big'//'put'//'pot'//'pog'//'lot'//'dog'
-        // console.log(word)
         if (word === target) {
-            return visited.size - 2
+        //     return { "unvisited": unvisited,"visited": visited,"neighbors": neighbors }
+        return neighbors
+        //     // return visited.size - 2
         }
         visited.add(word)  //{'bit','but','big','put','pot','pog','lot','dog'}
         unvisited.delete(word) //{}
-        neighbors = generateNeighbors(neighbors, word, words) // {'bit':['but','big'],'but':['bit','put'],'big':['bit'], 'put':['pot','but'],'pot':['pog','put','lot'],'pog':['dog','pot'],'lot':['pot']}
-        // console.log("visited: ", visited, "neighbors: ", neighbors, " queue: ", queue)
-        for (let j = 0; j < neighbors[word].length; j++){
-            let w = neighbors[word][j]
-            if(!visited.has(w)) queue.push(w)  //queue = ['but','big'] //['big','put']//['put']//['pot']//['pog','lot']//['lot','dog']//['dog']
+        level++
+        neighbors = generateNeighbors(level, neighbors, word, words) // {'bit':['but','big'],'but':['bit','put'],'big':['bit'], 'put':['pot','but'],'pot':['pog','put','lot'],'pog':['dog','pot'],'lot':['pot']}
+        // count++
+        for (let node in neighbors[word]){
+           
+            // console.log(neighbors[word][node])
+            if(!visited.has(node)) queue.push(node)  //queue = ['but','big'] //['big','put']//['put']//['pot']//['pog','lot']//['lot','dog']//['dog']
         }
-        // queue.push(...neighbors[word])
     }
-    
+        // return { "unvisited": unvisited,"visited": visited,"neighbors": neighbors }
+        return neighbors
 }
 
-function generateNeighbors(neighbors, word, words) {
+function generateNeighbors(level, neighbors, word, words) {
+
     if (neighbors[word] === undefined) {
-        neighbors[word] = [];   
+        neighbors[word] = {};   
     }
     for (let i = 0; i < words.length; i++){
         // console.log("word1: ",word, " word2: ", words[i])
         if (differenceOfOne(word, words[i])) {
-            neighbors[word].push(words[i])
+            neighbors[word][words[i]] = level
         }
     }
     // console.log("neighbors: ", neighbors)
