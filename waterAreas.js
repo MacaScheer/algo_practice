@@ -23,29 +23,33 @@ OF THE SMALLER OF THE TWO, THAT WILL BE THE HEIGHT OF THE WATER ABOVE THAT INDIV
 
 
 function waterAreas(heights) {
-    let indices = [];
+    let sum = 0;
     for (let i = 0; i < heights.length; i++){
-        let tallestToLeft = findMaxs(heights, i);
-
+        let height = findMaxes(heights, i)
+        console.log(height)
+        sum += height
     }
+    return sum
 }
 
 function findMaxes(array, idx) {
-    let maxLeft = [0,0];
-    let maxRight = [0,0];
+    let val = array[idx]
+    let maxLeft = val;
+    let maxRight = val;
     let rdx = idx + 1
     let ldx = idx - 1
     while (rdx < array.length) {
         let heightR = array[rdx]
-        if(heightR > maxRight[1]) maxRight = [rdx, heightR]
+        if(heightR > maxRight) maxRight = heightR
         rdx++
     }
     while (ldx >= 0) {
         let heightL = array[ldx];
-        if(heightL > maxLeft[1]) maxLeft = [ldx, heightL]
+        if(heightL > maxLeft) maxLeft = heightL
         ldx--
     }
-    return {maxLeft, maxRight}
+    let height = Math.min(maxLeft, maxRight);
+    return height - val;
 }
 // function waterAreas(heights) {
 //     console.log("heights: ", heights)
