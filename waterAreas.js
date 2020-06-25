@@ -19,72 +19,99 @@ APPROACH:
 SOLVE FOR EACH INDIVIDUAL HEIGHT, THE AMOUNT OF WATER ABOVE IT,
 FOR EACH INDIVIDUAL PEAK, FIND THE BIGGEST PEAK TO ITS LEFT AND THE BIGGEST TO ITS RIGHT
 OF THE SMALLER OF THE TWO, THAT WILL BE THE HEIGHT OF THE WATER ABOVE THAT INDIVIDUAL PEAK (WIDTH 1)
-/*/
+// /*/
+
+
 function waterAreas(heights) {
-    console.log("heights: ", heights)
-    let peaks = findPeakIdxs(heights)
-    let maxs = findTwoMax(heights)
-    console.log(maxs)
-    console.log("peaks: ", peaks)
-    // console.log(peaks)
-    let borderWallIdxs = [];
-    for (let i = 0; i < peaks.length - 1; i++){
-        // console.log(heights[peaks[i]])
-        let p1 = heights[peaks[i]];
-        let p2 = heights[peaks[i + 1]]
-        let min = Math.min(p1, p2);
-        // console.log(" min: ", min, " indices:",i, i+1)
-        if (min === p1) {
-            borderWallIdxs.push(peaks[i])
-        } else {
-            borderWallIdxs.push(peaks[i + 1])
-        }
-    }
-    // console.log(borderWallIdxs)
-    
-}
-function findTwoMax(heights) {
-    let max = [0,0];
-    let nextMax = [0,0];
+    let indices = [];
     for (let i = 0; i < heights.length; i++){
-        let h = heights[i];
-        if (h > max[1]) {
-            nextMax[0] = max[0];
-            nextMax[1] = max[1]
-            max[1] = h;
-            max[0] = i
-            
-        }
-        if (h < max[1] && h > nextMax[1]) {
-            nextMax[1] = h;
-            nextMax[0] = i;
-        }
-        // console.log("height: ",h, " max:",max, " nextmax:", nextMax)
+        let tallestToLeft = findMaxs(heights, i);
+
     }
-    return {max, nextMax}
 }
 
-function findPeakIdxs(array) {
-    let peakIdxs = [];
-    let p1Idx = 0
-    let p2Idx = 1;
-    while(p1Idx < array.length){
-        let p1 = array[p1Idx]
-        let p2 = array[p2Idx];
-        // console.log("p1: ", p1, " p2: ", p2)
-        // if (p1 <= p2) {
-            //     p1Idx = p2Idx;
-            // } else {
-                //     peakIdxs.push(p1Idx)
-                // }
-                
-        if(p1 > p2) peakIdxs.push(p1Idx)
-        // console.log(peakIdxs)
-            p2Idx++
-            p1Idx++
+function findMaxes(array, idx) {
+    let maxLeft = [0,0];
+    let maxRight = [0,0];
+    let rdx = idx + 1
+    let ldx = idx - 1
+    while (rdx < array.length) {
+        let heightR = array[rdx]
+        if(heightR > maxRight[1]) maxRight = [rdx, heightR]
+        rdx++
     }
-    if(array[array.length - 2] < array[array.length - 1]) peakIdxs.push(array.length - 1)
-    return peakIdxs
+    while (ldx >= 0) {
+        let heightL = array[ldx];
+        if(heightL > maxLeft[1]) maxLeft = [ldx, heightL]
+        ldx--
+    }
+    return {maxLeft, maxRight}
 }
+// function waterAreas(heights) {
+//     console.log("heights: ", heights)
+//     let peaks = findPeakIdxs(heights)
+//     let maxs = findTwoMax(heights)
+//     console.log(maxs)
+//     console.log("peaks: ", peaks)
+//     // console.log(peaks)
+//     let borderWallIdxs = [];
+//     for (let i = 0; i < peaks.length - 1; i++){
+//         // console.log(heights[peaks[i]])
+//         let p1 = heights[peaks[i]];
+//         let p2 = heights[peaks[i + 1]]
+//         let min = Math.min(p1, p2);
+//         // console.log(" min: ", min, " indices:",i, i+1)
+//         if (min === p1) {
+//             borderWallIdxs.push(peaks[i])
+//         } else {
+//             borderWallIdxs.push(peaks[i + 1])
+//         }
+//     }
+//     // console.log(borderWallIdxs)
+    
+// }
+// function findTwoMax(heights) {
+//     let max = [0,0];
+//     let nextMax = [0,0];
+//     for (let i = 0; i < heights.length; i++){
+//         let h = heights[i];
+//         if (h > max[1]) {
+//             nextMax[0] = max[0];
+//             nextMax[1] = max[1]
+//             max[1] = h;
+//             max[0] = i
+            
+//         }
+//         if (h < max[1] && h > nextMax[1]) {
+//             nextMax[1] = h;
+//             nextMax[0] = i;
+//         }
+//         // console.log("height: ",h, " max:",max, " nextmax:", nextMax)
+//     }
+//     return {max, nextMax}
+// }
+
+// function findPeakIdxs(array) {
+//     let peakIdxs = [];
+//     let p1Idx = 0
+//     let p2Idx = 1;
+//     while(p1Idx < array.length){
+//         let p1 = array[p1Idx]
+//         let p2 = array[p2Idx];
+//         // console.log("p1: ", p1, " p2: ", p2)
+//         // if (p1 <= p2) {
+//             //     p1Idx = p2Idx;
+//             // } else {
+//                 //     peakIdxs.push(p1Idx)
+//                 // }
+                
+//         if(p1 > p2) peakIdxs.push(p1Idx)
+//         // console.log(peakIdxs)
+//             p2Idx++
+//             p1Idx++
+//     }
+//     if(array[array.length - 2] < array[array.length - 1]) peakIdxs.push(array.length - 1)
+//     return peakIdxs
+// }
 
 console.log(waterAreas([0,8,0,0,5,0,0,10,0,0,1,1,0,3]))
