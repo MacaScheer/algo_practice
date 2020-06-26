@@ -22,6 +22,7 @@ function numbersInPi(pi, numbers) {
     // }
     let numbersTable = numbers.reduce((o, key) => Object.assign(o, { [key]: true }), {})
     let minSpaces = getMinSpaces(pi, numbersTable, {}, 0)
+    return minSpaces === Infinity ? -1 : minSpaces
 }
 
 function getMinSpaces(pi, numbersTable, cache, idx) {
@@ -37,6 +38,8 @@ function getMinSpaces(pi, numbersTable, cache, idx) {
             // let suffix = pi.slice(i)
         }
     }
+    cache[idx] = minSpaces
+    return cache[idx]
 }
 
 console.log(numbersInPi("3141592653589793238462643383279", ["314159265358979323846", "26433","8","3279","314159265","35897932384626433832","79"]), "should be 2")
