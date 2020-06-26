@@ -9,7 +9,7 @@ console.log(`Given a string representation of the first n digits of Pi
             If no number of spaces to be added exists such that all 
             resulting numbers are found in the list of integers, return -1`)
 console.log(`Big O of space is going to be O(n + m) space 
-            Big O of time is going to be O(n**3) because
+            Big O of time is going to be O(n**3 + m) because
             of the slicing and the nested loop of all prefixes`)
 // HASH TABLE USED
 // OR IS IT JUST AN OBJECT?
