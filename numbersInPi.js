@@ -8,6 +8,10 @@ console.log(`Given a string representation of the first n digits of Pi
             resulting numbers are found in the list of integers.  
             If no number of spaces to be added exists such that all 
             resulting numbers are found in the list of integers, return -1`)
+            console.log("Big O of space is going to be O(n + m) space \n Big O of time is going to be O(n**3) because of the slicing and the nested loop of all prefixes")
+// HASH TABLE USED
+
+
 function numbersInPi(pi, numbers) {
     
 }
