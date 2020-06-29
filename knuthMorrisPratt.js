@@ -1,10 +1,13 @@
+#!/usr/bin/env node
+'use strict';
+
 // Knuth-Morris-Pratt Algorithm
 // keeping track of repeated patterns
 // optimal for doing gene mapping, or identifying genetic details
 
 function knuthMorrisPratt(string, subString) {
     let pattern = buildPattern(subString)
-    return doesMatch(string, sunString, pattern)
+    return doesMatch(string, subString, pattern)
 }
 
 function buildPattern(string) {
@@ -29,7 +32,7 @@ function buildPattern(string) {
 }
 
 function doesMatch(string, subString, pattern) {
-    let i = 0; j = 0;
+    let i = 0, j = 0;
     while (i + subString.length - j <= string.length) {
         if (string[i] === subString[j]) {
             if (j === subString.length - 1) {
