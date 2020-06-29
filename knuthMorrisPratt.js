@@ -35,11 +35,14 @@ function doesMatch(string, subString, pattern) {
             if (j === subString.length - 1) {
                 return true
             } 
-                j++;
-                i++;
+        j++;
+        i++;
         } else if (j > 0) {
             j = pattern[j - 1] + 1
+        } else {
+            i++;
         }
     }
+    return false
 }
 console.log(knuthMorrisPratt("aefaefaefaedaefaedaefaefa", "aefaedaefaefa"), "should be true")
