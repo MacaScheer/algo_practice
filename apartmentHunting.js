@@ -10,6 +10,42 @@ function apartmentHunting(reqs, blocks) {
     
 }
 
+
+// returns the distances to the reqs of each block as an object
+function getDistances(blocks, reqs) {
+    let distance = {}
+    for (let x = 0; x < blocks.length; x++) {
+        let block = blocks[x]
+        distance[x] = {}
+        for (let j = 0; j < reqs.length; j++) {
+            let req = reqs[j];
+            if (block[req] === true) {
+                distance[x][req] = 0
+            } else {
+                let minDist = findNearestBlock(req, x, blocks)  // [dist, idx]
+                distance[x][req] = minDist[1]
+            }
+            // console.log("distanceObj: ", distance[x])
+        }
+    }
+    return distance
+}
+// finds the nearest block idx from current, containing a specific req
+function findNearestBlock(req, j, blocks) {
+    let nearest = Infinity;
+    let nearestIdx = Infinity;
+    for (let i = 0; i < blocks.length; i++){
+        if (i !== j) {
+            let block = blocks[i];
+            console.log("block: ", block)
+            if (block[req] && Math.abs(i - j) < nearest) {
+                nearest = Math.abs(i - j);
+                nearestIdx = i
+            }
+        }
+    }
+    return [nearest, nearestIdx]
+}
 function mapReqsByBlock(reqs, blocks) {
     let yetToVisit = new Set();
     for (let i = 0; i < blocks.length; i++){
@@ -18,39 +54,9 @@ function mapReqsByBlock(reqs, blocks) {
     let j = 0;
     while (yetToVisit.size > 0) {
         let block = blocks[j];
-        yetToVisit.remove(j)
-        let distances = distances(j, blocks, reqs)
+        yetToVisit.delete(j)
+        let distances = getDistances(j, blocks, reqs)
     }
-}
-
-// returns the distances to the reqs of each block as an object
-function distances(i, blocks, reqs) {
-    let distance = {}
-    let block = blocks[i]
-    for (let j = 0; j < reqs.length; j++){
-        let req = reqs[j];
-        if (block.req) {
-            distance[req] = 0
-        } else {
-            let minDist = findNearestBlock(req, i, blocks)  // [dist, idx]
-            
-        }
-    }
-}
-// finds the nearest block idx from current, containing a specific req
-function findNearestBlock(req, j, blocks) {
-    let nearest = Infinity;
-    let nearestIdx = Infinity;
-    for (let i = 0; i < blocks.length; i++){
-        if (i !== j) {
-            let block = block[i];
-            if (block[req] && Math.abs(i - j) < nearest) {
-                nearest = Math.abs(i - j);
-                nearestIdx = i
-            }
-        }
-    }
-    return [nearest, nearestIdx]
 }
 
  let blocks = [
@@ -81,5 +87,7 @@ function findNearestBlock(req, j, blocks) {
   },
 ]
 let reqs = ["gym", "school", "store"]
-
-console.log(apartmentHunting(reqs, blocks), "should return 3")
+// console.log(mapReqsByBlock(reqs, blocks))
+// console.log(findNearestBlock("gym", 3, blocks))
+console.log(getDistances(blocks, reqs))
+// console.log(apartmentHunting(reqs, blocks), "should return 3")
