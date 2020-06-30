@@ -38,8 +38,6 @@ and returns the index of the block that's most optimal for you.
 let reqs = ["gym", "school", "store"]
 function apartmentHunting(reqs, blocks) {
     let distances = getDistances(blocks, reqs);
-    let shortestWalks = Infinity;
-    let optimalBlock = null;
     let maxWalks = {}
     for (let block in distances) {
         let dists = distances[block];
@@ -48,9 +46,7 @@ function apartmentHunting(reqs, blocks) {
             if(maxWalk < dists[walk]) maxWalk = dists[walk]
         }
         maxWalks[block] = maxWalk
-
     }
-    console.log("maxWalks: ", maxWalks)
     let min = Infinity;
     let minIdx;
     for (let walks in maxWalks) {
@@ -59,7 +55,7 @@ function apartmentHunting(reqs, blocks) {
             minIdx = walks
         }
     }
-    console.log(blocks[minIdx])
+    // console.log(blocks[minIdx])
     return minIdx
 }
 
@@ -78,7 +74,6 @@ function getDistances(blocks, reqs) {
                 let minDist = findNearestBlock(req, x, blocks)  // [dist, idx]
                 distance[x][req] = minDist[0]
             }
-            // console.log("distanceObj: ", distance[x])
         }
     }
     return distance
@@ -90,7 +85,6 @@ function findNearestBlock(req, j, blocks) {
     for (let i = 0; i < blocks.length; i++){
         if (i !== j) {
             let block = blocks[i];
-            // console.log("block: ", block," i:", i," block[req]: ", block[req], " nearest: ", nearest, " dist:", Math.abs(i - j))
             if (block[req] && Math.abs(i - j) < nearest) {
                 nearest = Math.abs(i - j);
                 nearestIdx = i
