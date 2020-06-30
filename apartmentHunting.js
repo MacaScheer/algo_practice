@@ -36,7 +36,7 @@ and returns the index of the block that's most optimal for you.
   },
 ]
 let reqs = ["gym", "school", "store"]
-function apartmentHunting(reqs, blocks) {
+function apartmentHunting(blocks, reqs) {
     let distances = getDistances(blocks, reqs);
     let maxWalks = {}
     for (let block in distances) {
@@ -55,8 +55,7 @@ function apartmentHunting(reqs, blocks) {
             minIdx = walks
         }
     }
-    // console.log(blocks[minIdx])
-    return minIdx
+    return parseInt(minIdx)
 }
 
 
@@ -72,7 +71,7 @@ function getDistances(blocks, reqs) {
                 distance[x][req] = 0
             } else {
                 let minDist = findNearestBlock(req, x, blocks)  // [dist, idx]
-                distance[x][req] = minDist[0]
+                distance[x][req] = minDist
             }
         }
     }
@@ -91,24 +90,7 @@ function findNearestBlock(req, j, blocks) {
             }
         }
     }
-    return [nearest, nearestIdx]
+    return nearest
 }
-// console.log(findNearestBlock("store", 1, blocks))
 
-// function mapReqsByBlock(reqs, blocks) {
-//     let yetToVisit = new Set();
-//     for (let i = 0; i < blocks.length; i++){
-//         yetToVisit.add(i)
-//     }
-//     let j = 0;
-//     while (yetToVisit.size > 0) {
-//         let block = blocks[j];
-//         yetToVisit.delete(j)
-//         let distances = getDistances(j, blocks, reqs)
-//     }
-// }
-
-// console.log(mapReqsByBlock(reqs, blocks))
-// console.log(findNearestBlock("gym", 3, blocks))
-// console.log(getDistances(blocks, reqs))
 console.log(apartmentHunting(reqs, blocks), "should return 3")
