@@ -132,54 +132,44 @@ function findMatch(coords) {  //[a,y1], [a,y2]
 //     let [x,y] = coord;
 //     // go right
 // }
-// TREAT EVERY COORDINATE AS POSSIBLE UPPER RIGHT COORDINATE
+// TREAT EVERY COORDINATE AS POSSIBLE BOTTOM LEFT COORDINATE
 function rectangleMania(coords) {
     let rects = [];
+    let overall = [];
     for (let i = 0; i < coords.length; i++){
-        if (i === 0) {
-            
-            let coord = coords[i]
-            // console.log("firstCoord: ", coord)
-            // let innerArr = [coord];
-            let twoCoords = findUpperLeft(coords, coord[0], coord[1])
-            rects.push(...twoCoords)
-            // console.log("rects: ",rects)
-            if (rects.length === 2) {
-                // find upperRight
-                // for (let j = 0; j < rects.length; j++){
-                    // let rect = rects[j];
-                let upperLeft = rects[1]
-                console.log("upper left: ", upperLeft)
-                    let slicedCoords = slicer(coords, i)
-                    let upperRights = findUpperRight(slicedCoords, upperLeft[0], upperLeft[1])
-                console.log("upperRights: ", upperRights) //[ [ 1, 1 ], [ 2, 1 ], [ 3, 1 ] ]
-                if (upperRights) {
-                    let newRects = []
-                    for (let x = 0; x < upperRights.length; x++){
-                        let coord = upperRights[x]
-                        console.log("coord: ", coord)
-                        console.log("rects: ", rects)
-                        let temp = rects.slice();
-                        temp.push(coord)
-                        console.log("temp: ", temp)
-                        newRects.push(temp)
-                        temp = [];
-                    }
-                    console.log("newRects: ", newRects)
-                    for (let z = 0; z < newRects.length; z++){
-                        let r = newRects[z];
-                        let upperRight = r[2];
-                        console.log("upperRight:", upperRight);
-                        // let remainders = slicer(slicedCoords, )
-                        let bottomRight = findLowerRight(slicedCoords, upperRight[0], upperRight[1])
-                        r.push(bottomRight)
-                        console.log("bottomRight: ", bottomRight)
-                    }
-                    console.log("newRects: ",newRects)
-                }
-            }
+        let coord = coords[i]
+        console.log("coord: ", coord)
+        let recs = findOtherThrees(coords, coord)
+        console.log("findOtherThree: ", recs, i)
+        //     let twoCoords = findUpperLeft(coords, coord[0], coord[1])
+        // rects.push(...twoCoords)
+        // console.log("rects: ", rects)
+        //     if (rects.length === 2) {
+        //         let upperLeft = rects[1]
+        //             let slicedCoords = slicer(coords, i)
+        //             let upperRights = findUpperRight(slicedCoords, upperLeft[0], upperLeft[1])
+        //         if (upperRights) {
+        //             let newRects = []
+        //             for (let x = 0; x < upperRights.length; x++){
+        //                 let coord = upperRights[x]
+        //                 let temp = rects.slice();
+        //                 temp.push(coord)
+        //                 newRects.push(temp)
+        //                 temp = [];
+        //             }
+        //             for (let z = 0; z < newRects.length; z++){
+        //                 let r = newRects[z];
+        //                 let upperRight = r[2];
+        //                 // let remainders = slicer(slicedCoords, )
+        //                 let bottomRight = findLowerRight(slicedCoords, upperRight[0], upperRight[1])
+        //                 r.push(bottomRight)
+        //             }
+        //             console.log("newRects: ",newRects)
+        //         }
+        //     }
+        // // }
         }
-    }
+    console.log("overall: ", overall)
     // console.log("twoCoords: ", twoCoords)
     // console.log("rects: ", rects)
     // let thirdCoords = [];
@@ -200,6 +190,39 @@ function rectangleMania(coords) {
     // console.log("3rd coords: ", thirdCoords)
     // console.log(rects)
     // return rects.length;
+}
+
+function findOtherThrees(coords, coord, i) {
+    let rects = [];
+      let twoCoords = findUpperLeft(coords, coord[0], coord[1])
+        rects.push(...twoCoords)
+        let outerArr = []; //need better name
+        console.log("rects: ", rects)
+            if (rects.length === 2) {
+                let upperLeft = rects[1]
+                    let slicedCoords = slicer(coords, i)
+                let upperRights = findUpperRight(slicedCoords, upperLeft[0], upperLeft[1]);
+                if (upperRights) {
+                    let newRects = []
+                    for (let x = 0; x < upperRights.length; x++){
+                        let coord = upperRights[x]
+                        let temp = rects.slice();
+                        temp.push(coord)
+                        newRects.push(temp)
+                        temp = [];
+                    }
+                    for (let z = 0; z < newRects.length; z++){
+                        let r = newRects[z];
+                        let upperRight = r[2];
+                        // let remainders = slicer(slicedCoords, )
+                        let bottomRight = findLowerRight(slicedCoords, upperRight[0], upperRight[1])
+                        r.push(bottomRight)
+                    }
+                    console.log("newRects: ", newRects)
+                    outerArr.push(...newRects)
+                }
+            }
+    return outerArr;
 }
 
 function slicer(arr, idx) {
