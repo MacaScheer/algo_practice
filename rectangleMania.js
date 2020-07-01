@@ -165,6 +165,16 @@ function rectangleMania(coords) {
                         newRects.push(temp)
                         temp = [];
                     }
+                    console.log("newRects: ", newRects)
+                    for (let z = 0; z < newRects.length; z++){
+                        let r = newRects[z];
+                        let upperRight = r[2];
+                        console.log("upperRight:", upperRight);
+                        // let remainders = slicer(slicedCoords, )
+                        let bottomRight = findLowerRight(slicedCoords, upperRight[0], upperRight[1])
+                        r.push(bottomRight)
+                        console.log("bottomRight: ", bottomRight)
+                    }
                     console.log("newRects: ",newRects)
                 }
             }
@@ -210,6 +220,14 @@ function findUpperRight(coords, x1, y1) {
     if (arr.length > 0) {
     //    console.log("arr: ", arr)
         return arr;
+    }
+}
+
+function findLowerRight(coords, x1, y1) {
+    let output = [];
+    for (let i = 0; i < coords.length; i++){
+        let c = coords[i];
+        if(c[0] === x1 && c[1] < y1) return c
     }
 }
 
