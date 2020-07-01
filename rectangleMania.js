@@ -139,11 +139,11 @@ function rectangleMania(coords) {
         if (i === 0) {
             
             let coord = coords[i]
-            console.log("firstCoord: ", coord)
+            // console.log("firstCoord: ", coord)
             // let innerArr = [coord];
             let twoCoords = findUpperLeft(coords, coord[0], coord[1])
             rects.push(...twoCoords)
-            console.log("rects: ",rects)
+            // console.log("rects: ",rects)
             if (rects.length === 2) {
                 // find upperRight
                 // for (let j = 0; j < rects.length; j++){
@@ -152,14 +152,26 @@ function rectangleMania(coords) {
                 console.log("upper left: ", upperLeft)
                     let slicedCoords = slicer(coords, i)
                     let upperRights = findUpperRight(slicedCoords, upperLeft[0], upperLeft[1])
-                    console.log("upperRights: ",upperRights)
-                    if(upperRights)rects.push(upperRights)
-                // }
+                console.log("upperRights: ", upperRights) //[ [ 1, 1 ], [ 2, 1 ], [ 3, 1 ] ]
+                if (upperRights) {
+                    let newRects = []
+                    for (let x = 0; x < upperRights.length; x++){
+                        let coord = upperRights[x]
+                        console.log("coord: ", coord)
+                        console.log("rects: ", rects)
+                        let temp = rects.slice();
+                        temp.push(coord)
+                        console.log("temp: ", temp)
+                        newRects.push(temp)
+                        temp = [];
+                    }
+                    console.log("newRects: ",newRects)
+                }
             }
         }
     }
     // console.log("twoCoords: ", twoCoords)
-    console.log("rects: ", rects)
+    // console.log("rects: ", rects)
     // let thirdCoords = [];
     // for (let i = 0; i < rects.length; i++){
     //     let rect = rects[i];
@@ -196,7 +208,7 @@ function findUpperRight(coords, x1, y1) {
     }
 
     if (arr.length > 0) {
-       console.log("arr: ", arr)
+    //    console.log("arr: ", arr)
         return arr;
     }
 }
