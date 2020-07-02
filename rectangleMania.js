@@ -326,83 +326,41 @@ function RECTangleMania(coords) {
         let coord = coords[i];
         coordObject = getCoordObject(coord, coords, coordObject)
     }
-    // count += rectCounter(coordObject);
     for (let coord in coordObject) {
-        let start = coord;
-        console.log("start: ",start)
-        let count = navigateObject(coordObject, coord)
+         count += navigateObject(coordObject, coord)
     }
-    // for (let coord in coordObject) {
-    //     console.log("printing Object coord: ", coord);
-    //     console.log("printing Object coord's value: ", coordObject[coord])
-    // }
-    // console.log("coordObject: ", coordObject['0,1'])
-    // no pass to function that looks at coordObject and determines if there is/how many paths that complete a rectangle
-
     return count;
 }
 
-function navigateObject(coordObject, coord, count = 0) {
-    // if (count === 4) return 1;
+function navigateObject(coordObject, coord) {
+    let count = 0;
     let upOptions = coordObject[coord]["UP"];
     for (let options in upOptions) {
-        console.log("options: ", options, " upOptions:", upOptions, "  rightOptions: ", upOptions[options]);
-        // count++;
         for (let i = 0; i < upOptions.length; i++){
-            let nextCoord = coordAddition(coord, upOptions[i])
-            console.log("nextCoord: ", nextCoord, " coordObject[nextCoord]: ", coordObject[nextCoord])
-            let downOptions = coordObject[nextCoord]["LEFT"]
-            // let rightOptions = coordObject[nextCoord]["RIGHT"]
-            for (let j = 0; j < downOptions.length; j++){
-                let leftOption = downOptions[j];
-                console.log("down_option: ", leftOption)
-                let c = leftOption[0].toString()
-                let cString = c + ',' + coord[2].toString()
-                console.log("cString: ",cString, typeof cString, Object.keys(coordObject))
-                if (cString in coordObject) {
-                    count++;
-                    console.log("is cString in Object: ", cString in coordObject)
+            let nextCoord = upOptions[i]
+            let rightOptions = coordObject[nextCoord]["RIGHT"]
+            // console.log("nextCoord: ", nextCoord, " rightOptions: ", rightOptions[1])
+            if (rightOptions.length > 0) {
+                for (let topRight in rightOptions){
+                    // console.log("topRight: ", rightOptions[topRight])
+                    let x = rightOptions[topRight][0].toString();
+                    let y = coord[2].toString()
+                    let finalC = x +','+ y
+                    // console.log("final: ", finalC, coordObject[finalC], finalC in coordObject)
+                    if (finalC in coordObject) count+=1
+                    // console.log("count: ",count)
                 }
-                // is there an option[0], coord[1] in coordObject
             }
-            // navigateObject(coordObject, nextCoord, count);
         }
     }
 return count
 }
 
 function coordAddition(c2, c1) {
-    console.log("coordAdditon: ", c2.split(","), c2)
     let x2 = parseInt(c2.split(",")[0]);
-    // let y2 = parseInt(c2.split(",")[1]);
-    // let [x1, y1] = c1.split(",");
     if (c1[0] === x2) {
-        console.log("newC: ",typeof c2)
         return c2
     }
-    // let [x2, y2] = c2;
-    // let newC = [x1 + x2, y1 + y2];
-    // console.log("newC: ",newC)
-    // return newC
-}
-function rectCounter(object) {
-// { '0,0':
-//    { UP: [ [Array] ],
-//      RIGHT: [ [Array], [Array], [Array] ],
-//      DOWN: [],
-//      LEFT: [] } }
-    let numRectangles = 0;
-    for (let coord in object) {
-        let start = coord;
-        console.log("coord: ",coord)
-        for (let direction in object[coord]) {
-            console.log("direction: ", direction)
-            console.log("nextCoordinates:", object[coord][direction])
-            let coordArr = object[coord][direction];
-
-        }
-    }
-    
 }
 
 
