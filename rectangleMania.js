@@ -321,17 +321,68 @@ let coords1 = [[0, 0], [0, 1], [1, 1], [1, 0], [2, 1], [2, 0], [3, 1], [3, 0]]
 
 function RECTangleMania(coords) {
     let coordObject = {}
-
-    for (let i = 0; i < coords.length; i++){
+    let count = 0;
+    for (let i = 0; i < 3; i++){//coords.length
         let coord = coords[i];
         coordObject = getCoordObject(coord, coords, coordObject)
+    }
+    // count += rectCounter(coordObject);
+    for (let coord in coordObject) {
+        let start = coord;
+        console.log("start: ",start)
+        let count = navigateObject(coordObject, coord)
     }
     // for (let coord in coordObject) {
     //     console.log("printing Object coord: ", coord);
     //     console.log("printing Object coord's value: ", coordObject[coord])
     // }
-    console.log("coordObject: ",coordObject)
+    // console.log("coordObject: ", coordObject['0,1'])
+    // no pass to function that looks at coordObject and determines if there is/how many paths that complete a rectangle
+
+    return count;
 }
+
+function navigateObject(coordObject, coord) {
+    let upOptions = coordObject[coord]["UP"];
+    for (let options in upOptions) {
+        console.log("options: ", options, " upOptions:", upOptions, "  upOptions[options]: ", upOptions[options]);
+        for (let i = 0; i < upOptions.length; i++){
+            let nextCoord = coordAddition(coord, upOptions[i])
+        }
+    }
+
+}
+
+function coordAddition(c1, c2) {
+    // console.log("coordAdditon: ", c1.split(","), c2)
+    let x1 = parseInt(c1.split(",")[0]);
+    let y1 = parseInt(c1.split(",")[1]);
+    // let [x1, y1] = c1.split(",");
+    let [x2, y2] = c2;
+    let newC = [x1 + x2, y1 + y2];
+    console.log("newC: ",newC)
+    return newC
+}
+function rectCounter(object) {
+// { '0,0':
+//    { UP: [ [Array] ],
+//      RIGHT: [ [Array], [Array], [Array] ],
+//      DOWN: [],
+//      LEFT: [] } }
+    let numRectangles = 0;
+    for (let coord in object) {
+        let start = coord;
+        console.log("coord: ",coord)
+        for (let direction in object[coord]) {
+            console.log("direction: ", direction)
+            console.log("nextCoordinates:", object[coord][direction])
+            let coordArr = object[coord][direction];
+
+        }
+    }
+    
+}
+
 
 
 function getCoordObject(coord, coords, coordObject) {
@@ -347,7 +398,6 @@ function getCoordObject(coord, coords, coordObject) {
     return coordObject;
 }
 function getUpCoords(coord, coords) {
-    console.log("UP")
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -356,13 +406,10 @@ function getUpCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
-    console.log("arr:", arr)
     return arr
 }
 
 function getRightCoords(coord, coords) {
-    console.log("RIGHT")
-
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -371,11 +418,9 @@ function getRightCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
-    console.log("arr:", arr)
     return arr
 }
 function getDownCoords(coord, coords) {
-    console.log("DOWN")
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -384,11 +429,9 @@ function getDownCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
-    console.log("arr:", arr)
     return arr
 }
 function getLeftCoords(coord, coords) {
-    console.log("LEFT")
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -397,7 +440,6 @@ function getLeftCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
-    console.log("arr:", arr)
     return arr
 }
 
