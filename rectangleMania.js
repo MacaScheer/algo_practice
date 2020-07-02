@@ -135,12 +135,23 @@ function findMatch(coords) {  //[a,y1], [a,y2]
 // TREAT EVERY COORDINATE AS POSSIBLE BOTTOM LEFT COORDINATE
 function rectangleMania(coords) {
     let rects = [];
+    let counter = 0;
     let overall = [];
     for (let i = 0; i < coords.length; i++){
         let coord = coords[i]
         console.log("coord: ", coord)
+        // let oneRemoved = slicer(coords, i)  //since a coordinate cannot be used twice in one rectangle
         let recs = findOtherThrees(coords, coord)
-        console.log("findOtherThree: ", recs, i)
+        console.log("findOtherThree: ", recs)
+        for (let x = 0; x < recs.length; x++) {
+            let rect = recs[x]
+            console.log("each of the other three: ", rect, "length: ", rect.length)
+            if (rect.length === 4 && !overall.includes(rect)) {
+                counter++
+                overall.push(rect)
+            }
+        }
+        console.log("overall: ", overall)
         //     let twoCoords = findUpperLeft(coords, coord[0], coord[1])
         // rects.push(...twoCoords)
         // console.log("rects: ", rects)
@@ -168,8 +179,10 @@ function rectangleMania(coords) {
         //         }
         //     }
         // // }
-        }
-    console.log("overall: ", overall)
+    }
+    
+    return counter / 2 //why ?
+    // console.log("overall: ", overall)
     // console.log("twoCoords: ", twoCoords)
     // console.log("rects: ", rects)
     // let thirdCoords = [];
@@ -197,7 +210,7 @@ function findOtherThrees(coords, coord, i) {
       let twoCoords = findUpperLeft(coords, coord[0], coord[1])
         rects.push(...twoCoords)
         let outerArr = []; //need better name
-        console.log("rects: ", rects)
+        // console.log("rects: ", rects)
             if (rects.length === 2) {
                 let upperLeft = rects[1]
                     let slicedCoords = slicer(coords, i)
@@ -218,7 +231,7 @@ function findOtherThrees(coords, coord, i) {
                         let bottomRight = findLowerRight(slicedCoords, upperRight[0], upperRight[1])
                         r.push(bottomRight)
                     }
-                    console.log("newRects: ", newRects)
+                    // console.log("newRects: ", newRects)
                     outerArr.push(...newRects)
                 }
             }
@@ -291,14 +304,82 @@ function findLowerLeft(coords, x2, y2) {
         if (c[1] === y2 && c[0] < x2) {
             lowerLefts.push(c)
         }
-        console.log("upperRight: ", [x2,y2], " ")
+        // console.log("upperRight: ", [x2,y2], " ")
     }
     return lowerLefts
 }
-
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// 2ND ATTEMPT
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 let coords1 = [[0, 0], [0, 1], [1, 1], [1, 0], [2, 1], [2, 0], [3, 1], [3, 0]]
-console.log(rectangleMania(coords1))
+// console.log(rectangleMania(coords1))
 // console.log(findMatch(coords))
 // console.log(searchByXorY('x',0,1,coords))
 // console.log(rectangleMania(coords), " should return 6")
+
+
+function RECTangleMania(coords) {
+    let coordObject = {}
+
+    for (let i = 0; i < coords.length; i++){
+        let coord = coords[i];
+        coordObject[coord] = getCoordObject(coord, coords, coordObject)
+    }
+}
+
+
+function getCoordObject(coord, coords, coordObject) {
+    coordObject[coord]["UP"] = getUpCoords(coord, coords)
+    coordObject[coord]["RIGHT"] = getRightCoords(coord, coords)
+    coordObject[coord]["DOWN"] = getDownCoords(coord, coords)
+    coordObject[coord]["LEFT"] = getLeftCoords(coord, coords)
+    return coordObject;
+}
+function getUpCoords(coord, coords) {
+    let arr = [];
+    let [x,y] = coord;
+    for (let i = 0; i < coords.length; i++){
+        let [x1,y1] = coords[i]
+        if (x1 === x && y1 > y) {
+            arr.push([x1,y1])
+        }
+    }
+    return arr
+}
+
+function getRightCoords(coord, coords) {
+    let arr = [];
+    let [x,y] = coord;
+    for (let i = 0; i < coords.length; i++){
+        let [x1,y1] = coords[i]
+        if (y1 === y && x1 > x) {
+            arr.push([x1,y1])
+        }
+    }
+    return arr
+}
+function getDownCoords(coord, coords) {
+    let arr = [];
+    let [x,y] = coord;
+    for (let i = 0; i < coords.length; i++){
+        let [x1,y1] = coords[i]
+        if (x1 === x && y1 < y) {
+            arr.push([x1,y1])
+        }
+    }
+    return arr
+}
+function getLeftCoords(coord, coords) {
+    let arr = [];
+    let [x,y] = coord;
+    for (let i = 0; i < coords.length; i++){
+        let [x1,y1] = coords[i]
+        if (y1 === y && x1 < x) {
+            arr.push([x1,y1])
+        }
+    }
+    return arr
+}
+
+console.log(RECTangleMania(coords1))
