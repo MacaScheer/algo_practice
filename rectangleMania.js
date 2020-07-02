@@ -324,19 +324,30 @@ function RECTangleMania(coords) {
 
     for (let i = 0; i < coords.length; i++){
         let coord = coords[i];
-        coordObject[coord] = getCoordObject(coord, coords, coordObject)
+        coordObject = getCoordObject(coord, coords, coordObject)
     }
+    // for (let coord in coordObject) {
+    //     console.log("printing Object coord: ", coord);
+    //     console.log("printing Object coord's value: ", coordObject[coord])
+    // }
+    console.log("coordObject: ",coordObject)
 }
 
 
 function getCoordObject(coord, coords, coordObject) {
-    coordObject[coord]["UP"] = getUpCoords(coord, coords)
-    coordObject[coord]["RIGHT"] = getRightCoords(coord, coords)
-    coordObject[coord]["DOWN"] = getDownCoords(coord, coords)
-    coordObject[coord]["LEFT"] = getLeftCoords(coord, coords)
+    coordObject[coord] = {}
+    let upArr = getUpCoords(coord, coords)
+    coordObject[coord]["UP"] = upArr
+    let rightArr = getRightCoords(coord, coords)
+    coordObject[coord]["RIGHT"] = rightArr
+    let downArr = getDownCoords(coord, coords)
+    coordObject[coord]["DOWN"] = downArr
+    let leftArr = getLeftCoords(coord, coords)
+    coordObject[coord]["LEFT"] = leftArr
     return coordObject;
 }
 function getUpCoords(coord, coords) {
+    console.log("UP")
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -345,10 +356,13 @@ function getUpCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
+    console.log("arr:", arr)
     return arr
 }
 
 function getRightCoords(coord, coords) {
+    console.log("RIGHT")
+
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -357,9 +371,11 @@ function getRightCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
+    console.log("arr:", arr)
     return arr
 }
 function getDownCoords(coord, coords) {
+    console.log("DOWN")
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -368,9 +384,11 @@ function getDownCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
+    console.log("arr:", arr)
     return arr
 }
 function getLeftCoords(coord, coords) {
+    console.log("LEFT")
     let arr = [];
     let [x,y] = coord;
     for (let i = 0; i < coords.length; i++){
@@ -379,6 +397,7 @@ function getLeftCoords(coord, coords) {
             arr.push([x1,y1])
         }
     }
+    console.log("arr:", arr)
     return arr
 }
 
