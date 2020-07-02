@@ -322,7 +322,7 @@ let coords1 = [[0, 0], [0, 1], [1, 1], [1, 0], [2, 1], [2, 0], [3, 1], [3, 0]]
 function RECTangleMania(coords) {
     let coordObject = {}
     let count = 0;
-    for (let i = 0; i < 3; i++){//coords.length
+    for (let i = 0; i < coords.length; i++){//
         let coord = coords[i];
         coordObject = getCoordObject(coord, coords, coordObject)
     }
@@ -342,26 +342,48 @@ function RECTangleMania(coords) {
     return count;
 }
 
-function navigateObject(coordObject, coord) {
+function navigateObject(coordObject, coord, count = 0) {
+    // if (count === 4) return 1;
     let upOptions = coordObject[coord]["UP"];
     for (let options in upOptions) {
-        console.log("options: ", options, " upOptions:", upOptions, "  upOptions[options]: ", upOptions[options]);
+        console.log("options: ", options, " upOptions:", upOptions, "  rightOptions: ", upOptions[options]);
+        // count++;
         for (let i = 0; i < upOptions.length; i++){
             let nextCoord = coordAddition(coord, upOptions[i])
+            console.log("nextCoord: ", nextCoord, " coordObject[nextCoord]: ", coordObject[nextCoord])
+            let downOptions = coordObject[nextCoord]["LEFT"]
+            // let rightOptions = coordObject[nextCoord]["RIGHT"]
+            for (let j = 0; j < downOptions.length; j++){
+                let leftOption = downOptions[j];
+                console.log("down_option: ", leftOption)
+                let c = leftOption[0].toString()
+                let cString = c + ',' + coord[2].toString()
+                console.log("cString: ",cString, typeof cString, Object.keys(coordObject))
+                if (cString in coordObject) {
+                    count++;
+                    console.log("is cString in Object: ", cString in coordObject)
+                }
+                // is there an option[0], coord[1] in coordObject
+            }
+            // navigateObject(coordObject, nextCoord, count);
         }
     }
-
+return count
 }
 
-function coordAddition(c1, c2) {
-    // console.log("coordAdditon: ", c1.split(","), c2)
-    let x1 = parseInt(c1.split(",")[0]);
-    let y1 = parseInt(c1.split(",")[1]);
+function coordAddition(c2, c1) {
+    console.log("coordAdditon: ", c2.split(","), c2)
+    let x2 = parseInt(c2.split(",")[0]);
+    // let y2 = parseInt(c2.split(",")[1]);
     // let [x1, y1] = c1.split(",");
-    let [x2, y2] = c2;
-    let newC = [x1 + x2, y1 + y2];
-    console.log("newC: ",newC)
-    return newC
+    if (c1[0] === x2) {
+        console.log("newC: ",typeof c2)
+        return c2
+    }
+    // let [x2, y2] = c2;
+    // let newC = [x1 + x2, y1 + y2];
+    // console.log("newC: ",newC)
+    // return newC
 }
 function rectCounter(object) {
 // { '0,0':
