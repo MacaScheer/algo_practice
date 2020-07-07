@@ -486,7 +486,11 @@ function clockwiseCountRectanles(c, coordTable, direction, origin) {
         return rectangleFound ? 1 : 0;
     } else {
         let rectCount = 0;
-        const nextDirection = getNextCLockwiseDirection(direction)
+        const nextDirection = getNextCLockwiseDirection(direction);
+        for (const nextCoord of coordTable[coordString][directon]) {
+            rectCount += clockwiseCountRectangles(nextCoord, coordTable, nextDirection, origin)
+        }
+        return rectCount
     }
 }
 
