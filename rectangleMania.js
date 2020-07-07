@@ -423,4 +423,52 @@ function getLeftCoords(coord, coords) {
     return arr
 }
 
-console.log(RECTangleMania(coords1))
+// console.log(RECTangleMania(coords1))
+
+
+
+// SITE SOLUTION
+
+
+function rectangleManiaS(coords) {
+    const coordTable = getCoordsTable(coords);
+    return getRectangleCount(coords, coordTable)
+}
+
+function getCoordsTable(coords) {
+    const coordsTable = {};
+    for (const c1 in cords) {
+        const c1Directions = {
+            [UP]: [],
+            [RIGHT]: [],
+            [DOWN]: [],
+            [LEFT]: []
+        };
+        for (const c2 in coords) {
+            const c2Direction = getCoordDirection(c1, c2);
+            if(c2Direction in c1Directions) c1Directions[c2Direction].push(c2)
+        }
+        const c1String = coordToString(c1);
+        coordsTable[c1String] = c1Directions;
+    }
+    return coordsTable;
+}
+
+function getCoordDirection(c1, c2) {
+    const [x1, y1] = c1;
+    const [x2, y2] = c2;
+    if (y2 === y1) {
+        if (x2 > x1) {
+            return RIGHT;
+        } else if (x2 < x1) {
+            return LEFT;
+        }
+    } else if (x2 === x1) {
+        if (y2 > y1) {
+            return UP
+        } else if (y2 < y1) {
+            return DOWN
+        }
+    }
+    return ''
+}
