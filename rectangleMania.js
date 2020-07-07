@@ -432,20 +432,22 @@ function getLeftCoords(coord, coords) {
 
 function rectangleManiaS(coords) {
     const coordTable = getCoordsTable(coords);
+    // console.log("coordTable: ", coordTable)
     return getRectangleCount(coords, coordTable)
 }
 
 function getCoordsTable(coords) {
     const coordsTable = {};
-    for (const c1 in cords) {
+    for (const c1 of coords) {
         const c1Directions = {
             [UP]: [],
             [RIGHT]: [],
             [DOWN]: [],
             [LEFT]: []
         };
-        for (const c2 in coords) {
+        for (const c2 of coords) {
             const c2Direction = getCoordDirection(c1, c2);
+            console.log("c2Direction: ",c2Direction, c1, c2)
             if(c2Direction in c1Directions) c1Directions[c2Direction].push(c2)
         }
         const c1String = coordToString(c1);
@@ -474,20 +476,21 @@ function getCoordDirection(c1, c2) {
 }
 function getRectangleCount(coords, coordTable) {
     let rectCount = 0;
-    for (const c in coords) {
-        rectCount += clockwiseCountRectanles(c, coordTable, UP, c)
+    for (const c of coords) {
+        rectCount += clockwiseCountRectangles(c, coordTable, UP, c)
     }
     return rectCount;
 }
-function clockwiseCountRectanles(c, coordTable, direction, origin) {
-    const coordString = coordToString(coord)
+function clockwiseCountRectangles(c, coordTable, direction, origin) {
+    console.log("clockwise count: ", c)
+    const coordString = coordToString(c)
     if (direction === LEFT) {
         const rectangleFound = coordTable[coordString][LEFT].includes(origin)
         return rectangleFound ? 1 : 0;
     } else {
         let rectCount = 0;
         const nextDirection = getNextCLockwiseDirection(direction);
-        for (const nextCoord of coordTable[coordString][directon]) {
+        for (const nextCoord of coordTable[coordString][direction]) {
             rectCount += clockwiseCountRectangles(nextCoord, coordTable, nextDirection, origin)
         }
         return rectCount
@@ -496,9 +499,14 @@ function clockwiseCountRectanles(c, coordTable, direction, origin) {
 
 function coordToString(coord) {
     const [x, y] = coord;
+    console.log("coordString: ", `${x}-${y}`)
     return `${x}-${y}`;
 }
 function getNextCLockwiseDirection(direction) {
+    // if (direction === UP) return RIGHT;
+    // if (direction === RIGHT) return DOWN;
+    // if (direction === DOWN) return LEFT;
+    // return ''
     switch (direction) {
         case UP:
             return RIGHT;
@@ -515,3 +523,17 @@ const UP = 'up';
 const RIGHT = 'right';
 const DOWN = 'down';
 const LEFT = 'left';
+
+const coordS = [
+    [0, 0],
+    [0, 1],
+    [1, 1],
+    [1, 0],
+    [2, 1],
+    [2, 0],
+    [3, 1],
+    [3, 0],
+    [1, 3],
+    [3, 3]
+]
+console.log(rectangleManiaS(coordS))
