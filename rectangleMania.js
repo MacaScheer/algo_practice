@@ -472,3 +472,42 @@ function getCoordDirection(c1, c2) {
     }
     return ''
 }
+function getRectangleCount(coords, coordTable) {
+    let rectCount = 0;
+    for (const c in coords) {
+        rectCount += clockwiseCountRectanles(c, coordTable, UP, c)
+    }
+    return rectCount;
+}
+function clockwiseCountRectanles(c, coordTable, direction, origin) {
+    const coordString = coordToString(coord)
+    if (direction === LEFT) {
+        const rectangleFound = coordTable[coordString][LEFT].includes(origin)
+        return rectangleFound ? 1 : 0;
+    } else {
+        let rectCount = 0;
+        const nextDirection = getNextCLockwiseDirection(direction)
+    }
+}
+
+function coordToString(coord) {
+    const [x, y] = coord;
+    return `${x}-${y}`;
+}
+function getNextCLockwiseDirection(direction) {
+    switch (direction) {
+        case UP:
+            return RIGHT;
+        case RIGHT:
+            return DOWN;
+        case DOWN:
+            return LEFT;
+        default:
+            return ''
+    }
+}
+
+const UP = 'up';
+const RIGHT = 'right';
+const DOWN = 'down';
+const LEFT = 'left';
