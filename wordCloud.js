@@ -38,7 +38,9 @@ function capitalized(word) {
     let firstChar = wordArr.shift();
     let lwCase = firstChar.toLowerCase();
     wordArr = wordArr.join("");
-    return lwCase + wordArr
+    let nwWord = lwCase + wordArr
+    console.log(nwWord)
+    return nwWord
 }
 
 // console.log(capitalized("Dang"))
@@ -46,16 +48,20 @@ function capitalized(word) {
 
 function grammar(word) {
     let alph = 'abcdefghijklmnopqrstuvwxyz';
-    let lastChar = word[word.length - 1]
+    let lastChar = word[word.length - 1].toLowerCase()
+    let firstChar = word[0].toLowerCase()
+    let wordArr = word.split("");
     if (!alph.includes(lastChar)) {
-        // we know it contains grammar
-        let wordArr = word.split("");
         wordArr.pop();
-        word = wordArr.join("")
     }
+    if (!alph.includes(firstChar)) {
+        wordArr.shift();
+    }
+    word = wordArr.join("")
     return capitalized(word)
 }
 
 let sent1 = "After beating the eggs, Dana read the next step: Add milk and eggs, then add flour and sugar."
-
-console.log(wordCloud(sent1))
+let sent2 = "We came, we saw, we conquered...then we ate Bill's (Mille-Feuille) cake."
+// console.log(wordCloud(sent1))
+console.log(wordCloud(sent2))
