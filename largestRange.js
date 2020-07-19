@@ -47,8 +47,8 @@ function largestRange(integers) {
     let range = [];
     for (let i = 0; i < integers.length; i++){
         let int = integers[i]
-        if (obj[int] !== "visited") {
-            let newRange = [...countOutwards(int, integers, obj)];
+        if (!obj[int]) {
+            let newRange = countOutwards(int, integers, obj);
             if (newRange.length > range.length) {
                 range = newRange;
             }
@@ -58,32 +58,35 @@ function largestRange(integers) {
 }
 
     function countOutwards(int, integers, object) {
+        console.log("integers: ", integers)
         let range = [int]
         let cont = true
         let Fint = int;        
         let Rint = int - 1;
-        while (cont) {
-            console.log("Fint: ", Fint, " Rint:", Rint, " range: ", range)
-            Fint++
+        while (cont && Fint < 10) {
+            cont = false
+            console.log("Fint: ", Fint, " Rint:", Rint, " object[Fint]: ", object[Fint], " object[Rint]: ", object[Rint], " range: ", range)
             if (object[Fint] !== undefined) {
                 object[Fint] = "visited"
-                // cont = true
+                cont = true
                 range.push(Fint)
+                Fint++
             }
             if (object[Rint] !== undefined) {
                 object[Rint] = "visited"
-                // cont = true
+                cont = true
                 range.unshift(Rint)
                 Rint--
             }
-            else if (object[Fint] === undefined && object[Rint] === undefined) {
-                cont = false
-            }
+            // if (object[Fint] === undefined && object[Rint] === undefined) {
+            //     cont = false
+            // }
         }
         return range
     }
 
-console.log(largestRange([1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6]))
+// console.log(largestRange([1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6]))
+console.log(largestRange([4,2,1,3,6]))
 
 
 
