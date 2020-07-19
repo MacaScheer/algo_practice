@@ -86,7 +86,42 @@ function largestRange(integers) {
     }
 
 // console.log(largestRange([1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6]))
-console.log(largestRange([4,2,1,3,6]))
+console.log(largestRange([4, 2, 1, 3, 6]))
+
+
+/* ALGO EXPERT SOLUTION*/
+
+
+function largestRangeSOL(array) {
+    let bestRange = [];
+    let longestLength = 0;
+    let nums = {};
+    for (const num of array) {
+        nums[num] = true
+    }
+    for (const num of array) {
+        if (!nums[num]) continue;
+        nums[num] = false;
+        let currLength = 1;
+        let left = num - 1;
+        let right = num + 1;
+        while (left in nums) {
+            nums[left] = false;
+            currLength++
+            left--
+        }
+        while (right in nums) {
+            nums[right] = false;
+            currLength++;
+            right++;
+        }
+        if (currLength > longestLength) {
+            longestLength = currLength;
+            bestRange = [left + 1, right - 1]
+        }
+    }
+    return bestRange;
+}
 
 
 
