@@ -14,12 +14,17 @@
 */
 
 function minRewards(scores) {
-    let min = Math.min(...scores);
+   
 
 
 }
 
-function findLocalMax(idx, array) {
+function findLocalMins(array, idx) {
+    
+}
+
+
+function findLocalMaxs(idx, array) {
     
 }
 

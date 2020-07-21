@@ -4,6 +4,9 @@
 
 # OR
 
+from operator import mul
+from operator import add
+from itertools import accumulate
 from functools import reduce
 
 # functools.reduce(function, iterable[, initializer])
@@ -136,3 +139,54 @@ print(any_true, numbers2)
 
 print(reduce(lambda a, b: bool(a or b), [0, 0, 1, 0, 1]))
 print(any([0, 0, 0, 1, 1, 1, 1]))
+
+
+"""COMPARING ACCUMULATE AND REDUCE: accumulate() v reduce()"""
+
+# like reduce(function[,iterable]) accumulate(iterable[, function])
+"""accumulate accepts FIRST: one required argument, 
+iterable, which can be any python iterable.
+SECOND optional argument, func needs to be a function (or callable object)
+that takes two arguments and returns a single value
+accumulate returns an iterator. Each item in this iterator will
+be the accumulated result of the computation that fun performs.
+The default computation is sum. If you don's supply a function to accumulate(),
+then each item in the resulting iterator will be the accumulated
+sum of the previous items in iterable plus the item in hand
+
+"""
+
+# from functools import reduce
+
+numbers3 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+print ("list(accumulate(numbers3)): ", list(accumulate(numbers3)))
+print("reduce(add, numbers3): ", reduce(add, numbers3))
+"""since accumulate() returns an iterator, you need to call list()
+to consume the iterator and get a list object as an output 
+
+If you supply a two-argument function to the func argument of accumulate()
+then the items in the resulting iterator will be the accumulated result
+of the computation performed by func
+
+"""
+
+
+numbers4 = [232, 45, 6, 7, 33, 675]
+print (list(accumulate(numbers4, mul)))
+
+print (reduce(mul, numbers4))
+"""mul is multiplication"""
+"""
+Use a dedicated function to solve use cases for Python’s reduce() whenever possible. 
+Functions such as sum(), all(), any(), max(), min(), len(), math.prod(), 
+and so on will make your code faster and more readable, maintainable, and Pythonic.
+
+Avoid complex user-defined functions when using reduce(). 
+These kinds of functions can make your code difficult to read and understand. 
+You can use an explicit and readable for loop instead.
+
+Avoid complex lambda functions when using reduce(). 
+They can also make your code unreadable and confusing.
+
+"""
