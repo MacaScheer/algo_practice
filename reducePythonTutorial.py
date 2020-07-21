@@ -131,3 +131,8 @@ def any_true(a, b):
 
 
 print(any_true, numbers2)
+
+"""AS WITH all() there is also any()"""
+
+print(reduce(lambda a, b: bool(a or b), [0, 0, 1, 0, 1]))
+print(any([0, 0, 0, 1, 1, 1, 1]))
