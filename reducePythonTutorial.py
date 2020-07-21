@@ -55,3 +55,20 @@ def x(a): return a + 10
 
 
 print(x(5))
+
+
+"""FIND MINIMUM AND MAXIMUM"""
+numbers2 = [3, 5, 2, 4, 7, 1]
+min_value, *rest = numbers2
+# iterable unpacking operator => * tp expand numbers2 into 2 variables
+# min_value gets the first value, and rest is a list with the rest of the original list
+for num in rest:
+    if num < min_value:
+        min_value = num
+print (min_value)
+
+max_value, *rest = numbers2
+for num in rest:
+    if num > max_value:
+        max_value = num
+print(max_value)
