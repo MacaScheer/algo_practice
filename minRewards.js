@@ -106,26 +106,31 @@ function expandFromLocalMin(min, rewards, scores) {
 function mins(scores) {
     let idxs = [];
     for (let i = 1; i < scores.length - 1; i++){
-        let first = scores[i - 1];
-        let mid = scores[i];
-        let last = scores[i + 1]
-        if (i === 1) {
-            if (mid > first) {
-                idxs.push(i - 1)
-            }
-        } else if (i === scores.length - 2) {
-            // if (mid > first && mid > last) {
-            //     idxs.push(i)
-            // }
-            if (last < mid) {
-                idxs.push(i + 1)
-            } 
-        } else {
-           if (mid < first && mid < last) {
-                idxs.push(i)
-            }
-        }
+        // let first = scores[i - 1];
+        // let mid = scores[i];
+        // let last = scores[i + 1]
+        // if (i === 1) {
+        //     if (mid > first) {
+        //         idxs.push(i - 1)
+        //     }
+        // } else if (i === scores.length - 2) {
+        //     // if (mid > first && mid > last) {
+        //     //     idxs.push(i)
+        //     // }
+        //     if (last < mid) {
+        //         idxs.push(i + 1)
+        //     } 
+        // } else {
+        //    if (mid < first && mid < last) {
+        //         idxs.push(i)
+        //     }
+        // }
+        if (i === 0 && scores[i] < scores[i + 1]) idxs.push(i);
+        if (i === scores.length - 1 && scores[i] < scores[i - 1]) idxs.push(i);
+        if (i === 0 || i === scores.length - 1) continue;
+        if (scores[i] < scores[i + 1] && scores[i] < scores[i - 1])idxs.push(i)
     }
+    
     return idxs
 }
 
