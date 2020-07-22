@@ -220,7 +220,7 @@ const answerSet = {
     4: "15",
     5: "93"
 }
-console.log(minRewards(scoreSet[1]), answerSet[1])
+console.log(minRewards(scoreSet[3]), answerSet[3])
 // console.log("mins: ",mins(scoreSet[1]))
 // console.log("maxs: ", maxs(scoreSet[1]))
 // for (let test in scoreSet) {
