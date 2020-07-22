@@ -57,7 +57,7 @@ function rewardBackwards(rewardsArray) {
 }
 
 
-
+// NAIVE SOLUTION:
 function minRewards(scores) {
     const rewards = scores.map(el => 1);
     for (let i = 1; i < scores.length; i++){
@@ -74,6 +74,36 @@ function minRewards(scores) {
     return rewards.reduce((a,b) => a + b)
 }
 
+
+////////
+
+function minMaxs(scores) {
+    let idxs = [];
+    for (let i = 1; i < scores.length - 1; i++){
+        let first = scores[i - 1];
+        let mid = scores[i];
+        let last = scores[i + 1]
+        if (i === 1) {
+            if (mid < first) {
+                idxs.push(i - 1)
+            }
+            
+        } else if (i === scores.length - 2) {
+            if (last > mid) {
+                idxs.push(i + 1)
+            } else if (mid > first && mid > last) {
+                idxs.push(i)
+            }
+        } else {
+            if (mid > first && mid > last) {
+                idxs.push(i)
+            } else if (mid < first && mid < last) {
+                idxs.push(i)
+            }
+        }
+    }
+    return idxs
+}
 const scoreSet = {
     1: [8, 4, 2, 1, 3, 6, 7, 9, 5],
     2: [0, 4, 2, 1, 3],
@@ -122,7 +152,8 @@ const answerSet = {
     4: "15",
     5: "93"
 }
+console.log(minMaxs(scoreSet[1]))
 
-for (let test in scoreSet) {
-    console.log(`Your code's output: ${minRewards(scoreSet[test])}. The solution is: ${answerSet[test]}`)
-}
+// for (let test in scoreSet) {
+//     console.log(`Your code's output: ${minRewards(scoreSet[test])}. The solution is: ${answerSet[test]}`)
+// }
