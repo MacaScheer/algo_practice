@@ -91,29 +91,12 @@ function minRewards(scores) {
 function expandFromLocalMin(min, rewards, scores) {
     let idxF = min + 1;
     let idxR = min - 1;
-    let f = 2; let r = 2;
-    let score, prevScore;
-    while (idxF < scores.length) {
-        score = scores[idxF];
-        prevScore = scores[idxF - 1];
-        if (score > prevScore) {
-            rewards[idxF] = f
-            f++
-        } else {
-            break
-        }
+    while (idxF < scores.length && scores[idxF] > scores[idxF - 1]) {
+        rewards[idxF] = rewards[idxF - 1] + 1
         idxF++
     }
-    while (idxR >= 0) {
-        score = scores[idxR];
-        prevScore = scores[idxR + 1]
-        if (score > prevScore) {
-            rewards[idxR] = Math.max(rewards[idxR], rewards[idxR + 1] + 1)
-            // r = rewards[idxR] + 1
-        } else {
-            rewards[idxR] = rewards[idxR + 1] - 1
-        }
-
+    while (idxR >= 0 && scores[idxR] > scores[idxR + 1]) {
+        rewards[idxR] = Math.max(rewards[idxR], rewards[idxR + 1] + 1);
         idxR--
     }
     return rewards
@@ -220,9 +203,9 @@ const answerSet = {
     4: "15",
     5: "93"
 }
-console.log(minRewards(scoreSet[3]), answerSet[3])
+// console.log(minRewards(scoreSet[3]), answerSet[3])
 // console.log("mins: ",mins(scoreSet[1]))
 // console.log("maxs: ", maxs(scoreSet[1]))
-// for (let test in scoreSet) {
-//     console.log(`Your code's output: ${minRewards(scoreSet[test])}. The solution is: ${answerSet[test]}`)
-// }
+for (let test in scoreSet) {
+    console.log(`Your code's output: ${minRewards(scoreSet[test])}. The solution is: ${answerSet[test]}`)
+}
