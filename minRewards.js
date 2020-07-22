@@ -13,7 +13,7 @@
     Can assume all scores are unique
 */
 
-function minRewards(scores) {
+function minRewardsFAIL(scores) {
     let rewardsArr = [1];
     for (let i = 1; i < scores.length; i++){
         let el1 = scores[i - 1];
@@ -21,43 +21,58 @@ function minRewards(scores) {
         if (el1 < el2) {
             rewardsArr.push(rewardsArr[i - 1] + 1)
         } else {
-            if (i === scores.length - 1) {
-                rewardsArr.push(1)
-                // rewardsArr.push(Math.max(rewardsArr[i - 1], rewardsArr[i] + 1))
-            } else {
+            // if (i === scores.length - 1) {
+                // rewardsArr.push(1)
+                // rewardsArr[rewardsArr.length - 2] = Math.max(rewardsArr[i - 1], rewardsArr[i] + 1)
+            // } else {
 
                 // push 1, then
                 // the new value of rewardsArr[i] is going to be the 
                 // Math.max(rewardsArr[i], rewards[i + 1] + 1)
-                rewardsArr = rewardBackwards(rewardsArr)
                 rewardsArr.push(1)
-            }
+                rewardsArr = rewardBackwards(rewardsArr)
+            // }
             // rewardsArr.push(rewardsArr[i - 1] - 1)
         }
-        // console.log("el1: ", el1, " el2:", el2, " rewardsArr: ", rewardsArr)
+        console.log("el1: ", el1, " el2:", el2, " rewardsArr: ", rewardsArr)
     }
     return rewardsArr.reduce((a,b) => a + b)
 }
 
-
-function latestReward(rewardsArr) {
-    return rewardsArr[rewardsArr.length - 1]
-}
-
-
+// [4,3,2,1,2,3,4,i,1]
 
 function rewardBackwards(rewardsArray) {
-    for (let i = rewardsArray.length - 1; i >= 0; i--){
-        rewardsArray[i]+=1
+    for (let i = rewardsArray.length - 2; i >= 0; i--){
+        let a = rewardsArray[i]
+        let b = rewardsArray[i + 1] + 1
+        let max = Math.max(a, b);
+        rewardsArray[i] = max
+        if (max === a || rewardsArray[i] < rewardsArray[i + 1]) {
+            break
+        }
     }
+   
+    // console.log(rewardsArray)
     return rewardsArray
 }
 
-// const score = [8, 4, 2, 1, 3, 6, 7, 9, 5]
-// const score1 = [0,4,2,1,3]
-// console.log(minRewards(score), " should be 25, because [4,3,2,1,2,3,4,5,1]")
-// console.log(minRewards(score1), " should be 9")
 
+
+function minRewards(scores) {
+    const rewards = scores.map(el => 1);
+    for (let i = 1; i < scores.length; i++){
+        let j = i - 1
+        if (scores[i] > scores[j]) {
+            rewards[i] = rewards[j] + 1
+        } else {
+            while (j >= 0 && scores[j] > scores[j + 1]) {
+                rewards[j] = Math.max(rewards[j], rewards[j + 1] + 1);
+                j--
+            }
+        }
+    }
+    return rewards.reduce((a,b) => a + b)
+}
 
 const scoreSet = {
     1: [8, 4, 2, 1, 3, 6, 7, 9, 5],
