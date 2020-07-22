@@ -58,7 +58,7 @@ function rewardBackwards(rewardsArray) {
 
 
 // NAIVE SOLUTION:
-function minRewards(scores) {
+function minRewardsNAIVE(scores) {
     const rewards = scores.map(el => 1);
     for (let i = 1; i < scores.length; i++){
         let j = i - 1
@@ -76,6 +76,49 @@ function minRewards(scores) {
 
 
 ////////
+
+function minRewards(scores) {
+    let rewards = scores.map(el => 1)
+    // let maxss = maxs(scores);
+    let minss = mins(scores);
+    for (let i = 0; i < minss.length; i++){
+        let min = minss[i];
+        expandFromLocalMin(min, rewards, scores)
+    }
+    return rewards.reduce((a,b) => a + b)
+}
+
+function expandFromLocalMin(min, rewards, scores) {
+    let idxF = min + 1;
+    let idxR = min - 1;
+    let f = 2; let r = 2;
+    let score, prevScore;
+    while (idxF < scores.length) {
+        score = scores[idxF];
+        prevScore = scores[idxF - 1];
+        if (score > prevScore) {
+            rewards[idxF] = f
+            f++
+        } else {
+            break
+        }
+        idxF++
+    }
+    while (idxR >= 0) {
+        score = scores[idxR];
+        prevScore = scores[idxR + 1]
+        if (score > prevScore) {
+            rewards[idxR] = Math.max(rewards[idxR], rewards[idxR + 1] + 1)
+            // r = rewards[idxR] + 1
+        } else {
+            rewards[idxR] = rewards[idxR + 1] - 1
+        }
+
+        idxR--
+    }
+    return rewards
+}
+
 
 function mins(scores) {
     let idxs = [];
@@ -177,8 +220,9 @@ const answerSet = {
     4: "15",
     5: "93"
 }
-console.log("mins: ",mins(scoreSet[1]))
-console.log("maxs: ", maxs(scoreSet[1]))
+console.log(minRewards(scoreSet[1]), answerSet[1])
+// console.log("mins: ",mins(scoreSet[1]))
+// console.log("maxs: ", maxs(scoreSet[1]))
 // for (let test in scoreSet) {
 //     console.log(`Your code's output: ${minRewards(scoreSet[test])}. The solution is: ${answerSet[test]}`)
 // }
