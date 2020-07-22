@@ -77,9 +77,35 @@ function minRewards(scores) {
 
 ////////
 
-function minMaxs(scores) {
+function mins(scores) {
     let idxs = [];
     for (let i = 1; i < scores.length - 1; i++){
+        let first = scores[i - 1];
+        let mid = scores[i];
+        let last = scores[i + 1]
+        if (i === 1) {
+            if (mid > first) {
+                idxs.push(i - 1)
+            }
+        } else if (i === scores.length - 2) {
+            // if (mid > first && mid > last) {
+            //     idxs.push(i)
+            // }
+            if (last < mid) {
+                idxs.push(i + 1)
+            } 
+        } else {
+           if (mid < first && mid < last) {
+                idxs.push(i)
+            }
+        }
+    }
+    return idxs
+}
+
+function maxs(scores) {
+    let idxs = [];
+    for (let i = 1; i < scores.length - 1; i++) {
         let first = scores[i - 1];
         let mid = scores[i];
         let last = scores[i + 1]
@@ -87,17 +113,16 @@ function minMaxs(scores) {
             if (mid < first) {
                 idxs.push(i - 1)
             }
-            
         } else if (i === scores.length - 2) {
             if (last > mid) {
                 idxs.push(i + 1)
-            } else if (mid > first && mid > last) {
-                idxs.push(i)
             }
-        } else {
             if (mid > first && mid > last) {
                 idxs.push(i)
-            } else if (mid < first && mid < last) {
+            }
+         
+        } else {
+            if (mid > first && mid > last) {
                 idxs.push(i)
             }
         }
@@ -152,8 +177,8 @@ const answerSet = {
     4: "15",
     5: "93"
 }
-console.log(minMaxs(scoreSet[1]))
-
+console.log("mins: ",mins(scoreSet[1]))
+console.log("maxs: ", maxs(scoreSet[1]))
 // for (let test in scoreSet) {
 //     console.log(`Your code's output: ${minRewards(scoreSet[test])}. The solution is: ${answerSet[test]}`)
 // }
