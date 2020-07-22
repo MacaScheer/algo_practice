@@ -15,13 +15,15 @@ let c = new Node(3);
 let d = new Node(4);
 let e = new Node(5);
 let f = new Node(6);
-
+let g = new Node(7);
+let h = new Node(8)
 a.left = b;
 a.right = c;
 b.left = d;
 b.right = e;
 d.left = f;
-
+f.left = g;
+g.left = h;
 
 function numGenerations(root) {
     let stack = [];

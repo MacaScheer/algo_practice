@@ -14,13 +14,51 @@
 */
 
 function minRewards(scores) {
-   
-
-
+    let rewardsArr = [1];
+    for (let i = 1; i < scores.length; i++){
+        let el1 = scores[i - 1];
+        let el2 = scores[i];
+        if (el1 < el2) {
+            rewardsArr.push(rewardsArr[i - 1] + 1)
+        } else {
+            rewardsArr = rewardBackwards(rewardsArr)
+            rewardsArr.push(rewardsArr[i - 1] - 1)
+        }
+        console.log("el1: ", el1, " el2:", el2, " rewardsArr: ", rewardsArr)
+    }
+    return rewardsArr.reduce(add)
 }
 
+const add = (a, b) => a + b
+
+function latestReward(rewardsArr) {
+    return rewardsArr[rewardsArr.length - 1]
+}
+
+
+
+function rewardBackwards(rewardsArray) {
+    for (let i = rewardsArray.length - 1; i >= 0; i--){
+        rewardsArray[i]+=1
+    }
+    return rewardsArray
+}
+
+const score = [8, 4, 2, 1, 3, 6, 7, 9, 5]
+
+console.log(minRewards(score), " should be 25, because [4,3,2,1,2,3,4,5,1]")
+
+
 function findLocalMins(array, idx) {
-    
+    // let mins = [];
+    // let f = idx + 1;
+    // let r = idx - 1;
+    // while (f < array.length) {
+        
+    // }
+    // while (r >= 0) {
+        
+    // }
 }
 
 
@@ -48,7 +86,3 @@ function findLocalMaxs(idx, array) {
 //     }
 //     return [minIdx, min]
 // }
-
-const score = [8, 4, 2, 1, 3, 6, 7, 9, 5]
-
-console.log(minRewards(score), " should be 25, because [4,3,2,1,2,3,4,5,1]")
