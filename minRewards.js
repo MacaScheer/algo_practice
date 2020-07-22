@@ -21,15 +21,24 @@ function minRewards(scores) {
         if (el1 < el2) {
             rewardsArr.push(rewardsArr[i - 1] + 1)
         } else {
-            rewardsArr = rewardBackwards(rewardsArr)
-            rewardsArr.push(rewardsArr[i - 1] - 1)
+            if (i === scores.length - 1) {
+                rewardsArr.push(1)
+                // rewardsArr.push(Math.max(rewardsArr[i - 1], rewardsArr[i] + 1))
+            } else {
+
+                // push 1, then
+                // the new value of rewardsArr[i] is going to be the 
+                // Math.max(rewardsArr[i], rewards[i + 1] + 1)
+                rewardsArr = rewardBackwards(rewardsArr)
+                rewardsArr.push(1)
+            }
+            // rewardsArr.push(rewardsArr[i - 1] - 1)
         }
         console.log("el1: ", el1, " el2:", el2, " rewardsArr: ", rewardsArr)
     }
-    return rewardsArr.reduce(add)
+    return rewardsArr.reduce((a,b) => a + b)
 }
 
-const add = (a, b) => a + b
 
 function latestReward(rewardsArr) {
     return rewardsArr[rewardsArr.length - 1]
@@ -45,44 +54,6 @@ function rewardBackwards(rewardsArray) {
 }
 
 const score = [8, 4, 2, 1, 3, 6, 7, 9, 5]
-
+const score1 = [0,4,2,1,3]
 console.log(minRewards(score), " should be 25, because [4,3,2,1,2,3,4,5,1]")
-
-
-function findLocalMins(array, idx) {
-    // let mins = [];
-    // let f = idx + 1;
-    // let r = idx - 1;
-    // while (f < array.length) {
-        
-    // }
-    // while (r >= 0) {
-        
-    // }
-}
-
-
-function findLocalMaxs(idx, array) {
-    
-}
-
-// function findLocalMin(idx, array) {
-//     let min = Infinity;
-//     let f, r = idx
-//     let minIdx;
-//     while (f < array.length && r >= 0) {
-//         let fEl = array[f];
-//         let rEl = array[r];
-//         if (fEl < min) {
-//             min = fEl
-//             minIdx = f
-//         }
-//         if (rEl < min) {
-//             min = rEl;
-//             minIdx = r
-//         }
-//         f++;
-//         r--;
-//     }
-//     return [minIdx, min]
-// }
+console.log(minRewards(score1), " should be 9")
