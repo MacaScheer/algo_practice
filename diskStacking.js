@@ -28,31 +28,32 @@ function diskStacking(disks) {
     that could legally preceed it */
     let maxStack = [];
     let maxHeight = 0;
-    for (let i = 1; i < heights.length; i++){
-        let currStack = [];
+    for (let i = 0; i < heights.length; i++){
         let currHeight = heights[i]
         let currDisk = sortedByHeight[i];
+        let currStack = [currDisk];
         console.log("currDisk: ", currDisk)
         for (let j = 0; j < i; j++){
             let otherDisk = sortedByHeight[j];
             console.log(" otherDisk: ", otherDisk, compareDisks(otherDisk, currDisk))
             if (compareDisks(otherDisk, currDisk)) {
-                currStack.push(currDisk, otherDisk)
-                currHeight += heights[j]
+                currStack.push(otherDisk)
                 console.log("currStack: ", currStack, " currheight: ", currHeight)
+                heights[i] = Math.max(heights[i], currDisk[2] + otherDisk[2])
+                currDisk = otherDisk
             }
 
         }
-        if (currHeight > maxHeight) {
-            maxHeight = currHeight;
-            maxStack = currStack
-        }
+        // if (currHeight > maxHeight) {
+        //     maxHeight = currHeight;
+        //     maxStack = currStack
+        // }
         // console.log("currStack: ", currStack)
     }
 }
 
-function compareDisks(d1, d2) {
-    return (d1[0] > d2[0] && d1[1] > d2[1] && d1[2] < d2[2]) 
+function compareDisks(otherDisk, currDisk) {
+    return (otherDisk[0] < currDisk[0] && otherDisk[1] < currDisk[1] && otherDisk[2] < currDisk[2]) 
 }
 
 function sortByHeight(disks) {
