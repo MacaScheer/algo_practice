@@ -20,8 +20,21 @@ let disks1 = [[2, 1, 2], [3, 2, 3], [2, 2, 8], [2, 3, 4], [1, 3, 1], [4, 4, 5]];
 let idealOutput = [[2, 1, 2], [3, 2, 3], [4, 4, 5]];
 
 
-
-
+let disks2 = [
+    [3, 3, 4],
+    [2, 1, 2],
+    [3, 2, 3],
+    [2, 2, 8],
+    [2, 3, 4],
+    [5, 5, 6],
+    [1, 2, 1],
+    [4, 4, 5],
+    [1, 1, 4],
+    [2, 2, 3]
+  ]
+let idealOutput2 = [
+    [[2, 2, 3], [3, 3, 4], [4, 4, 5], [5, 5, 6]]
+  ]
 /* 
 CORE LOGIC:
 currentDisk = array[i] for 0 <= i < array.length
@@ -58,6 +71,19 @@ function diskStacking(disks) {
      return maxArr(pointers, heights, sortedByHeight)
 }
 
+function sortByHeight(disks) {
+    if (disks.length <= 1) return disks;
+    let piv = disks.shift()
+    let left = disks.filter(d => d[2] <= piv[2]);
+    let right = disks.filter(d => d[2] > piv[2]);
+    let sortedLeft = sortByHeight(left);
+    let sortedRight = sortByHeight(right);
+    return sortedLeft.concat([piv]).concat(sortedRight)
+}
+
+function compareDisks(otherDisk, currDisk) {
+    return (otherDisk[0] < currDisk[0] && otherDisk[1] < currDisk[1] && otherDisk[2] < currDisk[2]) 
+}
 
 function maxArr(pointers, heights, disks) {
     /* Follow path through the pointers object, which indicates, at each maxHeight, 
@@ -79,20 +105,10 @@ function maxArr(pointers, heights, disks) {
         return finalArr
 }
 
+console.log(" \nTEST 1 => \nMy Code: ",diskStacking(disks1), "\nSolution: ", idealOutput, "\n");
+console.log("TEST 2 => \nMy Code: ",diskStacking(disks2), "\nSolution: ", idealOutput2, "\n");
 
-function compareDisks(otherDisk, currDisk) {
-    return (otherDisk[0] < currDisk[0] && otherDisk[1] < currDisk[1] && otherDisk[2] < currDisk[2]) 
-}
 
-function sortByHeight(disks) {
-    if (disks.length <= 1) return disks;
-    let piv = disks.shift()
-    let left = disks.filter(d => d[2] <= piv[2]);
-    let right = disks.filter(d => d[2] > piv[2]);
-    let sortedLeft = sortByHeight(left);
-    let sortedRight = sortByHeight(right);
-    return sortedLeft.concat([piv]).concat(sortedRight)
-}
 
 // console.log(sortByHeight(disks1))
 
@@ -131,4 +147,3 @@ function sortByHeight(disks) {
 //     }
 //     return sortByHeight(arr)
 // }
-console.log(diskStacking(disks1), " should match: ", idealOutput);
