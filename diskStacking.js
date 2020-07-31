@@ -64,7 +64,6 @@ function maxArr(pointers, heights, disks) {
     what the previous disks index that added to make that maxheight,
     similar to the 'previous' object in djikstras, a list of each height value pointing to the previous
     height's index that had been added to create the maxHeight at that index
-
     */
     let finalArr = [];
     let maxHeight = Math.max(...heights);
@@ -97,39 +96,39 @@ function sortByHeight(disks) {
 
 // console.log(sortByHeight(disks1))
 
-function checkLegal(stack) {
-    // NOT HELPFUL? returns the portion of the stack that is legal
-    let legal = [stack[0]];
-    for (let i = 1; i < stack.length; i++){
-        let disk1 = legal[legal.length - 1]
-        let disk2 = stack[i]
-        if (disk1[0] < disk2[0] && disk1[1] < disk2[1] && disk1[2] < disk2[2]) {
-            legal.push(disk2)
-        }
-    }
-    return legal
-}
+// function checkLegal(stack) {
+//     // NOT HELPFUL? returns the portion of the stack that is legal
+//     let legal = [stack[0]];
+//     for (let i = 1; i < stack.length; i++){
+//         let disk1 = legal[legal.length - 1]
+//         let disk2 = stack[i]
+//         if (disk1[0] < disk2[0] && disk1[1] < disk2[1] && disk1[2] < disk2[2]) {
+//             legal.push(disk2)
+//         }
+//     }
+//     return legal
+// }
 
-function tallestPossible(base,disks) {
-    // using a certain base disk, create the tallest possible stack
-    let height = base[2]
-    let tallestStack = [];
-    let possibleNext = NextTallestHelper(base, disks);
-    for (let i = 0; i < possibleNext.length; i++){
-        let p = possibleNext[i]
-    }
-}
+// function tallestPossible(base,disks) {
+//     // using a certain base disk, create the tallest possible stack
+//     let height = base[2]
+//     let tallestStack = [];
+//     let possibleNext = NextTallestHelper(base, disks);
+//     for (let i = 0; i < possibleNext.length; i++){
+//         let p = possibleNext[i]
+//     }
+// }
 
-function NextTallestHelper(base, disks) {
-    // return an array of next possible disks legal to stack on the base
-    let arr = [];
-    for (let i = 0; i < disks.length; i++){
-        let d = disks[i]
-        if (d === base) continue;
-        if (base[0] < d[0] && base[1] < d[1] && base[2] < d[2]) {
-            arr.push(d)
-        }
-    }
-    return sortByHeight(arr)
-}
+// function NextTallestHelper(base, disks) {
+//     // return an array of next possible disks legal to stack on the base
+//     let arr = [];
+//     for (let i = 0; i < disks.length; i++){
+//         let d = disks[i]
+//         if (d === base) continue;
+//         if (base[0] < d[0] && base[1] < d[1] && base[2] < d[2]) {
+//             arr.push(d)
+//         }
+//     }
+//     return sortByHeight(arr)
+// }
 console.log(diskStacking(disks1), " should match: ", idealOutput);
