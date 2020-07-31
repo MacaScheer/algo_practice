@@ -19,38 +19,67 @@ cannot rotate disks
 let disks1 = [[2, 1, 2], [3, 2, 3], [2, 2, 8], [2, 3, 4], [1, 3, 1], [4, 4, 5]];
 let idealOutput = [[2, 1, 2], [3, 2, 3], [4, 4, 5]];
 
+
+
+
+/* 
+CORE LOGIC:
+currentDisk = array[i] for 0 <= i < array.length
+otherDisk = array[j] for 0 <= j < i
+
+if(otherDisk[0] < currentDisk[0] && otherDisk[1] < currentDisk[1] && otherDisk[2] < currentDisk[2]){
+    heights[i] = Math.max(heights[i], currentDisk[2] + heights[j])
+}
+*/
+
 function diskStacking(disks) {
     let sortedByHeight = sortByHeight(disks)
     let heights = sortedByHeight.map(d => d[2]);
-    console.log("sortedByHeight: ", sortedByHeight)
     /* [1,2,3,4,5,8] iterate through, at each one, 
     look to the left to see if there are any disks 
     that could legally preceed it */
     let maxStack = [];
     let maxHeight = 0;
+    let pointers = {};
     for (let i = 0; i < heights.length; i++){
-        let currHeight = heights[i]
         let currDisk = sortedByHeight[i];
-        let currStack = [currDisk];
-        console.log("currDisk: ", currDisk)
         for (let j = 0; j < i; j++){
             let otherDisk = sortedByHeight[j];
-            console.log(" otherDisk: ", otherDisk, compareDisks(otherDisk, currDisk))
             if (compareDisks(otherDisk, currDisk)) {
-                currStack.push(otherDisk)
-                console.log("currStack: ", currStack, " currheight: ", currHeight)
-                heights[i] = Math.max(heights[i], currDisk[2] + otherDisk[2])
-                currDisk = otherDisk
+                let h1 = heights[i];
+                let h2 = currDisk[2] + heights[j];
+                if (h2 > h1) {
+                    pointers[h2] = j
+                    heights[i] = h2
+                }
             }
-
         }
-        // if (currHeight > maxHeight) {
-        //     maxHeight = currHeight;
-        //     maxStack = currStack
-        // }
-        // console.log("currStack: ", currStack)
     }
+     return maxArr(pointers, heights, sortedByHeight)
 }
+
+
+function maxArr(pointers, heights, disks) {
+    /* Follow path through the pointers object, which indicates, at each maxHeight, 
+    what the previous disks index that added to make that maxheight,
+    similar to the 'previous' object in djikstras, a list of each height value pointing to the previous
+    height's index that had been added to create the maxHeight at that index
+
+    */
+    let finalArr = [];
+    let maxHeight = Math.max(...heights);
+    let heightsIdx = heights.indexOf(maxHeight)
+    finalArr.unshift(disks[heightsIdx]);
+    let curr = maxHeight; 
+    while (pointers[curr] !== undefined) {
+        let nextHeightIdx = parseInt(pointers[curr])
+        let nextDisk = disks[nextHeightIdx]; 
+        finalArr.unshift(nextDisk);
+        curr = heights[nextHeightIdx]
+    }
+        return finalArr
+}
+
 
 function compareDisks(otherDisk, currDisk) {
     return (otherDisk[0] < currDisk[0] && otherDisk[1] < currDisk[1] && otherDisk[2] < currDisk[2]) 
