@@ -51,8 +51,6 @@ function diskStacking(disks) {
     /* [1,2,3,4,5,8] iterate through, at each one, 
     look to the left to see if there are any disks 
     that could legally preceed it */
-    let maxStack = [];
-    let maxHeight = 0;
     let pointers = {};
     for (let i = 0; i < heights.length; i++){
         let currDisk = sortedByHeight[i];
