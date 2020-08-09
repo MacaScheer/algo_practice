@@ -1,10 +1,7 @@
-function maxValue(node, visited = new Set()) {
-  if (visited.has(node)) return -Infinity;
-  visited.add(node);
-  let nodes = node.neighbors.map(neighbor => maxValue(neighbor, visited));
-  return Math.max(node.val, ...nodes);
+function maxValue(node, visited=new Set()) {
+
 }
 
 module.exports = {
-  maxValue
+    maxValue
 };

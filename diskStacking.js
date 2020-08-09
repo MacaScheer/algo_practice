@@ -52,7 +52,7 @@ function diskStacking(disks) {
     look to the left to see if there are any disks 
     that could legally preceed it */
     let pointers = {};
-    for (let i = 0; i < heights.length; i++){
+    for (let i = 1; i < heights.length; i++){
         let currDisk = sortedByHeight[i];
         for (let j = 0; j < i; j++){
             let otherDisk = sortedByHeight[j];
@@ -106,6 +106,43 @@ function maxArr(pointers, heights, disks) {
 console.log(" \nTEST 1 => \nMy Code: ",diskStacking(disks1), "\nSolution: ", idealOutput, "\n");
 console.log("TEST 2 => \nMy Code: ",diskStacking(disks2), "\nSolution: ", idealOutput2, "\n");
 
+console.log(" \nTEST 1 => \nMy Code2: ",diskStacking2(disks1), "\nSolution: ", idealOutput, "\n");
+console.log("TEST 2 => \nMy Code2: ",diskStacking2(disks2), "\nSolution: ", idealOutput2, "\n");
+
+
+
+function diskStacking2(disks) {
+    disks = sortByHeight(disks);
+    let heights = disks.map(d => d[2]);
+    let sequences = disks.map(d => null)
+    let maxHeightIdx = 0;
+    for (let i = 1; i < disks.length; i++){
+        let currDisk = disks[i];
+        for (let j = 0; j < i; j++){
+            let otherDisk = disks[j]
+            if (compareDisks(otherDisk, currDisk)) {
+                if (heights[i] < currDisk[2] + heights[j]) {
+                    heights[i] = currDisk[2] + heights[j];
+                    sequences[i] = j
+                }
+            }
+        }
+        if (heights[i] >= heights[maxHeightIdx]) {
+            maxHeightIdx = i
+        }
+    }
+    return buildSequence(disks, sequences, maxHeightIdx)
+}
+
+function buildSequence(disks, sequences, currIdx) {
+    let seq = [];
+    while (currIdx !== null) {
+        seq.unshift(disks[currIdx])
+        currIdx = sequences[currIdx]
+    }
+    console.log("sequences: ", sequences)
+    return seq
+}
 
 
 // console.log(sortByHeight(disks1))
