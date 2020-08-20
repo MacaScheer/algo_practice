@@ -24,3 +24,47 @@ function minRewards(scores) {
 
 let input = [8, 4, 2, 1, 3, 6, 7, 9, 5];
 console.log(minRewards(input))
+
+
+function minimumMoves(arr) {
+    let copy = [...arr];
+    copy = copy.sort((a, b) => a - b);
+    let count = 0;
+    for (let i = 0; i < arr.length; i++){
+        if(arr[i] === copy[i]) count++
+    }
+    return arr.length - count; //this is the crucial part, all other elements will slide into their correct place after being moved to the end
+}
+
+/*copy of array sorted
+ Loop thru, compare values
+when you find incorrect positions, increment count of incorrect position...?
+every element in wrong position is every element that needs to be swapped...
+only move every element that's out of place once.
+Apparently this is true. 
+[1,3,2,4] => [1,2,4,3] => [1,2,3,4] => 2
+ */
+
+let keyTimes = [[0, 2], [1, 5], [0, 9], [2, 15]];
+function slowestKeyPress(keyTimes) {
+    // let prevKeyTime = 0;
+    // let longestPress = 0;
+    let alpha = 'abcdefghijklmnopqrstuvwxyz'.split("");
+    let maxChar = alpha[keyTimes[0][0]];
+    let maxDiff = keyTimes[0][1]
+    for (let i = 0; i < keyTimes.length; i++){
+        let diff = keyTimes[i][1] - keyTimes[i - 1][1];
+        if (diff > maxDiff) {
+            maxDiff = diff;
+            maxChar = alpha[keyTimes[i][0]]
+        }
+    }
+    return maxChar
+}
+
+// function giveLetter(idx) {
+//     return 'abcdefghijklmnopqrstuvwxyz'[idx]
+// }
+
+console.log(slowestKeyPress(keyTimes));
+ 
