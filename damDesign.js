@@ -26,6 +26,7 @@ function findSecondHighest(wallPositions, wallHeights) {
             if (height > highest[0]) {
                 console.log("highest[0]: ",highest[0])
                 highest = [height, wallPositions[i]];
+                console.log("highest: ", highest)
             } else {
                 secondHighest = [height, wallPositions[i]];
             }

@@ -68,3 +68,13 @@ function slowestKeyPress(keyTimes) {
 
 console.log(slowestKeyPress(keyTimes));
  
+
+
+// THEORETICAL:
+<DataProvider render={data => (<h1>Hello {data.target}</h1>)} />
+/*React Render Props is ABSTRACTION (means hiding the implementation details and only showing the functionality to the user)
+    NOT ENCAPSULATION
+    ENCAPSULATION means not giving the user any permissions to write or change the code attr_reader vs attr_writer
+    DECLARATIVE PROGRAMMING means style of building structure which explains what is accomplishes without its control flow
+    IMPERATIVE PROGRAMMING means telling the computer how it should accomplish the task
+*/
