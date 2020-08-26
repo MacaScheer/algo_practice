@@ -50,17 +50,69 @@ function knapsack(items, capacity) {
     let sack = new Array(items.length + 1).fill([])
     for (let i = 0; i <= items.length; i++){
         let item;
+        let itemRow;
+        let amt;
+        let weight;
+        let val;
         if (i === 0) {
-            item = [0,0]
+            item = [0, 0];
+            weight = 0; val = 0
+            itemRow = sack[i];
+            for (amt = 0; amt <= capacity; amt++){
+                itemRow.push(0)
+            }
         } else {
-            item = items[i - 1]
-        }
-        let itemRow = sack[i];
-        for (let j = 0; j <= capacity; j++){
-
+            item = items[i - 1];
+            weight = item[1];
+            val = item[0]
+            itemRow = sack[i];
+            for (amt = 0; amt <= capacity; amt++){
+                
+                if (i === 1) {
+                    if (weight <= amt) {
+                        itemRow.push(val)
+                    } else {
+                        itemRow.push(0)
+                    }
+                } else {
+                    if (weight <= amt) {
+                        let diff = sack[i - 1][amt - weight] === undefined ? weight : sack[i - 1][amt - weight] + weight;
+                        let prevWeight = sack[i - 1][amt]
+                        itemRow.push(Math.max(prevWeight, diff))
+                    } else {
+                        itemRow.push(0)
+                    }
+                    // if (weight > amt && sack[i - 1][amt] > 0) {
+                    //     itemRow.push(sack[i - 1][amt])
+                    // } else if (weight <= amt) {
+                    //     
+                    // } 
+                }
+                console.log(sack)
+                // else if (weight <= amt && sack[i - 1][amt] > 0) {
+                //     itemRow.push(Math.max(val, sack[i - 1][amt]))
+                // } else {
+                //     itemRow.push(0)
+                // }
+            }
         }
     }
+    console.log(sack)
+
+    // BACKTRACK: start with last index and check whether or not the value stored, is equal to the value
+    // located one row above. If it isn't, then the item represented by the current row is in the knapsack...
+
 }
+
+/*
+ v,w  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+[0,0] 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+[1,2] 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1
+[4,3] 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1
+[5,6]
+[6,7]
+*/
+
 
 
 const density = (item) => item[0] / item[1]
