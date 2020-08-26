@@ -19,31 +19,48 @@ function knapsackROUGH(items, capacity) {
     return sack
 }
 
-function knapsack(items, capacity) {
-    let maxVals = new Array(items.length).fill([]);
-    for (let x = 0; x < maxVals.length; x++){
-        for (let y = 0; y <= capacity; y++){
-            maxVals[x].push(0)
-        }
-    }
-    items = sortByDensity(items);
-    for (let i = 0; i < items.length; i++){
-        let row = maxVals[i];
-        let weight = items[i][1];
-        let val = items[i][0];
+// function knapsack(items, capacity) {
+//     let maxVals = new Array(items.length).fill([]);
+//     for (let x = 0; x < maxVals.length; x++){
+//         for (let y = 0; y <= capacity; y++){
+//             maxVals[x].push(0)
+//         }
+//     }
+//     items = sortByDensity(items);
+//     for (let i = 0; i < items.length; i++){
+//         let row = maxVals[i];
+//         let weight = items[i][1];
+//         let val = items[i][0];
         
-        for (let amt = weight; amt <= capacity; amt++){
-            if (amt - weight >= 0) {
-                row[amt] = row[amt - weight] + 1
-            } 
-            console.log("val: ", val, " weight: ", weight, " amt: ", amt, " row[amt]:", row[amt])
+//         for (let amt = weight; amt <= capacity; amt++){
+//             if (amt - weight >= 0) {
+//                 // row[amt] = row[amt - weight] + 1
+//                 // this isn't the right approach because there aren't an unlimited number of each item
+//             } 
+//             console.log("val: ", val, " weight: ", weight, " amt: ", amt, " row[amt]:", row[amt])
+//         }
+//     }
+//     console.log("maxVals: ", maxVals);
+
+
+// }
+
+
+function knapsack(items, capacity) {
+    let sack = new Array(items.length + 1).fill([])
+    for (let i = 0; i <= items.length; i++){
+        let item;
+        if (i === 0) {
+            item = [0,0]
+        } else {
+            item = items[i - 1]
+        }
+        let itemRow = sack[i];
+        for (let j = 0; j <= capacity; j++){
+
         }
     }
-    console.log("maxVals: ", maxVals);
-
-
 }
-
 
 
 const density = (item) => item[0] / item[1]
