@@ -88,7 +88,6 @@ function knapsack(items, capacity) {
                     //     
                     // } 
                 }
-                console.log(sack)
                 // else if (weight <= amt && sack[i - 1][amt] > 0) {
                 //     itemRow.push(Math.max(val, sack[i - 1][amt]))
                 // } else {
@@ -97,13 +96,57 @@ function knapsack(items, capacity) {
             }
         }
     }
-    console.log(sack)
+    console.log(sack, sack.length)
 
     // BACKTRACK: start with last index and check whether or not the value stored, is equal to the value
     // located one row above. If it isn't, then the item represented by the current row is in the knapsack...
 
 }
 
+
+function knapSackProblem(items, capacity) {
+    // initialize empty 2D array
+    let knapsackValues = [[]]
+    for (let j = 0; j <= capacity; j++){
+        knapsackValues[0].push(0)
+    }
+    for (let i = 1; i <= items.length; i++){
+        knapsackValues.push(new Array(capacity + 1))
+    }
+    // console.log(knapsackValues)
+    // build out dynamic 2D array
+    for (let i = 1; i <= items.length; i++){
+        let currWeight = items[i - 1][1];
+        let currVal = items[i - 1][0];
+        for (let c = 0; c <= capacity; c++){
+            if (currWeight > c) {
+                knapsackValues[i][c] = knapsackValues[i - 1][c]
+            } else {
+                knapsackValues[i][c] = Math.max(knapsackValues[i - 1][c], currVal + knapsackValues[i - 1][c - currWeight] + currVal)
+            }
+        }
+    }
+
+return [knapsackValues[knapsackValues.length -1][knapsackValues.length - 1], getKnapsackItems(knapsackValues, items)]
+}
+
+
+function getKnapsackItems(knapsackValues, items) {
+    let seq = [];
+    let i = knapsackValues.length - 1;
+    let c = knapsackValues[0].length - 1;
+    while (i > 0) {
+        if (knapsackValues[i][c] === knapsackValues[i - 1][c]) {
+            i--;
+        } else {
+            seq.push(i - 1);
+            c -= items[i - 1][1];
+            i--;
+        }
+        if (c === 0) break;
+    }
+    return seq.reverse()
+}
 /*
  v,w  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 [0,0] 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -133,4 +176,6 @@ const cap = 10;
 
 
 
-console.log(knapsack(items1, cap))
+// console.log(knapsack(items1, cap))
+console.log(knapSackProblem(items1, cap))
+
