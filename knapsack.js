@@ -113,7 +113,6 @@ function knapSackProblem(items, capacity) {
     for (let i = 1; i <= items.length; i++){
         knapsackValues.push(new Array(capacity + 1))
     }
-    // console.log(knapsackValues)
     // build out dynamic 2D array
     for (let i = 1; i <= items.length; i++){
         let currWeight = items[i - 1][1];
