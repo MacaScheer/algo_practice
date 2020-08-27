@@ -39,17 +39,21 @@ function markAndToys(prices, k) {
     prices = prices.sort((a, b) => a - b);
     let maxBagSize = 0;
     let i = 0;
+    // console.log("amount: ", k)
     while (i < prices.length) {
         let cost = 0;
         let bag = [];
         bag.push(prices[i]);
         cost += prices[i]
         let j = i + 1;
-        while (cost < k) {
-            bag.push(prices[j]);
-            cost += prices[j]
+        while (j < prices.length) {
+            if (prices[j] <= k - cost) {   
+                bag.push(prices[j]);
+                cost += prices[j]
+            }
             j++
         }
+        // console.log("bag: ",bag, " cost: ", cost)
         if (bag.length > maxBagSize) {
             maxBagSize = bag.length
         }
