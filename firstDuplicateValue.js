@@ -16,6 +16,7 @@ function firstDuplicateValue(arr) {
             vals[arr[i]] = true;
         }
     }
+    return -1;
 }
 
 console.log(firstDuplicateValue([2, 1, 5, 2, 3, 3, 4]), "should be 2")
