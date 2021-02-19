@@ -21,15 +21,20 @@ function removeIsland(matrix) {
     }
     return matrix;
 }
+/* need to pass visited back from dfsIslands to removeIsland */
 function dfsIslands(matrix, x, y, visited) {
     if (visited[x, y] ||
         matrix[x][y] === 0 ||
         x > matrix[x].length - 1 ||
-        y > matrix.length - 1) continue;
+        y > matrix.length - 1) return matrix;
     matrix[x][y] = 0;
     visited[x, y] = true;
     dfsIslands(matrix, x + 1, y, visited);
     dfsIslands(matrix, x, y + 1, visited);
+
+
+    /*WRONG APPROACH, CANNOT CHANGE matrix until reach end of island to confirm it doesn't 
+    touch the edge */
 }
 
 let mat = [
