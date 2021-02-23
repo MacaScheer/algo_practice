@@ -11,31 +11,54 @@ for efficiency only, because the input matrix will be mutated and so
 won't be mutated more than once.
 */
 function removeIsland(matrix) {
-    let visited = {};
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
-            if (visited[i][j]) continue;
-            dfsIslands(matrix, i, j, visited)
+            console.log("i: ", i, "j: ", j)
+            matrix = dfsIslands(matrix, i, j)
         }
-
     }
     return matrix;
 }
-/* need to pass visited back from dfsIslands to removeIsland */
-function dfsIslands(matrix, x, y, visited) {
-    if (visited[x, y] ||
-        matrix[x][y] === 0 ||
-        x > matrix[x].length - 1 ||
-        y > matrix.length - 1) return matrix;
-    matrix[x][y] = 0;
-    visited[x, y] = true;
-    dfsIslands(matrix, x + 1, y, visited);
-    dfsIslands(matrix, x, y + 1, visited);
+function dfsIslands(matrix, x, y, islandCoords = []) {
+    // console.log("islandCoords: ", islandCoords, "el: ", matrix[x][y])
 
-
-    /*WRONG APPROACH, CANNOT CHANGE matrix until reach end of island to confirm it doesn't 
-    touch the edge */
+    // if (visited[[x, y]] = true) {
+    //     return matrix;
+    // }
+    // visited[[x, y]] = true;
+    if (matrix[x][y] === 1) {
+        if (x === matrix[x].length - 1 || y === matrix.length - 1) {
+            islandCoords = [];
+            return matrix;
+        } else {
+            islandCoords.push([x, y]);
+            dfsIslands(matrix, x + 1, y, islandCoords);
+            dfsIslands(matrix, x, y + 1, islandCoords);
+        }
+    } else {
+        matrix = changeToZeros(islandCoords, matrix);
+        return matrix;
+    }
+    return matrix
 }
+
+function changeToZeros(array, matrix) {
+    console.log("array: ", array)
+    for (let coord of array) {
+        console.log("coord: ", coord)
+        matrix[coord[0]][coord[1]] = 0;
+    }
+    return matrix
+}
+/*WRONG APPROACH, CANNOT CHANGE matrix until reach end of island to confirm it doesn't 
+touch the edge 
+traverse and store the 1's horizontally and vertically, storing the (x,y) in an object
+if it makes it to an edge x === matrix[x].length - 1 or y === matrix.length - 1, and it's a 1,
+then don't change any of the 1's to 0's and empty the object. If it doesn't make it to an edge, then
+go back through the object storing that islands (x,y)'s and change them all to 0's
+*/
+
+
 
 let mat = [
     [1, 0, 0, 0, 0, 0],
