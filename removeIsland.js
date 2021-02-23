@@ -13,27 +13,26 @@ won't be mutated more than once.
 function removeIsland(matrix) {
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
-            console.log("i: ", i, "j: ", j)
             matrix = dfsIslands(matrix, i, j)
         }
     }
     return matrix;
 }
-function dfsIslands(matrix, x, y, islandCoords = []) {
+function dfsIslands(matrix, x, y, islandCoords = [], visited = {}) {
     // console.log("islandCoords: ", islandCoords, "el: ", matrix[x][y])
-
-    // if (visited[[x, y]] = true) {
-    //     return matrix;
-    // }
-    // visited[[x, y]] = true;
+    if (visited[[x, y]]) {
+        return matrix;
+    }
+    visited[[x, y]] = true;
+    console.log("matrix: ", matrix, "x:", x, "y:", y, "el: ", matrix[x][y], "visited: ", visited, "[x,y]", [x, y])
     if (matrix[x][y] === 1) {
         if (x === matrix[x].length - 1 || y === matrix.length - 1) {
             islandCoords = [];
             return matrix;
         } else {
             islandCoords.push([x, y]);
-            dfsIslands(matrix, x + 1, y, islandCoords);
-            dfsIslands(matrix, x, y + 1, islandCoords);
+            dfsIslands(matrix, x + 1, y, islandCoords, visited);
+            dfsIslands(matrix, x, y + 1, islandCoords, visited);
         }
     } else {
         matrix = changeToZeros(islandCoords, matrix);
