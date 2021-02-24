@@ -21,7 +21,7 @@ that are less than the start of the next subsequence.
 
 function maxIncreasingSubsequence(array) {
 
-    let returnArray;
+    let returnArray = [];
     let arr, currMaxSum;
     let maxSum = array[0];
     for (let i = 1; i < array.length; i++) {
@@ -31,7 +31,8 @@ function maxIncreasingSubsequence(array) {
             maxSum = currMaxSum;
             // before replacing the arr, check if there is a number that is less than the start of the new array, 
             // and unshift that into the start of the new array. Export this functionality to another function..
-            returnArray = arr;
+            returnArray = combineArrays(returnArray, arr);
+            maxSum = returnArray.reduce((a, b) => a + b)
         }
         // let a = array[i - 1]
         // let b = array[i];
@@ -74,4 +75,5 @@ function countForward(num, i, array) {
     return [maxSubSeqArr, sum]
 }
 
+// console.log(combineArrays([10, 70], [20, 30, 50]))
 console.log(maxIncreasingSubsequence([10, 70, 20, 30, 50, 11, 30]), "should return [110, [10,20,30,50]]");
