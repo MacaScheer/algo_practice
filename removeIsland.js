@@ -19,14 +19,13 @@ function removeIsland(matrix) {
     return matrix;
 }
 function dfsIslands(matrix, x, y, islandCoords = [], visited = {}) {
-    // console.log("islandCoords: ", islandCoords, "el: ", matrix[x][y])
     if (visited[[x, y]]) {
         return matrix;
     }
     visited[[x, y]] = true;
-    console.log("matrix: ", matrix, "x:", x, "y:", y, "el: ", matrix[x][y], "visited: ", visited, "[x,y]", [x, y])
+    // console.log("matrix: ", matrix, "x:", x, "y:", y, "el: ", matrix[x][y], "visited: ", visited, "[x,y]", [x, y], "islandCoords: ", islandCoords);
     if (matrix[x][y] === 1) {
-        if (x === matrix[x].length - 1 || y === matrix.length - 1) {
+        if (x === matrix[x].length - 1 || y === matrix.length - 1 || x === 0 || y === 0) {
             islandCoords = [];
             return matrix;
         } else {
@@ -41,9 +40,9 @@ function dfsIslands(matrix, x, y, islandCoords = [], visited = {}) {
     return matrix
 }
 
-function changeToZeros(array, matrix) {
-    console.log("array: ", array)
-    for (let coord of array) {
+function changeToZeros(islandCoords, matrix) {
+    console.log("islandCoords: ", islandCoords)
+    for (let coord of islandCoords) {
         console.log("coord: ", coord)
         matrix[coord[0]][coord[1]] = 0;
     }
