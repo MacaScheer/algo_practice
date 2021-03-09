@@ -9,7 +9,7 @@ function changeColorPixel(matrix, location, color) {
     if (location[0] < matrix.length - 1) {
         let right = matrix[location[0] + 1][location[1]];
         if (right === pixel) {
-            changeColorPixel(marix, [location[0] + 1, location[1]], color);
+            changeColorPixel(matrix, [location[0] + 1, location[1]], color);
         }
     }
     // if left && left is inside the matrix
@@ -42,4 +42,8 @@ let mat = [
     ['W', 'W', 'W'],
     ['B', 'B', 'B']
 ]
-console.log(changeColorPixel(mat, [2, 2], 'G'));
+console.log(changeColorPixel(mat, [2, 2], 'G'), 'should be :',
+    [['B', 'B', 'G'],
+    ['G', 'G', 'G'],
+    ['G', 'G', 'G'],
+    ['B', 'B', 'B']]);
