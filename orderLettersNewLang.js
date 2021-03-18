@@ -48,48 +48,28 @@ first separation. Would NOT neet to iterate over these preceding letters over an
 
 
 */
-console.log(`You come across a dictionary of sorted words in a language
-you've never seen before. Write a program that returns 
-the correct order of letters in this language.\n`);
+// console.log(`You come across a dictionary of sorted words in a language
+// you've never seen before. Write a program that returns 
+// the correct order of letters in this language.\n`);
 
 function orderLettersNewLang(wordArray) {
-    let i = 0;
-    let longestWordLength = findLongestWord(wordArray);
-    let orderArr = [];
-
-    while (i < longestWordLength - 1) {
-        let letter = '';
-        // for (let j = 0; j < wordArray.length; j++){
-        //     let word = wordArray[j];
-
-        // }
-        i++;
-    }
+    let tree = buildLetterTree(wordArray);
+    let letterArr = compareLettersOfTree(tree);
 }
 
 
 
-function findLongestWord(arr) {
-    let longWord = "";
-    arr.forEach(word => {
-        if (word.length > longWord.length) {
-            longWord = word;
-        }
-    })
-    return longWord;
-}
-function separateWords(wordArray, letterPlace) {
-    let letterOrder = [];
-    for (let i = 0; i < wordArray.length; i++) {
-        let letter = wordArray[i][letterPlace];
-    }
-
-}
+// function findLongestWord(arr) {
+//     let longWord = "";
+//     arr.forEach(word => {
+//         if (word.length > longWord.length) {
+//             longWord = word;
+//         }
+//     })
+//     return longWord;
+// }
 
 
-function traverseWordsUntilDifference(wordsToCompare, i) {
-
-}
 
 /*
 
@@ -115,6 +95,62 @@ orderObject = {
         }
     }
 };
+*/
+
+function buildLetterTree(wordArr) {
+    let letterObject = {};
+    // wordArr.forEach(word => {
+    //     if (letterObject[word[0]]) continue;
+    //     letterObject[word[0]] = {}
+    // });
+    wordArr.forEach(word => {
+        letterObject = buildOutTreeOneWordAtATime(letterObject, word)
+    })
+    return letterObject;
+}
+
+function buildOutTreeOneWordAtATime(letterObject, word) {
+    let i = 0;
+    let currentRef = letterObject;
+    while (i < word.length) {
+        let letter = word[i];
+        if (i === word.length - 1) {
+            currentRef[letter] = 0;
+        } else if (!currentRef[letter]) {
+            currentRef[letter] = {};
+        }
+        currentRef = currentRef[letter]
+        i++;
+    }
+    return letterObject
+}
+// console.log(buildOutTreeOneWordAtATime({}, 'wxyz'));
+// console.log(buildOutTreeOneWordAtATime({}, 'wxyw'));
+
+// while (letterIdx < length - 1) {
+//     wordArr.forEach(word => {
+//         let letter = word[letterIdx];
+//     })
+// }
+
+// wordArr.forEach(word => {
+//     word.forEach(letter => {
+//         letterObject[letter] = {}
+//     })
+// })
+
+// function lengthOfLongestWord(wordArr) {
+//     let longest = "";
+//     wordArr.forEach(word => {
+//         if (word.length > longest.length) {
+//             longest = word;
+//         }
+//     })
+//     return longest.length;
+// }
+
+
+/*
 
 To traverse the tree DFS would allow the letters 
 at each level in a subtree to be compared.
@@ -131,8 +167,9 @@ subtree of 'w' ('w') can compare with nothing.
 
 
 */
-function whichWordsAreSameUpToNthPlace(wordArray, letterPlace) {
+function compareLettersOfTree(tree) {
 
 }
-console.log(orderLetters(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz'], 1));
+console.log(buildLetterTree(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']))
+// console.log(orderLetters(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz'], 1));
 // console.log(orderLettersNewLang(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']), " should return ['x','z','w','y']")
