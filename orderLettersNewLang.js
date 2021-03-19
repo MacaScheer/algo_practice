@@ -53,8 +53,9 @@ first separation. Would NOT neet to iterate over these preceding letters over an
 // the correct order of letters in this language.\n`);
 
 function orderLettersNewLang(wordArray) {
+    // let orderArr = [];
     let tree = buildLetterTree(wordArray);
-    let letterArr = compareLettersOfTree(tree);
+    return compareLettersOfTree(tree);
 }
 
 
@@ -71,13 +72,39 @@ function orderLettersNewLang(wordArray) {
 
 
 
-/*
 
-Could design a tree like this:
-orderObject = {
+
+function buildLetterTree(wordArr) {
+    let letterObject = {};
+    let i = 0;
+    wordArr.forEach(word => {
+        letterObject = buildOutTreeOneWordAtATime(letterObject, word, i);
+        i++;
+    })
+    return letterObject;
+}
+
+function buildOutTreeOneWordAtATime(letterObject, word, j) {
+    let i = 0;
+    let currentRef = letterObject;
+    while (i < word.length) {
+        let letter = word[i];
+        if (i === word.length - 1) {
+            currentRef[letter] = j;
+        } else if (!currentRef[letter]) {
+            currentRef[letter] = {};
+        }
+        currentRef = currentRef[letter]
+        i++;
+    }
+    return letterObject
+}
+
+/* Design a tree like this:
+letterObject = {
     'y': {
         'w': {
-            'z': 0,
+            'z': 1,
             'x': 0
         }
     },
@@ -85,7 +112,7 @@ orderObject = {
         'x':{
             'y':{
                 'z': 0,
-                'w': 0
+                'w': 1
             }
         }
     },
@@ -95,35 +122,45 @@ orderObject = {
         }
     }
 };
+FLAWS OF TREE:
+objects don't persist any order, 
+so for subtrees that have multiple keys in them,
+in order to compare those keys, 
+we need to know their order!! DUH FOO!
+SO to do this: when the tree building algo 
+reaches the end of each word, the value it assigns 
+in the object, should be the order in which that end
+of the word appeared in the algo.
+
+SAY we had a scenario like this:
+...
+'w': {
+        'x':{
+            'y':{
+                'z': 0,
+                'w': 1
+            }
+        },
+        'l': {
+            'z':0,
+            'w': 1
+        }
+    },
+...
 */
 
-function buildLetterTree(wordArr) {
-    let letterObject = {};
-    // wordArr.forEach(word => {
-    //     if (letterObject[word[0]]) continue;
-    //     letterObject[word[0]] = {}
-    // });
-    wordArr.forEach(word => {
-        letterObject = buildOutTreeOneWordAtATime(letterObject, word)
-    })
-    return letterObject;
+function compareLettersOfTree(tree) {
+    let orderArr = [];
+    for (let subtree of tree) {
+        let subOrder = findSubTreeOrder(subtree);
+    }
 }
 
-function buildOutTreeOneWordAtATime(letterObject, word) {
-    let i = 0;
-    let currentRef = letterObject;
-    while (i < word.length) {
-        let letter = word[i];
-        if (i === word.length - 1) {
-            currentRef[letter] = 0;
-        } else if (!currentRef[letter]) {
-            currentRef[letter] = {};
-        }
-        currentRef = currentRef[letter]
-        i++;
-    }
-    return letterObject
+function orderOfSubTree(subtree) {
+
 }
+
+
 // console.log(buildOutTreeOneWordAtATime({}, 'wxyz'));
 // console.log(buildOutTreeOneWordAtATime({}, 'wxyw'));
 
@@ -167,9 +204,7 @@ subtree of 'w' ('w') can compare with nothing.
 
 
 */
-function compareLettersOfTree(tree) {
 
-}
 console.log(buildLetterTree(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']))
 // console.log(orderLetters(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz'], 1));
 // console.log(orderLettersNewLang(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']), " should return ['x','z','w','y']")
