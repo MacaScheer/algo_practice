@@ -142,12 +142,78 @@ SAY we had a scenario like this:
             }
         },
         'l': {
-            'z':0,
+            'z': 0,
             'w': 1
         }
     },
 ...
+HOW do we know whether 'x' or 'l' comes first 
+in the original array??????
+It's easy to record the order of the last letters
+of the words, but not words that are in the middle...
+
+Maybe then nested arrays???
+[
+    [
+        'w',
+        ['x',
+            ['y',
+                ['z','w']
+            ]
+        ],
+        'l',
+        ['z','w']
+    ]
+]
+
+letterArrays = [
+    'y', [
+        'w', [
+            'z',
+            'x'
+            ]
+        ],
+    'w', [
+       'x',[
+            'y',[
+                'z',
+                'w'
+            ]
+        ]
+    ],
+    'x',[
+        'w',[
+            'w'
+        ]
+    ]
+];
+But traversing is going to be completely different...
+and building is completely different
+
 */
+
+function buildOutLetterArrays(wordArr) {
+    let letterArray = [];
+    for (let i = 0; i < wordArr.length; i++) {
+        letterArray = buildOutLetterArrayPerWord(wordArr[i], letterArray);
+    }
+    return letterArray;
+}
+function buildOutLetterArrayPerWord(word, array) {
+    let currArr = array;
+    for (let i = 0; i < word.length; i++) {
+        let letter = word[i];
+        let idx = currArr.indexOf(letter);
+        if (idx === -1) {
+            array.push(letter);
+            array.push(new Array());
+            currArr = array[array.length - 1];
+        } else {
+            currArr = array[idx];
+        }
+    }
+    return array;
+}
 
 function compareLettersOfTree(tree) {
     let orderArr = [];
@@ -156,8 +222,29 @@ function compareLettersOfTree(tree) {
     }
 }
 
-function orderOfSubTree(subtree) {
+function orderOfSubTree(subArr, orderArr = []) {
+    /*
+     ['y', [
+         'w', [
+             'z',
+             'x'
+         ]
+     ],]
+     we can see that 'z' comes before 'x'
+     Do we start from outer array first?
+ 
+     */
+    for (let i = 0; i < subArr.length; i++) {
+        let el = subArr[i];
+        if (typeof el === Array) {
 
+        } else {
+            // find where it came in the order before
+            let idx = orderArr.indexOf(el);
+
+            orderArr.push(el);
+        }
+    }
 }
 
 
@@ -204,7 +291,7 @@ subtree of 'w' ('w') can compare with nothing.
 
 
 */
-
-console.log(buildLetterTree(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']))
+console.log(buildOutLetterArrays(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']))
+// console.log(buildLetterTree(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']))
 // console.log(orderLetters(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz'], 1));
 // console.log(orderLettersNewLang(['xww', 'wxyz', 'wxyw', 'ywx', 'ywz']), " should return ['x','z','w','y']")

@@ -18,26 +18,27 @@ class HitCounter {
     }
     record() {
         let timestamp = new Date().toTimeString().split(" ");
+
         let time = timestamp.slice(0, 1)
         console.log(time)
-        this.hits.push(parseInt(time))
+        this.hits.push(time)
     }
     total() {
         return this.hits.length;
     }
     range(lower, upper) {
+        console.log("lower: ", lower[0], " upper: ", upper[0])
         let num = 0;
         // '15:21:05', '16:11:55'
         // hourDiff = 1; 
-
         // minDiff = 11 + (60 - 21)   if more than 60, then subtract from hour Diff 1 and remainder is min Diff
-        let [lowerHour, lowerMin, lowerSec] = lower.split(":");
-        let [upperHour, upperMin, upperSec] = upper.split(":");
+        let [lowerHour, lowerMin, lowerSec] = lower[0].split(":");
+        let [upperHour, upperMin, upperSec] = upper[0].split(":");
         // so if hour is equal to or past lowerHour and but before or equal upperHour
         // && if (hour is equal && min >= lower min && )
         for (let hit of this.hits) {
             /* hit = '15:21:02' */
-            let [hour, min, sec] = hit.split(":");
+            let [hour, min, sec] = hit[0].split(":");
             if (this.isAfter(lowerHour, lowerMin, lowerSec, hour, min, sec) && this.isBefore(upperHour, upperMin, upperSec, hour, min, sec)) {
                 num++;
             }
@@ -68,17 +69,40 @@ class HitCounter {
         }
         return false
     }
-    isBefore(upperHour, uppeerMin, upperSec, hour, min, sec) {
-
+    isBefore(upperHour, upperMin, upperSec, hour, min, sec) {
+        if (hour <= upperHour) {
+            if (upperHour - hour < 1) {
+                if (upperMin >= min) {
+                    if (upperMin - min < 1) {
+                        if (upperSec >= sec) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 }
 
 
 let newCounter = new HitCounter();
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 5; i++) {
     setTimeout(function () {
         newCounter.record()
     }, i * 1000)
 }
-console.log(newCounter.hits);
-console.log(newCounter.total());
+setTimeout(function () {
+    console.log("hits array: ", newCounter.hits);
+    console.log("total: ", newCounter.total());
+    console.log("range: ", newCounter.range(newCounter.hits[0], newCounter.hits[newCounter.hits.length - 2]))
+}, 6000)
