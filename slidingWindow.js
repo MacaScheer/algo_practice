@@ -41,5 +41,38 @@ const maxOfWindow = (start, end, array) => {
     return Math.max(...window);
 }
 
+const slidingWindowTwo = (array, k) => {
+    let start = 0 - k + 1;
+    let end = 1;
+    while (start < array.length) {
+
+        end = start + k;
+        if (start >= 0) {
+            if (maxOfWindow(start, end, array)) {
+                return true;
+            }
+        } else {
+            if (maxOfWindow(0, end, array)) {
+                return true;
+            };
+        }
+        start++;
+    }
+    return false;
+}
+
+const containsDuplicates = (start, end, array) => {
+    let window = array.slice(start, end);
+    let dupesArr = [];
+    for (let i = 0; i < window.length; i++) {
+        let el = window[i];
+        if (dupesArr.includes(el)) return true
+        dupesArr.push(el)
+    }
+    return false
+}
+
 // console.log(maxOfWindow(0, 2, [5, 2, 3, 7, 4]))
 console.log(slidingWindow([5, 2, 3, 7, 4], 3), " should result in [5,5,5,7,7,7,4]")
+
+console.log(slidingWindowTwo([5, 2, 3, 7, 3, 4], 3), " should return true");
