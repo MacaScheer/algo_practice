@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .root{       
+            width: 485vw;
+            background-color: beige;
+            height: 3vw;
+            box-shadow: 0px 1px 11px 0px rgb(0 0 0 / 20%);
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 4%;
+            height:auto;
+            text-align: center;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: fit-content;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+            left: 12%;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+    <script>
+        let attachButtons = () => {
+            let singleLevelButtons = document.getElementsByClassName("single-level");
+            for(let i = 0; i < singleLevelButtons.length; i++){
+                singleLevelButtons[i].addEventListener("click", function(){
+                    alert(`navigating to ${singleLevelButtons[i].innerHTML}`)
+                    singleLevelButtons[i].style.color = "red";
+                })
+            }
+            let multiLevelButtons = document.getElementsByClassName("sub-menu-el");
+            for (let j = 0; j < multiLevelButtons.length; j++){
+                multiLevelButtons[j].addEventListener("click", function(){
+                    alert(`navigating to ${multiLevelButtons[j].innerHTML}`)
+                    multiLevelButtons[j].style.color = "red";
+                })
+            }
+        }
+        window.addEventListener("load", (event) => attachButtons());
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Practice</title>
+</head>
+<body>
+    <div class="root">
+        <div class="dropdown">
+            <span class="single-level">Home</span>
+        </div>
+        <div class="dropdown">
+            <span class="single-level">News</span>
+        </div>
+        <div class="dropdown">
+            <span class="single-level">Products</span>
+            <div class="dropdown-content">
+                <p class="sub-menu-el">Dick Sander</p>
+                <p class="sub-menu-el">Plump Plums</p>
+                <p class="sub-menu-el">Hamhocks</p>
+            </div>
+        </div>
+        <div class="dropdown">
+            <span class="single-level">About</span>
+        </div>
+        <div class="dropdown">
+            <span>Account</span>
+            <div class="dropdown-content">
+                <p class="sub-menu-el">Settings</p>
+                <p class="sub-menu-el">Logout</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

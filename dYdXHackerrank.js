@@ -76,13 +76,13 @@ function pilesOfBoxes(boxesInPiles) {
     let n = 0;
     let cont = true;
 
-        // let [maxNum, indices] = findMaxes(boxesInPiles);
-        // n += indices.length;
+    // let [maxNum, indices] = findMaxes(boxesInPiles);
+    // n += indices.length;
     let indices;
     let newHeight = Math.max(...boxesInPiles);
     while (cont) {
         // findIndices locates indices of the height that is to be changed
-         indices = findIndices(boxesInPiles, newHeight); //[1,2]
+        indices = findIndices(boxesInPiles, newHeight); //[1,2]
         // console.log("indices: ", indices)
         // findNext should find the next height
         newHeight = findNextHighest(boxesInPiles, newHeight) // 5 -> 4
@@ -100,23 +100,23 @@ function pilesOfBoxes(boxesInPiles) {
 
 
 function findNextHighest(boxesInPiles, height) {
-    
 
-        let newMaxHeight = 0;
-        let indices = [];
-        for (let i = 0; i < boxesInPiles.length; i++){
-            let box = boxesInPiles[i];
-            if (box > newMaxHeight && box < height) {
-                newMaxHeight = box
-            }
+
+    let newMaxHeight = 0;
+    let indices = [];
+    for (let i = 0; i < boxesInPiles.length; i++) {
+        let box = boxesInPiles[i];
+        if (box > newMaxHeight && box < height) {
+            newMaxHeight = box
         }
+    }
     return newMaxHeight;
-    
+
 }
-function findIndices(boxesInPiles, h){
+function findIndices(boxesInPiles, h) {
     let idxs = [];
-    for (let i = 0; i < boxesInPiles.length; i++){
-        if(boxesInPiles[i] === h){
+    for (let i = 0; i < boxesInPiles.length; i++) {
+        if (boxesInPiles[i] === h) {
             idxs.push(i)
         }
     }
@@ -124,18 +124,18 @@ function findIndices(boxesInPiles, h){
 }
 
 function changeHeights(newHeight, indices, boxes) {
-    for (let i = 0; i < indices.length; i++){
-        
-            let idx = indices[i];
-            boxes[idx] = newHeight
-       }
-    
+    for (let i = 0; i < indices.length; i++) {
+
+        let idx = indices[i];
+        boxes[idx] = newHeight
+    }
+
     return boxes
 }
 
 function areAllSame(boxes, height) {
-    for (let i = 0; i < boxes.length; i++){
-        if(boxes[i] !== height) return false
+    for (let i = 0; i < boxes.length; i++) {
+        if (boxes[i] !== height) return false
     }
     return true
 }
@@ -162,10 +162,10 @@ function minSum(num, k) {
     let max = Math.max(...num);
     let idx = num.indexOf(max)
     num = operate(idx, num)
-    return num.reduce((a,b) => a + b)
+    return num.reduce((a, b) => a + b)
 }
 
-function operate(i, array){
+function operate(i, array) {
     let c = Math.ceil(array[i] / 2)
     array[i] = c;
     return array
@@ -178,64 +178,64 @@ function operate(i, array){
 function minSum(num, k) {
     // Write your code here
     // console.log(num, k)
-//     let sortedHighToLow = num.sort((a, b) => {
-//     return b - a;
-//   });
-//   console.log(sortedHighToLow)
-//     let i = 0;
-//     while(i < k){
-//     let max = Math.max(...num);
-//     let idx = num.indexOf(max)
-//     num = operate(idx, num)
-//     i++
-//     }
-//     return num.reduce((a,b) => a + b)
-// }
+    //     let sortedHighToLow = num.sort((a, b) => {
+    //     return b - a;
+    //   });
+    //   console.log(sortedHighToLow)
+    //     let i = 0;
+    //     while(i < k){
+    //     let max = Math.max(...num);
+    //     let idx = num.indexOf(max)
+    //     num = operate(idx, num)
+    //     i++
+    //     }
+    //     return num.reduce((a,b) => a + b)
+    // }
 
-// function operate(i, array){
-//     let c = Math.ceil(array[i] / 2)
-//     array[i] = c;
-//     return array
+    // function operate(i, array){
+    //     let c = Math.ceil(array[i] / 2)
+    //     array[i] = c;
+    //     return array
 
- const length = num.length;
-  let sortedHighToLow = num.sort((a, b) => {
-    return b - a;
-  });
-  let smallerValues;
-  let sum = 0;
+    const length = num.length;
+    let sortedHighToLow = num.sort((a, b) => {
+        return b - a;
+    });
+    let smallerValues;
+    let sum = 0;
 
-  for (let i = 0; i < k; i++) {
-    const maxValue = sortedHighToLow[0];
-    if (i % 1000 === 0) {
-      console.log(`sono a ${i} di ${k}: ${maxValue}`);
+    for (let i = 0; i < k; i++) {
+        const maxValue = sortedHighToLow[0];
+        if (i % 1000 === 0) {
+            console.log(`sono a ${i} di ${k}: ${maxValue}`);
+        }
+
+        // If maxValue is 1 then there's no point in running more work
+        if (maxValue < 2) {
+            console.warn("stop!");
+            break;
+        }
+        // Pre-condition: first item in the array is the largest. This means we should halve its value to minimize the sum.
+        const halvedMax = Math.ceil(maxValue / 2);
+        sortedHighToLow[0] = halvedMax;
+
+        /**
+         * Maintain the pre-condition after mutation.
+         * j starts from the end and works its way back to 2nd element (since array is sorted high to low)
+         */
+        for (let j = length - 1; j >= 1; j--) {
+            if (sortedHighToLow[j] > halvedMax) {
+                smallerValues = sortedHighToLow.slice(j + 1);
+                sortedHighToLow = sortedHighToLow.slice(1, j + 1);
+                sortedHighToLow.push(halvedMax);
+                sortedHighToLow = sortedHighToLow.concat(smallerValues);
+                break;
+            }
+        }
     }
 
-    // If maxValue is 1 then there's no point in running more work
-    if (maxValue < 2) {
-      console.warn("stop!");
-      break;
+    for (let i = 0; i < sortedHighToLow.length; i++) {
+        sum += sortedHighToLow[i];
     }
-    // Pre-condition: first item in the array is the largest. This means we should halve its value to minimize the sum.
-    const halvedMax = Math.ceil(maxValue / 2);
-    sortedHighToLow[0] = halvedMax;
-
-    /**
-     * Maintain the pre-condition after mutation.
-     * j starts from the end and works its way back to 2nd element (since array is sorted high to low)
-     */
-    for (let j = length - 1; j >= 1; j--) {
-      if (sortedHighToLow[j] > halvedMax) {
-        smallerValues = sortedHighToLow.slice(j + 1);
-        sortedHighToLow = sortedHighToLow.slice(1, j + 1);
-        sortedHighToLow.push(halvedMax);
-        sortedHighToLow = sortedHighToLow.concat(smallerValues);
-        break;
-      }
-    }
-  }
-
-  for (let i = 0; i < sortedHighToLow.length; i++) {
-    sum += sortedHighToLow[i];
-  }
-  return sum;
+    return sum;
 }

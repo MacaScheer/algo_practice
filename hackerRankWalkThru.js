@@ -8,18 +8,18 @@ create an array that has all the rewards (num of students) and give them all 1 v
 */
 function minRewards(scores) {
     let rewards = new Array(scores.length).fill(1);
-    for (let i = 1; i < scores.length; i++){
+    for (let i = 1; i < scores.length; i++) {
         if (scores[i] > scores[i - 1]) {
             rewards[i] = rewards[i - 1] + 1;
         }
     }
 
-    for (i = scores.length - 1; i >= 0; i--){
+    for (let i = scores.length - 1; i >= 0; i--) {
         if (scores[i] > scores[i + 1]) {
             rewards[i] = Math.max(rewards[i], rewards[i + 1] + 1)
         }
     }
-    return rewards.reduce((a,b) => a + b)
+    return rewards.reduce((a, b) => a + b)
 }
 
 let input = [8, 4, 2, 1, 3, 6, 7, 9, 5];
@@ -30,8 +30,8 @@ function minimumMoves(arr) {
     let copy = [...arr];
     copy = copy.sort((a, b) => a - b);
     let count = 0;
-    for (let i = 0; i < arr.length; i++){
-        if(arr[i] === copy[i]) count++
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === copy[i]) count++
     }
     return arr.length - count; //this is the crucial part, all other elements will slide into their correct place after being moved to the end
 }
@@ -52,7 +52,7 @@ function slowestKeyPress(keyTimes) {
     let alpha = 'abcdefghijklmnopqrstuvwxyz'.split("");
     let maxChar = alpha[keyTimes[0][0]];
     let maxDiff = keyTimes[0][1]
-    for (let i = 0; i < keyTimes.length; i++){
+    for (let i = 0; i < keyTimes.length; i++) {
         let diff = keyTimes[i][1] - keyTimes[i - 1][1];
         if (diff > maxDiff) {
             maxDiff = diff;
@@ -67,11 +67,13 @@ function slowestKeyPress(keyTimes) {
 // }
 
 console.log(slowestKeyPress(keyTimes));
- 
+
 
 
 // THEORETICAL:
+/*
 <DataProvider render={data => (<h1>Hello {data.target}</h1>)} />
+*/
 /*React Render Props is ABSTRACTION (means hiding the implementation details and only showing the functionality to the user)
     NOT ENCAPSULATION
     ENCAPSULATION means not giving the user any permissions to write or change the code attr_reader vs attr_writer
