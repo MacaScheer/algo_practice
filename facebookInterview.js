@@ -16,8 +16,14 @@ const isOneWordFromPalindrome = word => {
         let leftChar = word[leftIdx];
         let rightChar = word[rightIdx];
         if (leftChar !== rightChar) {
-            if (isPalindrome(word.slice(leftIdx + 1, rightIdx)) || isPalindrome(word.slice(rightIdx - 1))) {
+            //racezcar  acezcars
+            let leftPartial = word.slice(leftIdx + 1, rightIdx + 1);
+            let rightPartial = word.slice(leftIdx, rightIdx);
+            console.log("leftPartial: ", leftPartial, " rightPartial: ", rightPartial, " whole word: ", word);
+            if (isPalindrome(leftPartial) || isPalindrome(rightPartial)) {
                 return true;
+            } else {
+                return false;
             }
         }
         leftIdx++;
@@ -28,6 +34,7 @@ const isOneWordFromPalindrome = word => {
 
 // r a c e z c a r
 const isPalindrome = word => {
+    console.log("partial word: ", word);
     let halfWayPt = Math.floor(word.length / 2);
     let rightIdx, leftIdx;
     if (word.length % 2 === 0) {
